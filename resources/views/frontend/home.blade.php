@@ -5,7 +5,7 @@
     $k = "$p.hero";
     @endphp
     @if (settings()->get("$k.visible"))
-        <section data-anim-wrap class="masthead -type-4 bg-light-6  animated pt-30">
+        <section data-anim-wrap class="masthead -type-4 bg-light-6  animated pt-30" style="margin-top: 0">
             <div class="container pt-60">
                 <div class="row justify-center items-center">
                     <div class="col-xl-5 col-lg-6">
