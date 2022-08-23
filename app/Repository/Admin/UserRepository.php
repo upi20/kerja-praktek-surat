@@ -44,7 +44,7 @@ class UserRepository
 
         $this->query["{$c_roles}_alias"] = $c_roles;
 
-        $user = User::select(['id', 'name', 'email', 'active', 'profile_photo_path', 'date_of_birth', 'angkatan'])
+        $user = User::select(['id', 'name', 'email', 'active'])
             ->selectRaw('IF(active = 1, "Yes", "No") as active_str')
             ->selectRaw($this->query[$c_roles] . ' as ' . $this->query["{$c_roles}_alias"]);
         // filter
@@ -78,8 +78,6 @@ class UserRepository
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'date_of_birth' => ['required', 'date'],
-                'angkatan' => ['required', 'int'],
                 'active' => ['required', 'int', 'in:1,0'],
                 'password' => ['required', 'string', new Password]
             ]);
@@ -87,8 +85,6 @@ class UserRepository
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'date_of_birth' => $request->date_of_birth,
-                'angkatan' => $request->angkatan,
                 'active' => $request->active,
                 'password' => Hash::make($request->password),
             ]);
@@ -113,8 +109,6 @@ class UserRepository
                 'id' => ['required', 'int'],
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
-                'date_of_birth' => ['required', 'date'],
-                'angkatan' => ['required', 'int'],
                 'active' => ['required', 'int', 'in:1,0'],
                 'password' => $request->password ? ['required', 'string', new Password] : ''
             ]);
@@ -125,8 +119,6 @@ class UserRepository
 
             $user->name = $request->name;
             $user->email = $request->email;
-            $user->date_of_birth = $request->date_of_birth;
-            $user->angkatan = $request->angkatan;
             $user->active = $request->active;
 
             $user->syncRoles($request->roles);
@@ -228,7 +220,6 @@ class UserRepository
             $model->whereRaw($where);
         }
 
-        // $model->orderBy('angkatan', 'desc');
         $model->orderBy('name');
         $details = $model->get();
 
