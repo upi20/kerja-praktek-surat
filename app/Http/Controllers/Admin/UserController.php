@@ -29,8 +29,7 @@ class UserController extends Controller
             ],
             'navigation' => 'user.view',
         ];
-        $user_role = Role::all();
-        return view('admin.user', compact('page_attr', 'user_role',));
+        return view('admin.user', compact('page_attr'));
     }
 
     public function store(Request $request)
