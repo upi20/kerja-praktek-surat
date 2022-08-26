@@ -20,6 +20,7 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\KontakController;
 use App\Http\Controllers\Frontend\MemberController;
 use App\Http\Controllers\Frontend\GaleriController as GaleriControllerFrontend;
+use App\Http\Controllers\Frontend\ArtikelController;
 
 
 // ====================================================================================================================
@@ -39,7 +40,13 @@ Route::controller(LoginController::class)->group(function () {
 // home default =======================================================================================================
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index')->name("home");
-    Route::get('/artikel/{model:slug}', 'artikel')->name("artikel");
+});
+
+// artikel ============================================================================================================
+$prefix = 'artikel';
+Route::controller(ArtikelController::class)->prefix($prefix)->group(function () use ($prefix) {
+    Route::get('/', 'index')->name($prefix);
+    Route::get('/{model:slug}', 'detail')->name("$prefix.detail");
 });
 // ====================================================================================================================
 
