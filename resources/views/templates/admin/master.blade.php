@@ -112,9 +112,12 @@ $notifikasi = notif_admin_atas();
 
     @if ($page_attr->loader)
         <!-- GLOBAL-LOADER -->
-        <div id="global-loader" style="background-color: #1a1a3c">
-            <img src="{{ asset(settings()->get(set_admin('app.foto_light_mode'))) }}" class="loader-img"
-                alt="Loader">
+        <div id="global-loader">
+            <div style="background-color: #1a1a3c; height: 100vh"
+                class="d-flex align-items-center justify-content-center">
+                <img src="{{ asset(settings()->get(set_admin('app.foto_light_mode'))) }}" alt="Loader"
+                    style="max-width: 100px;">
+            </div>
         </div>
         <!-- /GLOBAL-LOADER -->
     @endif

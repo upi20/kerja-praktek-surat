@@ -17,6 +17,15 @@ class LoginController extends Controller
             return Redirect::route('dashboard');
         }
         $page_attr = ['title' => 'Login'];
+        return view('auth.login-surat', compact('page_attr'));
+    }
+
+    public function index_old()
+    {
+        if (Auth::check()) {
+            return Redirect::route('dashboard');
+        }
+        $page_attr = ['title' => 'Login'];
         return view('auth.login', compact('page_attr'));
     }
 
@@ -26,11 +35,14 @@ class LoginController extends Controller
      */
     public function check_login(Request $request)
     {
-        $email      = $request->input('email');
+        $nik      = $request->input('nik');
         $password   = $request->input('password');
 
-        if (Auth::guard('web')->attempt(['email' => $email, 'password' => $password, 'active' => 1])) {
-
+        if (Auth::guard('web')->attempt(['email' => $nik, 'password' => $password, 'active' => 1])) {
+            return response()->json([
+                'success' => true
+            ], 200);
+        } else if (Auth::guard('web')->attempt(['nik' => $nik, 'password' => $password, 'active' => 1])) {
             return response()->json([
                 'success' => true
             ], 200);

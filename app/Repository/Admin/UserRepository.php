@@ -44,7 +44,7 @@ class UserRepository
 
         $this->query["{$c_roles}_alias"] = $c_roles;
 
-        $user = User::select(['id', 'name', 'email', 'active'])
+        $user = User::select(['id', 'name', 'email', 'active', 'nik'])
             ->selectRaw('IF(active = 1, "Yes", "No") as active_str')
             ->selectRaw($this->query[$c_roles] . ' as ' . $this->query["{$c_roles}_alias"]);
         // filter
@@ -79,12 +79,14 @@ class UserRepository
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'active' => ['required', 'int', 'in:1,0'],
+                'nik' => ['required', 'string', 'max:16'],
                 'password' => ['required', 'string', new Password]
             ]);
 
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
+                'nik' => $request->nik,
                 'active' => $request->active,
                 'password' => Hash::make($request->password),
             ]);
@@ -109,6 +111,7 @@ class UserRepository
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
                 'active' => ['required', 'int', 'in:1,0'],
+                'nik' => ['required', 'string', 'max:16'],
                 'password' => $request->password ? ['required', 'string', new Password] : ''
             ]);
 
@@ -118,6 +121,7 @@ class UserRepository
 
             $user->name = $request->name;
             $user->email = $request->email;
+            $user->nik = $request->nik;
             $user->active = $request->active;
 
             $user->syncRoles($request->roles);

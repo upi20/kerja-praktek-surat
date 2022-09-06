@@ -38,9 +38,19 @@ Route::controller(LoginController::class)->group(function () {
 
 
 // home default =======================================================================================================
-Route::controller(HomeController::class)->group(function () {
-    Route::get('/', 'index')->name("home");
-});
+
+Route::get('/', function () {
+    if (!auth()->user()) return Redirect::route('login');
+    if (auth_has_role(config('app.super_admin_role'))) {
+        return Redirect::route('admin.dashboard');
+    } else {
+        return Redirect::route('member.dashboard');
+    }
+})->name("home");
+// // home default =======================================================================================================
+// Route::controller(HomeController::class)->group(function () {
+//     Route::get('/', 'index')->name("home");
+// });
 
 // artikel ============================================================================================================
 $prefix = 'artikel';

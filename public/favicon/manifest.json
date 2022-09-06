@@ -1,7 +1,7 @@
 {
-    "name": "KARMAPACK",
-    "short_name": "karmapack",
-    "description": "Karmapack - Keluarga Mahasiswa dan Pelajar Cianjur Kidul",
+    "name": "SI Surat Desa",
+    "short_name": "Surat Desa",
+    "description": "Sistem Informasi Surat Menyurat Desa wangunsari Kecamatan Lembang, Bandung Barat",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",

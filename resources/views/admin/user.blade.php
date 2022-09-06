@@ -2,13 +2,13 @@
 
 @section('content')
     @php
-    $can_insert = auth_can(h_prefix('insert'));
-    $can_update = auth_can(h_prefix('update'));
-    $can_delete = auth_can(h_prefix('delete'));
-    $can_excel = auth_can(h_prefix('excel'));
-    $is_admin = auth()
-        ->user()
-        ->hasRole(config('app.super_admin_role'));
+        $can_insert = auth_can(h_prefix('insert'));
+        $can_update = auth_can(h_prefix('update'));
+        $can_delete = auth_can(h_prefix('delete'));
+        $can_excel = auth_can(h_prefix('excel'));
+        $is_admin = auth()
+            ->user()
+            ->hasRole(config('app.super_admin_role'));
     @endphp
     <!-- Row -->
     <div class="row row-sm">
@@ -62,6 +62,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Name</th>
+                                    <th>NIK</th>
                                     {!! $is_admin ? '<th>Email</th>' : '' !!}
                                     <th>Role</th>
                                     <th>Active</th>
@@ -97,6 +98,13 @@
                             <label class="form-label" for="email">Email <span class="text-danger">*</span></label>
                             <input type="email" id="email" name="email" class="form-control"
                                 placeholder="Email Address" required="" />
+                            <div class="help-block"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="nik">Nomor Induk Kependudukan
+                                <span class="text-danger">*</span></label>
+                            <input type="number" id="nik" name="nik" class="form-control"
+                                placeholder="Nomor Induk Kependudukan" required="" />
                             <div class="help-block"></div>
                         </div>
                         <div class="form-group ">
@@ -192,6 +200,10 @@
                     {
                         data: 'name',
                         name: 'name',
+                    },
+                    {
+                        data: 'nik',
+                        name: 'nik',
                     },
                     ...(is_admin ? [{
                         data: 'email',
@@ -335,6 +347,7 @@
                     $('#id').val(data.id);
                     $('#name').val(data.name);
                     $('#email').val(data.email);
+                    $('#nik').val(data.nik);
                     $('#roles').val(data.roles.map(e => e.name)).trigger('change');
                     $('#active').val(data.active);
                     $('#password').removeAttr('required');
