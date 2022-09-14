@@ -53,12 +53,12 @@ class RoleController extends Controller
             'title' => 'Create Role',
             'breadcrumbs' => [
                 ['name' => 'User Access'],
-                ['name' => 'Role', 'url' => h_prefix(null, 2)],
+                ['name' => 'Role', 'url' => h_prefix(null, 1)],
             ],
-            'navigation' => h_prefix(null, 2),
+            'navigation' => h_prefix(null, 1),
         ];
-
-        $data = compact('page_attr', 'permissions', 'model', 'roles', 'reload');
+        $route_min = 1;
+        $data = compact('page_attr', 'permissions', 'model', 'roles', 'reload', 'route_min');
         return view($this->get_editor(),  array_merge($data, ['compact' => $data]));
     }
 
@@ -90,8 +90,8 @@ class RoleController extends Controller
             ],
             'navigation' => h_prefix(null, 2),
         ];
-
-        $data = compact('page_attr', 'permissions', 'model', 'roles', 'reload');
+        $route_min = 2;
+        $data = compact('page_attr', 'permissions', 'model', 'roles', 'reload', 'route_min');
 
         return view($this->get_editor(),  array_merge($data, ['compact' => $data]));
     }

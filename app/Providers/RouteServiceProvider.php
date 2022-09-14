@@ -43,6 +43,10 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware(['web', 'auth:sanctum'])
                 ->prefix('member')
                 ->group(base_path('routes/web_member.php'));
+
+            Route::middleware(['web', 'auth:sanctum', 'permission:penduduk'])
+                ->prefix('penduduk')
+                ->group(base_path('routes/web_penduduk.php'));
         });
     }
 

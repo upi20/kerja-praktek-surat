@@ -995,6 +995,14 @@ class PPermissionsTableSeeder extends Seeder
                 'created_at' => '2022-08-04 16:05:41',
                 'updated_at' => '2022-08-04 16:05:41',
             ),
+            122 => 
+            array (
+                'id' => 168,
+                'name' => 'penduduk',
+                'guard_name' => 'web',
+                'created_at' => '2022-09-09 13:39:44',
+                'updated_at' => '2022-09-09 13:39:44',
+            ),
         ));
         
         

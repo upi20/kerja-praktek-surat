@@ -188,7 +188,6 @@ Route::group(['prefix' => $prefix], function () use ($name, $prefix) {
 $prefix = 'user_access';
 Route::group(['prefix' => $prefix], function () use ($name, $prefix) {
     $name = "$name.$prefix"; // admin.user_access
-
     $prefix = 'permission';
     Route::controller(PermissionController::class)->prefix($prefix)->group(function () use ($name, $prefix) {
         $name = "$name.$prefix"; // admin.user_access.permission
