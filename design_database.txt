@@ -1,0 +1,174 @@
+Table rw{
+  id int
+  nama varchar
+}
+
+Table rt{
+  id int
+  nama varchar
+  rw_id int [ref: > rw.id]
+}
+
+Table penduduk{
+  id int
+  nama varchar
+  nik varchar
+  jenis_kelamin varchar
+  tempat_lahir varchar
+  tanggal_lahir date
+  agama varchar
+  pendidikan varchar
+  pekerjaan varchar
+  status_kawin varchar
+  hub_dgn_kk varchar
+  warga_negara varchar
+  negara_nama varchar
+  no_passport varchar
+  kitas_kitap varchar
+  rt_id int [ref: - rt.id]
+}
+
+Table jabatan{
+  id int
+  nama varchar
+}
+
+Table jenis_surat_keterangan{
+  id int
+  nama varchar
+}
+
+Table pegawai{
+  id int
+  penduduk_id int [ref: - penduduk.id]
+  jabatan_id int [ref: - jabatan.id]
+}
+
+Table surat{
+  id int
+  penduduk_id int [ref: > penduduk.id, note:'Penduduk yang mengajukan']
+  no_surat varchar
+  no_resi varchar
+  jenis varchar
+  status int [note:'0 Penduduk, 1 Rt, 2 Rw, 3 Pihak Desa, 4 Selesai']
+}
+
+Table surat_tracking{
+  id int
+  surat_id int [ref: > surat.id]
+  keterangan varchar
+  dari_pegawai_id int [ref: - pegawai.id]
+  ke_pegawai_id int [ref: - pegawai.id]
+  waktu datetime
+}
+
+// surat
+Table surat_keterangan{
+  id int
+  surat_id int [ref: > surat.id]
+  penduduk_id int [ref: > penduduk.id, note:'Penduduk yang mengajukan']
+  untuk_penduduk_id int [ref: > penduduk.id, note:'Penduduk yang diajukan untuk mengajukan orang lain']
+  jenis_surat_keterangan_id int [ref: - jenis_surat_keterangan.id]
+}
+
+Table surat_kelahiran{
+  id int
+  surat_id int [ref: > surat.id]
+  penduduk_id int [ref: > penduduk.id, note:'Penduduk yang mengajukan']
+  nama_anak varchar
+  tempat_lahir varchar
+  tanggal_lahir date
+  waktu_lahir time
+  berat int
+  panjang int
+  jenis_kelamin varchar
+  ibu_id int [ref: > penduduk.id]
+  ayah_id int [ref: > penduduk.id]
+}
+
+Table surat_pindah{
+  id int
+  surat_id int [ref: > surat.id]
+  penduduk_id int [ref: > penduduk.id, note:'Penduduk yang mengajukan']
+  untuk_penduduk_id int [ref: > penduduk.id, note:'Penduduk yang diajukan untuk mengajukan orang lain']
+  provinsi varchar
+  kab_kota varchar
+  kecamatan varchar
+  desa_kel varchar
+  rt_rw varchar
+  alamat_lengkap text
+  alasan_pindah text
+}
+
+Table surat_pindah_pengikut{
+  id int
+  surat_pindah_id int [ref: > surat_pindah.id]
+  penduduk_id int [ref: - penduduk.id]
+}
+
+Table surat_domisili{
+  id int
+  surat_id int [ref: > surat.id]
+  penduduk_id int [ref: > penduduk.id, note:'Penduduk yang mengajukan']
+  untuk_penduduk_id int [ref: > penduduk.id, note:'Penduduk yang diajukan untuk mengajukan orang lain']
+  alamat_asal text
+  tinggal_sejak date
+}
+
+Table surat_nikah{
+  id int
+  surat_id int [ref: > surat.id]
+  penduduk_id int [ref: > penduduk.id, note:'Penduduk yang mengajukan']
+  anak_id int [ref: > penduduk.id]
+  ibu_id int [ref: > penduduk.id]
+  ayah_id int [ref: > penduduk.id]
+  tanggal date
+  waktu time
+  tempat text
+  dengan_seorang int [note:'0 Perempuan 1 Laki-Laki']
+  calon_id int [ref: > penduduk.id]
+  calon_nama varchar
+  calon_tempat_lahir varchar
+  calon_tanggal_lahir date
+  calon_warga_negara varchar
+  calon_negara_nama varchar
+  calon_agama varchar
+  calon_pendidikan varchar
+  calon_nik varchar
+  calon_no_kk varchar
+  calon_status_kawin varchar
+  calon_pekerjaan varchar
+  calon_alamat varchar
+}
+
+Table surat_kk{
+  id int
+  surat_id int [ref: > surat.id]
+  penduduk_id int [ref: > penduduk.id, note:'Penduduk yang mengajukan']
+  alamat_lengkap text
+}
+
+Table surat_kk_penduduk{
+  id int
+  surat_id int [ref: > surat.id]
+  surat_kk_id int [ref: > surat_kk.id]
+  nama varchar
+  nik varchar
+  jenis_kelamin varchar
+  tempat_lahir varchar
+  tanggal_lahir date
+  agama varchar
+  pendidikan varchar
+  pekerjaan varchar
+  status_kawin varchar
+  hub_dgn_kk varchar
+  warga_negara varchar
+  negara_nama varchar
+  no_passport varchar
+  kitas_kitap varchar
+  ayah_nama varchar
+  ayah_id int [ref: < surat_kk_penduduk.id]
+  ibu_nama varchar
+  ibu_id int [ref: < surat_kk_penduduk.id]
+  
+}

@@ -28,7 +28,6 @@ class AdminController extends Controller
         $routes = collect(Route::getRoutes())->map(function ($route) {
             return $route->getName();
         });
-
         $roles = Role::all();
 
         $page_attr = [

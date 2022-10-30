@@ -10,7 +10,10 @@ class PengajuanSuratController extends Controller
 
     public function keterangan(Request $request)
     {
-        $page_attr = ['title' => 'Form Surat Pengantar Keterangan'];
+        $page_attr = [
+            'title' => 'Form Surat Pengantar Keterangan',
+            'navigation' => 'penduduk.home'
+        ];
         return view('penduduk.form_surat.keterangan', compact(
             'page_attr',
         ));
@@ -19,7 +22,10 @@ class PengajuanSuratController extends Controller
 
     public function kelahiran(Request $request)
     {
-        $page_attr = ['title' => 'Form Surat Pengantar Keterangan Kelahiran'];
+        $page_attr = [
+            'title' => 'Form Surat Pengantar Keterangan Kelahiran',
+            'navigation' => 'penduduk.home'
+        ];
         return view('penduduk.form_surat.kelahiran', compact(
             'page_attr',
         ));
@@ -28,7 +34,10 @@ class PengajuanSuratController extends Controller
 
     public function domisili(Request $request)
     {
-        $page_attr = ['title' => 'Form Surat Keterangan Domisili'];
+        $page_attr = [
+            'title' => 'Form Surat Keterangan Domisili',
+            'navigation' => 'penduduk.home'
+        ];
         return view('penduduk.form_surat.domisili', compact(
             'page_attr',
         ));
@@ -37,7 +46,10 @@ class PengajuanSuratController extends Controller
 
     public function kartu_keluarga(Request $request)
     {
-        $page_attr = ['title' => 'Form Surat Pengajuan Kartu Keluarga'];
+        $page_attr = [
+            'title' => 'Form Surat Pengajuan Kartu Keluarga',
+            'navigation' => 'penduduk.home'
+        ];
         return view('penduduk.form_surat.kartu_keluarga', compact(
             'page_attr',
         ));
@@ -46,7 +58,10 @@ class PengajuanSuratController extends Controller
 
     public function pindah(Request $request)
     {
-        $page_attr = ['title' => 'Form Surat Pengantar Keterangan Pindah'];
+        $page_attr = [
+            'title' => 'Form Surat Pengantar Keterangan Pindah',
+            'navigation' => 'penduduk.home'
+        ];
         return view('penduduk.form_surat.pindah', compact(
             'page_attr',
         ));
@@ -55,7 +70,10 @@ class PengajuanSuratController extends Controller
 
     public function nikah(Request $request)
     {
-        $page_attr = ['title' => 'Form Surat Pengantar Keterangan Nikah'];
+        $page_attr = [
+            'title' => 'Form Surat Pengantar Keterangan Nikah',
+            'navigation' => 'penduduk.home'
+        ];
         return view('penduduk.form_surat.nikah', compact(
             'page_attr',
         ));
@@ -64,7 +82,10 @@ class PengajuanSuratController extends Controller
 
     public function kematian(Request $request)
     {
-        $page_attr = ['title' => 'Form Surat Pengantar Keterangan Kematian'];
+        $page_attr = [
+            'title' => 'Form Surat Pengantar Keterangan Kematian',
+            'navigation' => 'penduduk.home'
+        ];
         return view('penduduk.form_surat.kematian', compact(
             'page_attr',
         ));
