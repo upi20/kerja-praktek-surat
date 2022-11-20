@@ -26,24 +26,73 @@ return new class extends Migration
             $table->text('tempat')->nullable()->default(null);
             $table->string('dengan_seorang')->nullable()->default(null);
 
-            foreach (['ibu', 'ayah', 'anak', 'calon'] as $v) {
-                $table->string("{$v}_nik")->nullable()->default(null);
-                $table->string("{$v}_nama")->nullable()->default(null);
-                $table->string("{$v}_nik_jenis")->nullable()->default(null)->comment("No KTP, KTP Sementara");
-                $table->string("{$v}_jenis_kelamin")->nullable()->default(null);
-                $table->string("{$v}_tempat_lahir")->nullable()->default(null);
-                $table->date("{$v}_tanggal_lahir")->nullable()->default(null);
-                $table->string("{$v}_agama")->nullable()->default(null);
-                $table->string("{$v}_pendidikan")->nullable()->default(null);
-                $table->string("{$v}_pekerjaan")->nullable()->default(null);
-                $table->string("{$v}_status_kawin")->nullable()->default(null);
-                $table->string("{$v}_no_kk")->nullable()->default(null);
-                $table->string("{$v}_warga_negara")->nullable()->default(null);
-                $table->string("{$v}_negara_nama")->nullable()->default(null);
-                $table->string("{$v}_no_passport")->nullable()->default(null);
-                $table->string("{$v}_kitas_kitap")->nullable()->default(null);
-                $table->string("{$v}_foto_ktp")->nullable()->default(null);
-            }
+            $table->string("ibu_nik")->nullable()->default(null);
+            $table->string("ibu_nama")->nullable()->default(null);
+            $table->string("ibu_nik_jenis")->nullable()->default(null)->comment("No KTP, KTP Sementara");
+            $table->string("ibu_jenis_kelamin")->nullable()->default(null);
+            $table->string("ibu_tempat_lahir")->nullable()->default(null);
+            $table->date("ibu_tanggal_lahir")->nullable()->default(null);
+            $table->string("ibu_agama")->nullable()->default(null);
+            $table->string("ibu_pendidikan")->nullable()->default(null);
+            $table->string("ibu_pekerjaan")->nullable()->default(null);
+            $table->string("ibu_status_kawin")->nullable()->default(null);
+            $table->string("ibu_no_kk")->nullable()->default(null);
+            $table->string("ibu_warga_negara")->nullable()->default(null);
+            $table->string("ibu_negara_nama")->nullable()->default(null);
+            $table->string("ibu_no_passport")->nullable()->default(null);
+            $table->string("ibu_kitas_kitap")->nullable()->default(null);
+            $table->string("ibu_foto_ktp")->nullable()->default(null);
+
+            $table->string("ayah_nik")->nullable()->default(null);
+            $table->string("ayah_nama")->nullable()->default(null);
+            $table->string("ayah_nik_jenis")->nullable()->default(null)->comment("No KTP, KTP Sementara");
+            $table->string("ayah_jenis_kelamin")->nullable()->default(null);
+            $table->string("ayah_tempat_lahir")->nullable()->default(null);
+            $table->date("ayah_tanggal_lahir")->nullable()->default(null);
+            $table->string("ayah_agama")->nullable()->default(null);
+            $table->string("ayah_pendidikan")->nullable()->default(null);
+            $table->string("ayah_pekerjaan")->nullable()->default(null);
+            $table->string("ayah_status_kawin")->nullable()->default(null);
+            $table->string("ayah_no_kk")->nullable()->default(null);
+            $table->string("ayah_warga_negara")->nullable()->default(null);
+            $table->string("ayah_negara_nama")->nullable()->default(null);
+            $table->string("ayah_no_passport")->nullable()->default(null);
+            $table->string("ayah_kitas_kitap")->nullable()->default(null);
+            $table->string("ayah_foto_ktp")->nullable()->default(null);
+
+            $table->string("anak_nik")->nullable()->default(null);
+            $table->string("anak_nama")->nullable()->default(null);
+            $table->string("anak_nik_jenis")->nullable()->default(null)->comment("No KTP, KTP Sementara");
+            $table->string("anak_jenis_kelamin")->nullable()->default(null);
+            $table->string("anak_tempat_lahir")->nullable()->default(null);
+            $table->date("anak_tanggal_lahir")->nullable()->default(null);
+            $table->string("anak_agama")->nullable()->default(null);
+            $table->string("anak_pendidikan")->nullable()->default(null);
+            $table->string("anak_pekerjaan")->nullable()->default(null);
+            $table->string("anak_status_kawin")->nullable()->default(null);
+            $table->string("anak_no_kk")->nullable()->default(null);
+            $table->string("anak_warga_negara")->nullable()->default(null);
+            $table->string("anak_negara_nama")->nullable()->default(null);
+            $table->string("anak_no_passport")->nullable()->default(null);
+            $table->string("anak_kitas_kitap")->nullable()->default(null);
+            $table->string("anak_foto_ktp")->nullable()->default(null);
+
+            $table->string("calon_nik")->nullable()->default(null);
+            $table->string("calon_nama")->nullable()->default(null);
+            $table->string("calon_nik_jenis")->nullable()->default(null)->comment("No KTP, KTP Sementara");
+            $table->string("calon_jenis_kelamin")->nullable()->default(null);
+            $table->string("calon_tempat_lahir")->nullable()->default(null);
+            $table->date("calon_tanggal_lahir")->nullable()->default(null);
+            $table->string("calon_agama")->nullable()->default(null);
+            $table->string("calon_pendidikan")->nullable()->default(null);
+            $table->string("calon_pekerjaan")->nullable()->default(null);
+            $table->string("calon_status_kawin")->nullable()->default(null);
+            $table->string("calon_no_kk")->nullable()->default(null);
+            $table->string("calon_warga_negara")->nullable()->default(null);
+            $table->string("calon_negara_nama")->nullable()->default(null);
+            $table->string("calon_no_passport")->nullable()->default(null);
+            $table->string("calon_kitas_kitap")->nullable()->default(null);
+            $table->string("calon_foto_ktp")->nullable()->default(null);
 
             $table->timestamps();
             $table->foreign('surat_id')
