@@ -493,44 +493,6 @@ class PModelHasRolesTableSeeder extends Seeder
                 'model_type' => 'App\\Models\\User',
                 'model_id' => 26,
             ),
-            79 => 
-            array (
-                'role_id' => 7,
-                'model_type' => 'App\\Models\\User',
-                'model_id' => 22,
-            ),
-            80 => 
-            array (
-                'role_id' => 7,
-                'model_type' => 'App\\Models\\User',
-                'model_id' => 33,
-            ),
-            81 => 
-            array (
-                'role_id' => 7,
-                'model_type' => 'App\\Models\\User',
-                'model_id' => 58,
-            ),
-            82 => 
-            array (
-                'role_id' => 7,
-                'model_type' => 'App\\Models\\User',
-                'model_id' => 68,
-            ),
-            83 => 
-            array (
-                'role_id' => 11,
-                'model_type' => 'App\\Models\\User',
-                'model_id' => 92,
-            ),
-            84 => 
-            array (
-                'role_id' => 12,
-                'model_type' => 'App\\Models\\User',
-                'model_id' => 65,
-            ),
         ));
-        
-        
     }
 }

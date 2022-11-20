@@ -1,0 +1,383 @@
+Table rw{
+  id int
+  nama varchar
+  nama_ketua varchar
+  ketua_id int [ref: - penduduk.id]
+}
+
+Table rt{
+  id int
+  nama varchar
+  nama_ketua varchar
+  rw_id int [ref: > rw.id]
+  ketua_id int [ref: - penduduk.id]
+}
+
+Table penduduk{
+  id int
+  nama varchar
+  nik varchar
+  jenis_kelamin varchar
+  tempat_lahir varchar
+  tanggal_lahir date
+  agama varchar
+  pendidikan varchar
+  pekerjaan varchar
+  status_kawin varchar
+  no_kk varchar
+  warga_negara varchar
+  negara_nama varchar
+  no_passport varchar
+  kitas_kitap varchar
+  foto_ktp varchar
+  rt_id int [ref: - rt.id]
+}
+
+Table jabatan{
+  id int
+  nama varchar
+}
+
+Table pegawai{
+  id int
+  nip varchar(10)
+  nama varchar(10)
+  penduduk_id int [ref: - penduduk.id]
+  jabatan_id int [ref: - jabatan.id]
+}
+
+Table surat{
+  id int
+  penduduk_id int [ref: > penduduk.id, note:'Penduduk yang mengajukan']
+  untuk_penduduk_id int [ref: > penduduk.id, note:'Penduduk yang diajukan untuk mengajukan orang lain']
+  rt_id int [ref: > rt.id]
+  rt_pend_id int [ref: - penduduk.id]
+  rw_pend_id int [ref: - penduduk.id]
+  kades_pend_id int [ref: - penduduk.id]
+  rw_id int [ref: > rw.id]
+  
+  rt_nik varchar
+  rt_nama varchar
+  rw_nik varchar
+  rw_nama varchar
+  kades_nik varchar
+  kades_nama varchar
+  no_surat varchar
+  no_resi varchar
+  jenis varchar
+  status int [note:'0 Penduduk, 1 Rt, 2 Rw, 3 Pihak Desa, 4 Selesai']
+  foto_pbb varchar
+  foto_kk varchar
+  reg_no varchar
+  tanggal date
+}
+
+Table surat_tracking{
+  id int
+  surat_id int [ref: > surat.id]
+  dari_pegawai_id int [ref: - pegawai.id]
+  ke_pegawai_id int [ref: - pegawai.id]
+  keterangan varchar
+  waktu datetime
+
+  // arsip
+  dari_nama varchar
+  dari_nip varhcar
+  ke_nama varchar
+  ke_nip varhcar
+  // arsip
+  
+}
+
+// surat
+Table jenis_surat_keterangan{
+  id int
+  nama varchar
+}
+
+Table surat_keterangan{
+  id int
+  surat_id int [ref: > surat.id]
+  jenis_surat_keterangan_id int [ref: - jenis_surat_keterangan.id]
+
+  // arsip
+  nama varchar
+  nik varchar
+  nik_jenis int(1) [note: '1 No ktp, 0 KTP Sementara']
+  jenis_kelamin varchar
+  tempat_lahir varchar
+  tanggal_lahir date
+  agama varchar
+  pendidikan varchar
+  pekerjaan varchar
+  status_kawin varchar
+  no_kk varchar
+  warga_negara varchar
+  negara_nama varchar
+  no_passport varchar
+  kitas_kitap varchar
+  foto_ktp varchar
+  // arsip
+}
+
+Table surat_kelahiran{
+  id int
+  surat_id int [ref: > surat.id]
+  ibu_id int [ref: > penduduk.id]
+  ayah_id int [ref: > penduduk.id]
+
+  nama_anak varchar
+  tempat_lahir varchar
+  tanggal_lahir date
+  waktu_lahir time
+  berat int
+  panjang int
+  jenis_kelamin varchar
+  
+  // arsip
+  ayah_nama varchar
+  ayah_nik varchar
+  ayah_nik_jenis int(1) [note: '1 No ktp, 0 KTP Sementara']
+  ayah_jenis_kelamin varchar
+  ayah_tempat_lahir varchar
+  ayah_tanggal_lahir date
+  ayah_agama varchar
+  ayah_pendidikan varchar
+  ayah_pekerjaan varchar
+  ayah_status_kawin varchar
+  ayah_no_kk varchar
+  ayah_warga_negara varchar
+  ayah_negara_nama varchar
+  ayah_no_passport varchar
+  ayah_kitas_kitap varchar
+  foto_ktp varchar
+  // arsip
+
+  // arsip
+  ibu_nama varchar
+  ibu_nik varchar
+  ibu_nik_jenis int(1) [note: '1 No ktp, 0 KTP Sementara']
+  ibu_jenis_kelamin varchar
+  ibu_tempat_lahir varchar
+  ibu_tanggal_lahir date
+  ibu_agama varchar
+  ibu_pendidikan varchar
+  ibu_pekerjaan varchar
+  ibu_status_kawin varchar
+  ibu_no_kk varchar
+  ibu_warga_negara varchar
+  ibu_negara_nama varchar
+  ibu_no_passport varchar
+  ibu_kitas_kitap varchar
+  foto_ktp varchar
+  // arsip
+}
+
+Table surat_pindah{
+  id int
+  surat_id int [ref: > surat.id]
+
+  // arsip
+  nama varchar
+  nik varchar
+  nik_jenis int(1) [note: '1 No ktp, 0 KTP Sementara']
+  jenis_kelamin varchar
+  tempat_lahir varchar
+  tanggal_lahir date
+  agama varchar
+  pendidikan varchar
+  pekerjaan varchar
+  status_kawin varchar
+  no_kk varchar
+  warga_negara varchar
+  negara_nama varchar
+  no_passport varchar
+  kitas_kitap varchar
+  foto_ktp varchar
+  // arsip
+
+  ke_provinsi varchar
+  ke_kab_kota varchar
+  ke_kecamatan varchar
+  ke_desa_kel varchar
+  ke_rt_rw varchar
+  ke_alamat_lengkap text
+  alasan_pindah text
+
+  jml_pengikut int
+}
+
+Table surat_pindah_pengikut{
+  id int
+  surat_pindah_id int [ref: > surat_pindah.id]
+  penduduk_id int [ref: - penduduk.id]
+  
+  // arsip
+  nama varchar
+  nik varchar
+  nik_jenis int(1) [note: '1 No ktp, 0 KTP Sementara']
+  jenis_kelamin varchar
+  tempat_lahir varchar
+  tanggal_lahir date
+  agama varchar
+  pendidikan varchar
+  pekerjaan varchar
+  status_kawin varchar
+  no_kk varchar
+  warga_negara varchar
+  negara_nama varchar
+  no_passport varchar
+  kitas_kitap varchar
+  foto_ktp varchar
+}
+
+Table surat_domisili{
+  id int
+  surat_id int [ref: > surat.id]
+  alamat_asal text
+  tinggal_sejak date
+
+  // arsip
+  nama varchar
+  nik varchar
+  nik_jenis int(1) [note: '1 No ktp, 0 KTP Sementara']
+  jenis_kelamin varchar
+  tempat_lahir varchar
+  tanggal_lahir date
+  agama varchar
+  pendidikan varchar
+  pekerjaan varchar
+  status_kawin varchar
+  no_kk varchar
+  warga_negara varchar
+  negara_nama varchar
+  no_passport varchar
+  kitas_kitap varchar
+  foto_ktp varchar
+}
+
+Table surat_nikah{
+  id int
+  surat_id int [ref: > surat.id]
+  anak_id int [ref: > penduduk.id]
+  ibu_id int [ref: > penduduk.id]
+  ayah_id int [ref: > penduduk.id]
+  calon_id int [ref: > penduduk.id]
+
+  tanggal date
+  waktu time
+  tempat text
+  dengan_seorang varchar [note:'p Perempuan l Laki-Laki']
+
+  anak_nama varchar
+  anak_nik varchar
+  anak_nik_jenis int(1) [note: '1 No ktp, 0 KTP Sementara']
+  anak_jenis_kelamin varchar
+  anak_tempat_lahir varchar
+  anak_tanggal_lahir date
+  anak_agama varchar
+  anak_pendidikan varchar
+  anak_pekerjaan varchar
+  anak_status_kawin varchar
+  anak_no_kk varchar
+  anak_warga_negara varchar
+  anak_negara_nama varchar
+  anak_no_passport varchar
+  anak_kitas_kitap varchar
+  anak_foto_ktp varchar
+
+  ibu_nama varchar
+  ibu_nik varchar
+  ibu_nik_jenis int(1) [note: '1 No ktp, 0 KTP Sementara']
+  ibu_jenis_kelamin varchar
+  ibu_tempat_lahir varchar
+  ibu_tanggal_lahir date
+  ibu_agama varchar
+  ibu_pendidikan varchar
+  ibu_pekerjaan varchar
+  ibu_status_kawin varchar
+  ibu_no_kk varchar
+  ibu_warga_negara varchar
+  ibu_negara_nama varchar
+  ibu_no_passport varchar
+  ibu_kitas_kitap varchar
+  ibu_foto_ktp varchar
+
+  ayah_nama varchar
+  ayah_nik varchar
+  ayah_nik_jenis int(1) [note: '1 No ktp, 0 KTP Sementara']
+  ayah_jenis_kelamin varchar
+  ayah_tempat_lahir varchar
+  ayah_tanggal_lahir date
+  ayah_agama varchar
+  ayah_pendidikan varchar
+  ayah_pekerjaan varchar
+  ayah_status_kawin varchar
+  ayah_no_kk varchar
+  ayah_warga_negara varchar
+  ayah_negara_nama varchar
+  ayah_no_passport varchar
+  ayah_kitas_kitap varchar
+  ayah_foto_ktp varchar
+ 
+  calon_nama varchar
+  calon_nik varchar
+  calon_nik_jenis int(1) [note: '1 No ktp, 0 KTP Sementara']
+  calon_jenis_kelamin varchar
+  calon_tempat_lahir varchar
+  calon_tanggal_lahir date
+  calon_agama varchar
+  calon_pendidikan varchar
+  calon_pekerjaan varchar
+  calon_status_kawin varchar
+  calon_no_kk varchar
+  calon_warga_negara varchar
+  calon_negara_nama varchar
+  calon_no_passport varchar
+  calon_kitas_kitap varchar
+  calon_foto_ktp varchar
+}
+
+Table surat_kk{
+  id int
+  surat_id int [ref: > surat.id]
+  rt_id int [ref: > rt.id]
+  rw_id int [ref: > rw.id]
+
+  alamat varchar
+  kab_kota varchar
+  kecamatan varchar
+  kode_pos varchar(5)
+  provinsi varchar
+  nama_desa varchar
+  rt_nama varchar
+  rw_nama varchar
+  no_kk varchar
+  kepala_keluarga varchar
+}
+
+Table surat_kk_penduduk{
+  id int
+  surat_kk_id int [ref: > surat_kk.id]
+  ayah_id int [ref: < surat_kk_penduduk.id]
+  ibu_id int [ref: < surat_kk_penduduk.id] 
+
+  nik varchar
+  nama varchar
+  jenis_kelamin varchar
+  tempat_lahir varchar
+  tanggal_lahir date
+  agama varchar
+  pendidikan varchar
+  pekerjaan varchar
+  status_kawin varchar
+  hub_dgn_kk varchar
+  warga_negara varchar
+  negara_nama varchar
+  no_passport varchar
+  kitas_kitap varchar
+  foto_ktp varchar
+
+  ayah_nama varchar
+  ibu_nama varchar
+}
