@@ -36,4 +36,9 @@ class SuratTracking extends Model
     {
         return $this->belongsTo(Pegawai::class, 'dari_pegawai_id', 'id');
     }
+
+    public function ke_pegawai()
+    {
+        return $this->belongsTo(Pegawai::class, 'ke_pegawai_id', 'id');
+    }
 }
