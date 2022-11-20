@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama')->nullable()->default(null);
             $table->string('nama_ketua')->nullable()->default(null);
+            $table->string('nama_daerah')->nullable()->default(null)->comment('Nama kampung atau yg lain');
             $table->bigInteger('rw_id', false, true)->nullable()->default(null);
             $table->foreign('rw_id')
                 ->references('id')->on('rws')

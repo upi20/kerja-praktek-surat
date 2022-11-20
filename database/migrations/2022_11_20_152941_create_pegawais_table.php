@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('pegawais', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('penduduk_id', false, true)->nullable()->default(null);
+            $table->bigInteger('jabatan_id', false, true)->nullable()->default(null);
             $table->string('nip')->nullable()->default(null);
             $table->string('nama')->nullable()->default(null);
-            $table->bigInteger('jabatan_id', false, true)->nullable()->default(null);
             $table->foreign('jabatan_id')
                 ->references('id')->on('pegawai_jabatans')
                 ->nullOnDelete()
                 ->cascadeOnUpdate();
-            $table->bigInteger('penduduk_id', false, true)->nullable()->default(null);
             $table->foreign('penduduk_id')
                 ->references('id')->on('penduduks')
                 ->nullOnDelete()

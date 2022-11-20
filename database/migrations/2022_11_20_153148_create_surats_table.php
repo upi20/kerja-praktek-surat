@@ -29,7 +29,6 @@ return new class extends Migration
             $table->string('nama_untuk_penduduk')->nullable()->default(null);
             $table->string('nik_untuk_penduduk')->nullable()->default(null);
 
-            $table->string('nip')->nullable()->default(null);
             $table->string('nama_surat')->nullable()->default(null);
             $table->string('rt_nik')->nullable()->default(null);
             $table->string('rt_nama')->nullable()->default(null);
