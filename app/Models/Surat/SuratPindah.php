@@ -38,4 +38,14 @@ class SuratPindah extends Model
     protected $primaryKey = 'id';
     protected $table = 'surat_pindahs';
     const tableName = 'surat_pindahs';
+
+    public function surat()
+    {
+        return $this->belongsTo(Surat::class, 'surat_id', 'id');
+    }
+
+    public function pengikuts()
+    {
+        return $this->hasMany(SuratPindahPengikut::class, 'surat_pindah_id', 'id');
+    }
 }

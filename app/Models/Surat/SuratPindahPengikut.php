@@ -31,4 +31,14 @@ class SuratPindahPengikut extends Model
     protected $primaryKey = 'id';
     protected $table = 'surat_pindah_pengikuts';
     const tableName = 'surat_pindah_pengikuts';
+
+    public function surat_pindah()
+    {
+        return $this->belongsTo(SuratPindah::class, 'surat_pindah_id', 'id');
+    }
+
+    public function penduduk()
+    {
+        return $this->belongsTo(Penduduk::class, 'calon_id', 'id');
+    }
 }

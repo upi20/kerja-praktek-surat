@@ -31,4 +31,14 @@ class SuratKeterangan extends Model
     protected $primaryKey = 'id';
     protected $table = 'surat_keterangans';
     const tableName = 'surat_keterangans';
+
+    public function surat()
+    {
+        return $this->belongsTo(Surat::class, 'surat_id', 'id');
+    }
+
+    public function jenis()
+    {
+        return $this->belongsTo(SuratKeteranganJenis::class, 'jenis_surat_keterangan_id', 'id');
+    }
 }

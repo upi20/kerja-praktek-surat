@@ -2,6 +2,8 @@
 
 namespace App\Models\Surat;
 
+use App\Models\Penduduk\Rt;
+use App\Models\Penduduk\Rw;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -43,4 +45,14 @@ class Surat extends Model
     protected $primaryKey = 'id';
     protected $table = 'surats';
     const tableName = 'surats';
+
+    public function rt()
+    {
+        return $this->belongsTo(Rt::class, 'rt_id', 'id');
+    }
+
+    public function rw()
+    {
+        return $this->belongsTo(Rw::class, 'rw_id', 'id');
+    }
 }

@@ -33,4 +33,9 @@ class SuratDomisili extends Model
     protected $primaryKey = 'id';
     protected $table = 'surat_domisilis';
     const tableName = 'surat_domisilis';
+
+    public function surat()
+    {
+        return $this->belongsTo(Surat::class, 'surat_id', 'id');
+    }
 }

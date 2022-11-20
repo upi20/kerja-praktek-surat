@@ -13,7 +13,6 @@ class SuratTracking extends Model
         'surat_id',
         'dari_pegawai_id',
         'ke_pegawai_id',
-
         'keterangan',
         'waktu',
         'dari_nama',

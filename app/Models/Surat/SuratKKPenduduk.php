@@ -32,4 +32,19 @@ class SuratKKPenduduk extends Model
     protected $primaryKey = 'id';
     protected $table = 'surat_k_k_penduduks';
     const tableName = 'surat_k_k_penduduks';
+
+    public function kk()
+    {
+        return $this->belongsTo(SuratKK::class, 'surat_kk_id', 'id');
+    }
+
+    public function ayah()
+    {
+        return $this->belongsTo(SuratKKPenduduk::class, 'ayah_id', 'id');
+    }
+
+    public function ibu()
+    {
+        return $this->belongsTo(SuratKKPenduduk::class, 'ibu_id', 'id');
+    }
 }

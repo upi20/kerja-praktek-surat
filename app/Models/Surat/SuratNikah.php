@@ -86,4 +86,29 @@ class SuratNikah extends Model
     protected $primaryKey = 'id';
     protected $table = 'surat_nikahs';
     const tableName = 'surat_nikahs';
+
+    public function surat()
+    {
+        return $this->belongsTo(Surat::class, 'surat_id', 'id');
+    }
+
+    public function ibu()
+    {
+        return $this->belongsTo(Penduduk::class, 'ibu_id', 'id');
+    }
+
+    public function ayah()
+    {
+        return $this->belongsTo(Penduduk::class, 'ayah_id', 'id');
+    }
+
+    public function anak()
+    {
+        return $this->belongsTo(Penduduk::class, 'anak_id', 'id');
+    }
+
+    public function calon()
+    {
+        return $this->belongsTo(Penduduk::class, 'calon_id', 'id');
+    }
 }

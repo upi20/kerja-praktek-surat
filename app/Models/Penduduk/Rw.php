@@ -2,6 +2,7 @@
 
 namespace App\Models\Penduduk;
 
+use App\Models\Surat\Surat;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,5 +17,9 @@ class Rw extends Model
     public function rts()
     {
         return $this->hasMany(Rw::class, 'rw_id', 'id');
+    }
+    public function surats()
+    {
+        return $this->hasMany(Surat::class, 'rt_id', 'id');
     }
 }

@@ -12,4 +12,9 @@ class SuratKeteranganJenis extends Model
     protected $primaryKey = 'id';
     protected $table = 'surat_keterangan_jenis';
     const tableName = 'surat_keterangan_jenis';
+
+    public function surat_keterangans()
+    {
+        return $this->hasMany(SuratKeterangan::class, 'jenis_surat_keterangan_id', 'id');
+    }
 }

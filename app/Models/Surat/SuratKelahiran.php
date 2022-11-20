@@ -2,6 +2,7 @@
 
 namespace App\Models\Surat;
 
+use App\Models\Penduduk\Penduduk;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -56,4 +57,19 @@ class SuratKelahiran extends Model
     protected $primaryKey = 'id';
     protected $table = 'surat_kelahirans';
     const tableName = 'surat_kelahirans';
+
+    public function surat()
+    {
+        return $this->belongsTo(Surat::class, 'surat_id', 'id');
+    }
+
+    public function ayah()
+    {
+        return $this->belongsTo(Penduduk::class, 'ayah_id', 'id');
+    }
+
+    public function ibu()
+    {
+        return $this->belongsTo(Penduduk::class, 'ibu_id', 'id');
+    }
 }
