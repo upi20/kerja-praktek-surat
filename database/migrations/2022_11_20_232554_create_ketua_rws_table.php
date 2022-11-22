@@ -22,7 +22,7 @@ return new class extends Migration
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
             $table->foreign('penduduk_id')
-                ->references('id')->on('rws')
+                ->references('id')->on('penduduks')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
             $table->timestamps();

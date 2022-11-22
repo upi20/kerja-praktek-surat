@@ -26,11 +26,14 @@ return new class extends Migration
             $table->string('pekerjaan')->nullable()->default(null);
             $table->string('status_kawin')->nullable()->default(null);
             $table->string('no_kk')->nullable()->default(null);
+            $table->string('hub_dgn_kk')->nullable()->default(null);
+            $table->string('hub_dgn_kk_urutan')->nullable()->default(null)->comment("Contoh kepala keluarga selalu no 1");
             $table->string('warga_negara')->nullable()->default(null);
             $table->string('negara_nama')->nullable()->default(null);
             $table->string('no_passport')->nullable()->default(null);
             $table->string('kitas_kitap')->nullable()->default(null);
             $table->string('foto_ktp')->nullable()->default(null);
+            $table->text('alamat')->nullable()->default(null);
 
             $table->foreign('rt_id')
                 ->references('id')->on('rts')

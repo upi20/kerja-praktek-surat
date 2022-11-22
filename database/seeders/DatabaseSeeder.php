@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Penduduk\Rt;
+use App\Models\Penduduk\Rw;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -47,5 +49,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ContactListTableSeeder::class);
         $this->call(ContactMessagesTableSeeder::class);
         $this->call(FaqTableSeeder::class);
+
+        $this->call(PendudukSeeder::class);
     }
 }

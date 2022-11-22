@@ -20,6 +20,7 @@ class Penduduk extends Model
         'pekerjaan',
         'status_kawin',
         'no_kk',
+        'hub_dgn_kk',
         'warga_negara',
         'negara_nama',
         'no_passport',
