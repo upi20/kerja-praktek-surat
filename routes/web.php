@@ -36,6 +36,7 @@ use Faker\Generator as Faker;
 Route::controller(LoginController::class)->group(function () {
     Route::get('/login', 'index')->name("login");
     Route::get('/migrate', function (Faker $faker) {
+        return "Success";
         die;
         // delete
         DB::table(KetuaRt::tableName)->delete();
