@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Desa\Pegawai;
+use App\Models\Desa\PegawaiJabatan;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Penduduk\KetuaRt;
@@ -9,6 +11,7 @@ use App\Models\Penduduk\KetuaRw;
 use App\Models\Penduduk\Penduduk;
 use App\Models\Penduduk\Rt;
 use App\Models\Penduduk\Rw;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Faker\Generator as Faker;
 
@@ -21,13 +24,35 @@ class PendudukSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        // delete
         DB::table(KetuaRt::tableName)->delete();
         DB::table(KetuaRw::tableName)->delete();
         DB::table(Penduduk::tableName)->delete();
         DB::table(Rt::tableName)->delete();
         DB::table(Rw::tableName)->delete();
 
+        $jml_rw = 15;
+        $jml_rt = 10;
+        $jml_kk_rt = 15;
+        $nik_counter = 1;
+        $kk_counter = 1;
+        $kepala_desa = 1;
+        $pegawai_desa = 10;
+        $password = bcrypt('12345678');
+
+        // buat data jabatan ==========================================================================================
+        $jabatan = new PegawaiJabatan();
+        $jabatan->nama = 'KEPALA DESA';
+        $jabatan->urutan = 1;
+        $jabatan->save();
+
+        for ($i = 1; $i <= $pegawai_desa; $i++) {
+            $jabatan = new PegawaiJabatan();
+            $jabatan->nama = "JABATAN $i";
+            $jabatan->urutan = $i + 1;
+            $jabatan->save();
+        }
+
+        // buat data penduduk =========================================================================================
         $pendidikans = function ($hub = false) use ($faker) {
             if ($hub == 'anak') {
                 return $faker->randomElement([
@@ -127,11 +152,7 @@ class PendudukSeeder extends Seeder
             ['urutan' => 11, 'nama' => 'LAINNYA'],
         ];
 
-        $jml_rw = 15;
-        $jml_rt = 10;
-        $jml_kk_rt = 15;
-        $nik_counter = 1;
-        $kk_counter = 1;
+
 
         for ($rw_no = 1; $rw_no <= $jml_rw; $rw_no++) {
             $rw = new Rw();
@@ -145,7 +166,6 @@ class PendudukSeeder extends Seeder
                 $rt->nama_daerah = "Kampung RT $rt_no / RW $rw_no";
                 $rt->rw_id = $rw->id;
                 $rt->save();
-
 
                 // tambah data penduduk
                 for ($kk = 1; $kk <= $jml_kk_rt; $kk++) {
@@ -175,6 +195,16 @@ class PendudukSeeder extends Seeder
                     $kepala->alamat = $alamat;
                     $kepala->save();
 
+                    // kepala user
+                    $user = new User();
+                    $user->name = $kepala->nama;
+                    $user->nik = $kepala->nik;
+                    $user->penduduk_id = $kepala->id;
+                    $user->password = $password;
+                    $user->active = 1;
+                    $user->save();
+                    $user->assignRole('Penduduk');
+
                     // ketua rw
                     if ($rt_no == 1 && $kk == 1) {
                         $ketua_rw = new KetuaRw();
@@ -184,6 +214,7 @@ class PendudukSeeder extends Seeder
 
                         $rw->nama_ketua = $kepala->nama;
                         $rw->save();
+                        $user->assignRole('Rukun Warga');
                     }
 
                     // ketua rt
@@ -195,6 +226,31 @@ class PendudukSeeder extends Seeder
 
                         $rt->nama_ketua = $kepala->nama;
                         $rt->save();
+                        $user->assignRole('Rukun Tetangga');
+                    }
+
+                    if ($kk > 2) {
+                        if ($kepala_desa > 0) {
+                            // set penduduk menjadi kepala desa
+                            $pegawai = new Pegawai();
+                            $pegawai->penduduk_id = $kepala->id;
+                            // kepala desa
+                            $pegawai->jabatan_id = 1;
+                            $pegawai->save();
+                            $user->assignRole('Pihak Desa');
+
+                            $kepala_desa--;
+                        } else if ($pegawai_desa > 0) {
+                            // set penduduk jadi pegawai desa
+                            $pegawai = new Pegawai();
+                            $pegawai->penduduk_id = $kepala->id;
+                            // pegawai desa
+                            $pegawai->jabatan_id = $pegawai_desa + 1;
+                            $pegawai->save();
+                            $user->assignRole('Pihak Desa');
+
+                            $pegawai_desa--;
+                        }
                     }
 
                     // ================================================================================================
@@ -219,6 +275,16 @@ class PendudukSeeder extends Seeder
                     $istri->rt_id = $rt->id;
                     $istri->alamat = $alamat;
                     $istri->save();
+
+                    // istri user
+                    $user = new User();
+                    $user->name = $istri->nama;
+                    $user->nik = $istri->nik;
+                    $user->penduduk_id = $istri->id;
+                    $user->password = $password;
+                    $user->active = 1;
+                    $user->save();
+                    $user->assignRole('Penduduk');
 
                     // ================================================================================================
                     // anak
@@ -246,6 +312,16 @@ class PendudukSeeder extends Seeder
                         $anak->rt_id = $rt->id;
                         $anak->alamat = $alamat;
                         $anak->save();
+
+                        // anak user
+                        $user = new User();
+                        $user->name = $anak->nama;
+                        $user->nik = $anak->nik;
+                        $user->penduduk_id = $anak->id;
+                        $user->password = $password;
+                        $user->active = 1;
+                        $user->save();
+                        $user->assignRole('Penduduk');
                     }
                 }
 

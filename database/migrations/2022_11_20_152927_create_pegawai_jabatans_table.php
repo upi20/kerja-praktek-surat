@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('pegawai_jabatans', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->integer('urutan');
             $table->timestamps();
         });
     }

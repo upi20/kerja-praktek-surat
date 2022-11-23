@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Laravel\Fortify\Fortify;
 
 return new class extends Migration
 {
@@ -13,19 +14,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pegawais', function (Blueprint $table) {
-            $table->id();
+        Schema::table('users', function (Blueprint $table) {
             $table->bigInteger('penduduk_id', false, true)->nullable()->default(null);
-            $table->bigInteger('jabatan_id', false, true)->nullable()->default(null);
-            $table->foreign('jabatan_id')
-                ->references('id')->on('pegawai_jabatans')
-                ->nullOnDelete()
-                ->cascadeOnUpdate();
             $table->foreign('penduduk_id')
                 ->references('id')->on('penduduks')
                 ->nullOnDelete()
                 ->cascadeOnUpdate();
-            $table->timestamps();
         });
     }
 
@@ -36,6 +30,13 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pegawais');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn(array_merge([
+                'two_factor_secret',
+                'two_factor_recovery_codes',
+            ], Fortify::confirmsTwoFactorAuthentication() ? [
+                'two_factor_confirmed_at',
+            ] : []));
+        });
     }
 };
