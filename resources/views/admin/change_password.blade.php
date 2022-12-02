@@ -80,7 +80,7 @@
                 setBtnLoading('button[type=submit][form=form_password]', 'Save Changes');
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('member.password.save') }}",
+                    url: "{{ route(h_prefix('save')) }}",
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },

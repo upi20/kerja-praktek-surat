@@ -202,6 +202,9 @@ return [
     ])->toArray(),
 
     // my config
-    'super_admin_role' => env('SUPER_ADMIN_ROLE', 'Administrator'),
-    'user_input_angkatan' => (bool)env('USER_INPUT_ANGKATAN', false)
+    'role_super_admin' => env('ROLE_SUPER_ADMIN', 'Administrator'),
+    'role_super_penduduk' => env('ROLE_SUPER_PENDUDUK', 'Penduduk'),
+    'role_super_rt' => env('ROLE_SUPER_RT', 'Rukun Tetangga'),
+    'role_super_rw' => env('ROLE_SUPER_RW', 'Rukun Warga'),
+    'role_super_desa' => env('ROLE_SUPER_DESA', 'Pihak Desa'),
 ];

@@ -8,7 +8,7 @@
         $can_excel = auth_can(h_prefix('excel'));
         $is_admin = auth()
             ->user()
-            ->hasRole(config('app.super_admin_role'));
+            ->hasRole(config('app.role_super_admin'));
     @endphp
     <!-- Row -->
     <div class="row row-sm">

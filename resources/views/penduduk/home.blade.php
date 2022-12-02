@@ -144,7 +144,7 @@
             </a>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-            <a href="{{ route('member.password') }}">
+            <a href="{{ route('password') }}">
                 <div class="card  bg-gray-dark img-card card-main">
                     <div class="card-body">
                         <div class="d-flex">

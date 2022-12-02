@@ -17,6 +17,6 @@ if (!function_exists('auth_can')) {
 if (!function_exists('is_admin')) {
     function is_admin()
     {
-        return auth_has_role(config('app.super_admin_role'));
+        return auth_has_role(config('app.role_super_admin'));
     }
 }

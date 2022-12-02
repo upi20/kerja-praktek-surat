@@ -36,17 +36,27 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
 
+
+            // web admin panel
             Route::middleware(['web', 'auth:sanctum'])
                 ->prefix('admin')
                 ->group(base_path('routes/web_admin.php'));
 
             Route::middleware(['web', 'auth:sanctum'])
-                ->prefix('member')
-                ->group(base_path('routes/web_member.php'));
-
-            Route::middleware(['web', 'auth:sanctum', 'permission:penduduk'])
                 ->prefix('penduduk')
                 ->group(base_path('routes/web_penduduk.php'));
+
+            Route::middleware(['web', 'auth:sanctum'])
+                ->prefix('rt')
+                ->group(base_path('routes/web_rt.php'));
+
+            Route::middleware(['web', 'auth:sanctum'])
+                ->prefix('rw')
+                ->group(base_path('routes/web_rw.php'));
+
+            Route::middleware(['web', 'auth:sanctum'])
+                ->prefix('desa')
+                ->group(base_path('routes/web_desa.php'));
         });
     }
 
