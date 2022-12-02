@@ -26,6 +26,10 @@ return new class extends Migration
                 ->nullOnDelete()
                 ->cascadeOnUpdate();
             $table->timestamps();
+            $table->bigInteger('updated_by', false, true)->nullable()->default(null);
+            $table->bigInteger('created_by', false, true)->nullable()->default(null);
+            $table->foreign('updated_by')->references('id')->on('users')->nullOnDelete()->cascadeOnUpdate();
+            $table->foreign('created_by')->references('id')->on('users')->nullOnDelete()->cascadeOnUpdate();
         });
     }
 
