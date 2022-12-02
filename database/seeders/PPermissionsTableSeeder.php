@@ -1019,6 +1019,38 @@ class PPermissionsTableSeeder extends Seeder
                 'created_at' => '2022-12-03 00:52:23',
                 'updated_at' => '2022-12-03 00:52:23',
             ),
+            125 => 
+            array (
+                'id' => 126,
+                'name' => 'desa.penduduk.masuk',
+                'guard_name' => 'web',
+                'created_at' => '2022-12-03 01:14:08',
+                'updated_at' => '2022-12-03 01:14:08',
+            ),
+            126 => 
+            array (
+                'id' => 127,
+                'name' => 'desa.penduduk.masuk.insert',
+                'guard_name' => 'web',
+                'created_at' => '2022-12-03 01:14:13',
+                'updated_at' => '2022-12-03 01:14:13',
+            ),
+            127 => 
+            array (
+                'id' => 128,
+                'name' => 'desa.penduduk.masuk.update',
+                'guard_name' => 'web',
+                'created_at' => '2022-12-03 01:14:17',
+                'updated_at' => '2022-12-03 01:14:17',
+            ),
+            128 => 
+            array (
+                'id' => 129,
+                'name' => 'desa.penduduk.masuk.delete',
+                'guard_name' => 'web',
+                'created_at' => '2022-12-03 01:14:22',
+                'updated_at' => '2022-12-03 01:14:22',
+            ),
         ));
         
         

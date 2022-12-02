@@ -428,12 +428,12 @@ class PMenuTableSeeder extends Seeder
                 'parent_id' => NULL,
                 'title' => 'Penduduk Masuk',
                 'icon' => 'fas fa-sign-in-alt',
-                'route' => 'admin.penduduk.masuk',
+                'route' => 'desa.penduduk.masuk',
                 'sequence' => 13,
                 'active' => 1,
                 'type' => 1,
                 'created_at' => '2022-12-03 00:18:41',
-                'updated_at' => '2022-12-03 00:43:35',
+                'updated_at' => '2022-12-03 01:14:50',
             ),
             32 => 
             array (

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\App\Admin\Penduduk;
+namespace App\Http\Controllers\App\Desa\Penduduk;
 
 use App\Http\Controllers\Controller;
 use App\Models\Penduduk\Masuk;
@@ -45,7 +45,7 @@ class PendudukMasukController extends Controller
         $agamas = config('app.agamas');
         $data = compact('page_attr', 'hub_dgn_kks', 'pendidikans', 'pekerjaans');
         $data['compact'] = $data;
-        return view('admin.penduduk.penduduk_masuk', $data);
+        return view('app.desa.penduduk.penduduk_masuk', $data);
     }
 
     public function insert(Request $request)
