@@ -11,9 +11,7 @@
                     d="M16.25,12a.99676.99676,0,0,1-.707-.293l-1-1a.99962.99962,0,0,1,0-1.41406l1-1A.99989.99989,0,0,1,16.957,9.707l-.293.293.293.293A1,1,0,0,1,16.25,12Z" />
             </svg></span>3</h1>
     <h5 class="error-details">
-        Sorry, an error has occured, Forbidden!
+        Maaf, anda tidak memiliki izin untuk akses ke halaman ini!
     </h5>
 @endsection
-@section('title')
-    403 |
-@endsection
+@section('title', '403 | ')

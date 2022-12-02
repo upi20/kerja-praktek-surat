@@ -39,7 +39,7 @@ $(document).ready(function () {
                             showConfirmButton: false
                         })
                             .then(function () {
-                                window.location.href = "{{ route('dashboard') }}";
+                                window.location.href = "{{ route('home') }}";
 
                             });
                     } else {

@@ -37,7 +37,13 @@ Route::get('/', function () {
     if (!auth()->user()) return Redirect::route('login');
     if (auth_has_role(config('app.role_super_admin'))) {
         return Redirect::route('admin.dashboard');
-    } else if (auth_has_role('Penduduk')) {
+    } else if (auth_has_role(config('app.role_desa'))) {
+        return Redirect::route('desa.home');
+    } else if (auth_has_role(config('app.role_rw'))) {
+        return Redirect::route('rw.home');
+    } else if (auth_has_role(config('app.role_rt'))) {
+        return Redirect::route('rt.home');
+    } else if (auth_has_role(config('app.role_penduduk'))) {
         return Redirect::route('penduduk.home');
     } else {
         return Redirect::route('login');
@@ -73,20 +79,6 @@ Route::controller(GaleriControllerFrontend::class)->prefix($name)->group(functio
 });
 // ====================================================================================================================
 
-
-
-
-// dashboard ==========================================================================================================
-Route::get('/dashboard', function () {
-    if (!auth()->user()) return Redirect::route('login');
-    if (auth_has_role(config('app.role_super_admin'))) {
-        return Redirect::route('admin.dashboard');
-    } else {
-        return Redirect::route('member.dashboard');
-    }
-})->name("dashboard");
-// ====================================================================================================================
-
 // Utility ============================================================================================================
 $prefix = 'loader';
 Route::controller(LoaderController::class)->prefix($prefix)->group(function () {
@@ -102,8 +94,10 @@ Route::controller(LoaderController::class)->prefix($prefix)->group(function () {
 // ====================================================================================================================
 
 $prefix = "password";
-Route::controller(UserController::class)->prefix($prefix)->group(function () use ($prefix) {
+Route::controller(UserController::class)->prefix($prefix)->middleware("auth:sanctum")->group(function () use ($prefix) {
     $name = "$prefix"; // password
-    Route::get('/', 'change_password')->name($name)->middleware("permission:$name");
-    Route::post('/save', 'save_password')->name("$name.save")->middleware("permission:$name.save");
+    Route::get('/', 'change_password')->name($name);
+    Route::post('/save', 'save_password')->name("$name.save");
 });
+
+Route::post('user_select2', [UserController::class, 'select2'])->middleware('auth:sanctum')->name('user_select2');

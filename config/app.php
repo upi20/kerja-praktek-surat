@@ -203,8 +203,59 @@ return [
 
     // my config
     'role_super_admin' => env('ROLE_SUPER_ADMIN', 'Administrator'),
-    'role_super_penduduk' => env('ROLE_SUPER_PENDUDUK', 'Penduduk'),
-    'role_super_rt' => env('ROLE_SUPER_RT', 'Rukun Tetangga'),
-    'role_super_rw' => env('ROLE_SUPER_RW', 'Rukun Warga'),
-    'role_super_desa' => env('ROLE_SUPER_DESA', 'Pihak Desa'),
+    'role_penduduk' => env('ROLE_PENDUDUK', 'Penduduk'),
+    'role_rt' => env('ROLE_RT', 'Rukun Tetangga'),
+    'role_rw' => env('ROLE_RW', 'Rukun Warga'),
+    'role_desa' => env('ROLE_DESA', 'Pihak Desa'),
+
+    // config data penduduk
+    'pendidikans' => [
+        'TIDAK / BELUM SEKOLAH',
+        'TAMAT SD / SEDERAJAT',
+        'SLTA / SEDERAJAT',
+        'SLTP/SEDERAJAT',
+        'BELUM TAMAT SD/SEDERAJAT',
+        'DIPLOMA IV/ STRATA I',
+        'Akademi/Sarjana Muda',
+        'AKADEMI/ DIPLOMA III/S. MUDA',
+        'DIPLOMA I / II',
+        'STRATA II',
+        'STRATA III',
+    ],
+
+    'pekerjaans' => [
+        'PEGAWAI NEGERI SIPIL',
+        'ABRI/POLRI',
+        'PEGAWAI SWASTA',
+        'PETANI',
+        'PEDAGANG',
+        'PENSIUNAN',
+        'PRA SEKOLAH',
+        'IBU RUMAH TANGGA',
+        'LAINNYA',
+    ],
+
+    'agamas' => [
+        'ISLAM',
+        'KRISTEN',
+        'KATOLIK',
+        'HINDU',
+        'BUDHA',
+        'KEPERCAYAAN TERHADAP TUHAN YME',
+    ],
+
+    'hub_dgn_kks' => [
+        ['urutan' => 1, 'nama' => 'KEPALA KELUARGA'],
+        ['urutan' => 2, 'nama' => 'SUAMI'],
+        ['urutan' => 3, 'nama' => 'ISTRI'],
+        ['urutan' => 4, 'nama' => 'ANAK'],
+        ['urutan' => 5, 'nama' => 'MENANTU'],
+        ['urutan' => 6, 'nama' => 'CUCU'],
+        ['urutan' => 7, 'nama' => 'ORANG TUA'],
+        ['urutan' => 8, 'nama' => 'MERTUA'],
+        ['urutan' => 9, 'nama' => 'FAMILI LAIN'],
+        ['urutan' => 10, 'nama' => 'PEMBANTU'],
+        ['urutan' => 11, 'nama' => 'LAINNYA'],
+    ],
+
 ];

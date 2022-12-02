@@ -31,7 +31,6 @@ use App\Http\Controllers\App\Admin\Menu\FrontendController as MenuFrontendContro
 
 // Pendaftaran ========================================================================================================
 use App\Http\Controllers\App\Admin\Pendaftaran\GFormController;
-
 // Setting ============================================================================================================
 use App\Http\Controllers\App\Admin\Setting\AdminController;
 use App\Http\Controllers\App\Admin\Setting\FrontController;
@@ -41,6 +40,10 @@ use App\Http\Controllers\App\Admin\Setting\HomeController;
 use App\Http\Controllers\App\Admin\Utility\HariBesarNasionalController;
 use App\Http\Controllers\App\Admin\Utility\NotifAdminAtasController;
 use App\Http\Controllers\App\Admin\Utility\NotifDepanAtasController;
+
+
+// Penduduk ===========================================================================================================
+use App\Http\Controllers\App\Admin\Penduduk\PendudukMasukController;
 
 $name = 'admin';
 $prefix = 'dashboard';
@@ -56,6 +59,51 @@ Route::group(
         Route::get('/', 'index')->name($name);
     }
 );
+
+$prefix = 'penduduk';
+Route::prefix($prefix)->group(function () use ($name, $prefix) {
+    $name = "$name.$prefix"; // admin.penduduk
+
+    $prefix = 'masuk';
+    Route::controller(PendudukMasukController::class)->prefix($prefix)->group(function () use ($name, $prefix) {
+        $name = "$name.$prefix"; // admin.penduduk.masuk
+        Route::get('/', 'index')->name($name)->middleware("permission:$name");
+        Route::post('/', 'insert')->name("$name.insert")->middleware("permission:$name.insert");
+        Route::delete('/{model}', 'delete')->name("$name.delete")->middleware("permission:$name.delete");
+        Route::get('/find', 'find')->name("$name.find")->middleware("permission:$name.update");
+        Route::post('/update', 'update')->name("$name.update")->middleware("permission:$name.update");
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $prefix = 'user';
 Route::controller(UserController::class)->prefix($prefix)->group(function () use ($name, $prefix) {

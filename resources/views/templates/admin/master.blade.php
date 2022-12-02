@@ -286,6 +286,8 @@ $notifikasi = notif_admin_atas();
                 scrollTop: 0
             }, "slow");
         })
+        const datatable_indonesia_language_url =
+            "{{ asset('assets/templates/admin/plugins/datatable/indonesia.json') }}";
     </script>
     @yield('javascript')
 </body>

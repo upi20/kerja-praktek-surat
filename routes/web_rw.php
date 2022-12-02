@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\App\Rw\DashboardController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\App\Admin\UserController;
-use App\Http\Controllers\DashboardController;
 
 $name = 'rw';
-Route::get('/dashboard', [DashboardController::class, 'index'])->name("$name.dashboard")->middleware("permission:$name.dashboard");
+Route::get("/", [DashboardController::class, 'index'])
+    ->name("$name.home")
+    ->middleware("permission:$name.home");

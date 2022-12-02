@@ -5,6 +5,7 @@ namespace App\Repository\Admin;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\Datatables\Datatables;
 use Laravel\Fortify\Rules\Password;
 use Illuminate\Support\Facades\Hash;
@@ -436,5 +437,23 @@ class UserRepository
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
         $writer->save('php://output');
         exit();
+    }
+
+    public function select2(Request $request)
+    {
+        try {
+            $model = User::select(['id', DB::raw("concat(nik,' | ',name) as text")])
+                ->whereRaw("(
+                    `name` like '%$request->search%' or
+                    `nik` like '%$request->search%' or
+                    `id` like '%$request->search%'
+                    )")
+                ->limit(50);
+
+            $result = $model->get()->toArray();
+            return response()->json(['results' => array_merge([['id' => '', 'text' => 'Semua']], $result)]);
+        } catch (\Exception $error) {
+            return response()->json($error, 500);
+        }
     }
 }

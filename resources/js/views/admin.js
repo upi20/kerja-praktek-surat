@@ -82,3 +82,7 @@ function youtube_parser(url) {
     var match = url.match(regExp);
     return (match && match[1].length == 11) ? match[1] : false;
 }
+
+function tooltip_refresh() {
+    $('[data-toggle="tooltip"]').tooltip();
+}

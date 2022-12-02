@@ -44,7 +44,7 @@ class Penduduk extends Model
         return Attribute::make(set: fn ($value) => strtoupper($value));
     }
 
-    protected function foto_ktp(): Attribute
+    protected function fotoKtp(): Attribute
     {
         $folder = self::imageFolder;
         return Attribute::make(get: fn ($value) => (is_null($value) ? null : asset("$folder/$value")));

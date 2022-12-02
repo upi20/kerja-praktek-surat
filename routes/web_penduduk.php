@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\App\Penduduk\DashboardController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\App\Penduduk\HomeController;
 use App\Http\Controllers\App\Penduduk\PengajuanSuratController;
 
 $name = 'penduduk';
-Route::get('/home', [HomeController::class, 'index'])->name("$name.home");
+Route::get("/", [DashboardController::class, 'index'])
+    ->name("$name.home")
+    ->middleware("permission:$name.home");
 
 $prefix = 'pengajuan_surat';
 Route::prefix($prefix)->controller(PengajuanSuratController::class)->group(function () use ($name, $prefix) {

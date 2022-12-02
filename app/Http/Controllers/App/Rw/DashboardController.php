@@ -1,17 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\App\Penduduk;
+namespace App\Http\Controllers\App\Rw;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class DashboardController extends Controller
 {
     public function index(Request $request)
     {
         $page_attr = ['title' => 'Halaman Utama'];
-        return view('penduduk.home', compact(
+
+        $data = compact(
             'page_attr',
-        ));
+        );
+        $data['compact'] = $data;
+
+        return view('app.rw.dashboard');
     }
 }

@@ -16,7 +16,7 @@ class Rw extends Model
 
     public function rts()
     {
-        return $this->hasMany(Rw::class, 'rw_id', 'id');
+        return $this->hasMany(Rt::class, 'rw_id', 'id');
     }
     public function surats()
     {
