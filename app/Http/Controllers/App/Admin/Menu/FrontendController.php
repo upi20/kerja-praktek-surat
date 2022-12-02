@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Menu;
+namespace App\Http\Controllers\App\Admin\Menu;
 
 use App\Http\Controllers\Controller;
 use App\Models\Menu\Frontend as MenuFrontend;

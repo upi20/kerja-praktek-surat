@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Utility;
+namespace App\Http\Controllers\App\Admin\Utility;
 
 use App\Http\Controllers\Controller;
-use App\Models\Utility\NotifDepanAtas;
+use App\Models\Utility\NotifAdminAtas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use League\Config\Exception\ValidationException;
 use Yajra\Datatables\Datatables;
 
-class NotifDepanAtasController extends Controller
+class NotifAdminAtasController extends Controller
 {
     private $validate_model = [
         'nama' => ['required', 'string', 'max:255'],
@@ -29,12 +29,12 @@ class NotifDepanAtasController extends Controller
         }
 
         $page_attr = [
-            'title' => 'Notifikasi Depan Atas',
+            'title' => 'Notifikasi Admin Atas',
             'breadcrumbs' => [
                 ['name' => 'Utility'],
             ]
         ];
-        return view('admin.utility.notif_depan_atas', compact('page_attr'));
+        return view('admin.utility.notif_admin_atas', compact('page_attr'));
     }
 
     public function insert(Request $request): mixed
@@ -42,7 +42,7 @@ class NotifDepanAtasController extends Controller
         try {
             $request->validate($this->validate_model);
 
-            $model = new NotifDepanAtas();
+            $model = new NotifAdminAtas();
             $model->nama = $request->nama;
             $model->deskripsi = $request->deskripsi;
             $model->dari = $request->dari;
@@ -63,7 +63,7 @@ class NotifDepanAtasController extends Controller
     public function update(Request $request): mixed
     {
         try {
-            $model = NotifDepanAtas::findOrFail($request->id);
+            $model = NotifAdminAtas::findOrFail($request->id);
             $request->validate(array_merge(['id' => [
                 'required', 'int',
             ]], $this->validate_model));
@@ -84,7 +84,7 @@ class NotifDepanAtasController extends Controller
         }
     }
 
-    public function delete(NotifDepanAtas $model): mixed
+    public function delete(NotifAdminAtas $model): mixed
     {
         try {
             $model->delete();
@@ -99,13 +99,13 @@ class NotifDepanAtasController extends Controller
 
     public function find(Request $request)
     {
-        return NotifDepanAtas::findOrFail($request->id);
+        return NotifAdminAtas::findOrFail($request->id);
     }
 
     public function datatable(Request $request): mixed
     {
         // list table
-        $table = NotifDepanAtas::tableName;
+        $table = NotifAdminAtas::tableName;
 
         // cusotm query
         // ========================================================================================================
@@ -155,7 +155,7 @@ class NotifDepanAtasController extends Controller
 
 
         // Select =====================================================================================================
-        $model = NotifDepanAtas::select(array_merge([
+        $model = NotifAdminAtas::select(array_merge([
             DB::raw("$table.*"),
         ], $to_db_raw));
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\UserAccess;
+namespace App\Http\Controllers\App\Admin\UserAccess;
 
 use App\Http\Controllers\Controller;
 use App\Models\Menu\Admin as MenuAdmin;

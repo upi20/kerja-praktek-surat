@@ -1,24 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Contact;
+namespace App\Http\Controllers\App\Admin\Contact;
 
 use App\Http\Controllers\Controller;
-use App\Models\Contact\FAQ;
+use App\Models\Contact\Message as ContactMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use League\Config\Exception\ValidationException;
 use Yajra\Datatables\Datatables;
 
-class FAQController extends Controller
-{
-    private $validate_model = [
-        'nama' => ['required', 'string', 'max:255'],
-        'link' => ['nullable', 'string', 'max:255'],
-        'jawaban' => ['nullable', 'string'],
-        'type' => ['required', 'int'],
-        'status' => ['required', 'int'],
-    ];
 
+class MessageController extends Controller
+{
     private $query = [];
 
     public function index(Request $request)
@@ -27,83 +19,32 @@ class FAQController extends Controller
             return $this->datatable($request);
         }
         $page_attr = [
-            'title' => 'Frequently Asked Questions',
+            'title' => 'Message',
             'breadcrumbs' => [
                 ['name' => 'Kontak'],
             ]
         ];
         $setting = (object)[
-            'title' => settings()->get('setting.contact.faq.title'),
-            'sub_title' => settings()->get('setting.contact.faq.sub_title'),
+            'title' => settings()->get('setting.contact.message.title'),
+            'sub_title' => settings()->get('setting.contact.message.sub_title'),
+            'name' => settings()->get('setting.contact.message.name'),
+            'name_placeholder' => settings()->get('setting.contact.message.name_placeholder'),
+            'email' => settings()->get('setting.contact.message.email'),
+            'email_placeholder' => settings()->get('setting.contact.message.email_placeholder'),
+            'message' => settings()->get('setting.contact.message.message'),
+            'message_placeholder' => settings()->get('setting.contact.message.message_placeholder'),
+            'button_text' => settings()->get('setting.contact.message.button_text'),
         ];
 
         $data = compact('page_attr', 'setting');
         $data['compact'] = $data;
-        return view('admin.kontak.faq', $data);
-    }
-
-    public function insert(Request $request): mixed
-    {
-        try {
-            $request->validate($this->validate_model);
-
-            $model = new FAQ();
-            $model->nama = $request->nama;
-            $model->link = $request->link;
-            $model->jawaban = $request->jawaban;
-            $model->type = $request->type;
-            $model->status = $request->status;
-            $model->save();
-            return response()->json();
-        } catch (ValidationException $error) {
-            return response()->json([
-                'message' => 'Something went wrong',
-                'error' => $error,
-            ], 500);
-        }
-    }
-
-    public function update(Request $request): mixed
-    {
-        try {
-            $model = FAQ::findOrFail($request->id);
-            $model->nama = $request->nama;
-            $model->link = $request->link;
-            $model->jawaban = $request->jawaban;
-            $model->type = $request->type;
-            $model->status = $request->status;
-            $model->save();
-            return response()->json();
-        } catch (ValidationException $error) {
-            return response()->json([
-                'message' => 'Something went wrong',
-                'error' => $error,
-            ], 500);
-        }
-    }
-
-    public function delete(FAQ $model): mixed
-    {
-        try {
-            $model->delete();
-            return response()->json();
-        } catch (ValidationException $error) {
-            return response()->json([
-                'message' => 'Something went wrong',
-                'error' => $error,
-            ], 500);
-        }
-    }
-
-    public function find(Request $request)
-    {
-        return FAQ::findOrFail($request->id);
+        return view('admin.kontak.message', $data);
     }
 
     public function datatable(Request $request): mixed
     {
         // list table
-        $table = FAQ::tableName;
+        $table = ContactMessage::tableName;
 
         // cusotm query
         // ========================================================================================================
@@ -124,19 +65,19 @@ class FAQController extends Controller
         $this->query = array_merge($this->query, $date_format_fun('updated_at', '%d-%b-%Y', $c_updated));
         $this->query = array_merge($this->query, $date_format_fun('updated_at', '%W, %d %M %Y %H:%i:%s', $c_updated_str));
 
-        // type
-        $c_type_str = 'type_str';
-        $this->query[$c_type_str] = <<<SQL
-                (if($table.type = 1, 'Teks', if($table.type = 2, 'Link', 'Tidak Diketahui')))
-        SQL;
-        $this->query["{$c_type_str}_alias"] = $c_type_str;
+        // // type
+        // $c_type_str = 'type_str';
+        // $this->query[$c_type_str] = <<<SQL
+        //         (if($table.type = 1, 'Teks', if($table.type = 2, 'Link', 'Tidak Diketahui')))
+        // SQL;
+        // $this->query["{$c_type_str}_alias"] = $c_type_str;
 
-        // status
-        $c_status_str = 'status_str';
-        $this->query[$c_status_str] = <<<SQL
-                (if($table.status = 0, 'Tidak Digunakan', if($table.status = 1, 'Digunakan', 'Tidak Diketahui')))
-        SQL;
-        $this->query["{$c_status_str}_alias"] = $c_status_str;
+        // // status
+        // $c_status_str = 'status_str';
+        // $this->query[$c_status_str] = <<<SQL
+        //         (if($table.status = 0, 'Tidak Digunakan', if($table.status = 1, 'Digunakan', 'Tidak Diketahui')))
+        // SQL;
+        // $this->query["{$c_status_str}_alias"] = $c_status_str;
         // ========================================================================================================
 
 
@@ -150,8 +91,8 @@ class FAQController extends Controller
             $c_created_str,
             $c_updated,
             $c_updated_str,
-            $c_status_str,
-            $c_type_str,
+            // $c_status_str,
+            // $c_type_str,
         ];
 
         $to_db_raw = array_map(function ($a) use ($sraa) {
@@ -161,7 +102,7 @@ class FAQController extends Controller
 
 
         // Select =====================================================================================================
-        $model = FAQ::select(array_merge([
+        $model = ContactMessage::select(array_merge([
             DB::raw("$table.*"),
         ], $to_db_raw));
 
@@ -183,7 +124,7 @@ class FAQController extends Controller
         // }
 
         // filter custom
-        $filters = ['status', 'type'];
+        $filters = ['status'];
         foreach ($filters as  $f) {
             if ($f_c($f) !== false) {
                 $model->whereRaw("$table.$f='{$f_c($f)}'");
@@ -207,8 +148,17 @@ class FAQController extends Controller
 
     public function setting(Request $request)
     {
-        settings()->set('setting.contact.faq.title', $request->title)->save();
-        settings()->set('setting.contact.faq.sub_title', $request->sub_title)->save();
+        settings()->set('setting.contact.message.title', $request->title)->save();
+        settings()->set('setting.contact.message.sub_title', $request->sub_title)->save();
+
+        settings()->set('setting.contact.message.name', $request->name)->save();
+        settings()->set('setting.contact.message.name_placeholder', $request->name_placeholder)->save();
+        settings()->set('setting.contact.message.email', $request->email)->save();
+        settings()->set('setting.contact.message.email_placeholder', $request->email_placeholder)->save();
+        settings()->set('setting.contact.message.message', $request->message)->save();
+        settings()->set('setting.contact.message.message_placeholder', $request->message_placeholder)->save();
+
+        settings()->set('setting.contact.message.button_text', $request->button_text)->save();
         return response()->json();
     }
 }

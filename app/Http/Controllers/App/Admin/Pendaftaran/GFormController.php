@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Pendaftaran;
+namespace App\Http\Controllers\App\Admin\Pendaftaran;
 
 use App\Helpers\Summernote;
 use App\Http\Controllers\Controller;

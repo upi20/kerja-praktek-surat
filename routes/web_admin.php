@@ -5,45 +5,46 @@ use Illuminate\Support\Facades\Route;
 
 // ====================================================================================================================
 // Admin ==============================================================================================================
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\GaleriController;
-use App\Http\Controllers\Admin\SocialMediaController;
-use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\App\Admin\UserController;
+use App\Http\Controllers\App\Admin\GaleriController;
+use App\Http\Controllers\App\Admin\SocialMediaController;
+use App\Http\Controllers\App\Admin\DashboardController;
 
 // Artikel ============================================================================================================
-use App\Http\Controllers\Admin\Artikel\ArtikelController;
-use App\Http\Controllers\Admin\Artikel\KategoriController;
-use App\Http\Controllers\Admin\Artikel\TagController;
+use App\Http\Controllers\App\Admin\Artikel\ArtikelController;
+use App\Http\Controllers\App\Admin\Artikel\KategoriController;
+use App\Http\Controllers\App\Admin\Artikel\TagController;
 
 // Contact ============================================================================================================
-use App\Http\Controllers\Admin\Contact\FAQController;
-use App\Http\Controllers\Admin\Contact\ListContactController;
-use App\Http\Controllers\Admin\Contact\MessageController;
+use App\Http\Controllers\App\Admin\Contact\FAQController;
+use App\Http\Controllers\App\Admin\Contact\ListContactController;
+use App\Http\Controllers\App\Admin\Contact\MessageController;
 
 
 // User Access ========================================================================================================
-use App\Http\Controllers\Admin\UserAccess\PermissionController;
-use App\Http\Controllers\Admin\UserAccess\RoleController;
+use App\Http\Controllers\App\Admin\UserAccess\PermissionController;
+use App\Http\Controllers\App\Admin\UserAccess\RoleController;
 
 // Menu ===============================================================================================================
-use App\Http\Controllers\Admin\Menu\AdminController as MenuAdminController;
-use App\Http\Controllers\Admin\Menu\FrontendController as MenuFrontendController;
+use App\Http\Controllers\App\Admin\Menu\AdminController as MenuAdminController;
+use App\Http\Controllers\App\Admin\Menu\FrontendController as MenuFrontendController;
 
 // Pendaftaran ========================================================================================================
-use App\Http\Controllers\Admin\Pendaftaran\GFormController;
+use App\Http\Controllers\App\Admin\Pendaftaran\GFormController;
 
 // Setting ============================================================================================================
-use App\Http\Controllers\Admin\Setting\AdminController;
-use App\Http\Controllers\Admin\Setting\FrontController;
-use App\Http\Controllers\Admin\Setting\HomeController;
+use App\Http\Controllers\App\Admin\Setting\AdminController;
+use App\Http\Controllers\App\Admin\Setting\FrontController;
+use App\Http\Controllers\App\Admin\Setting\HomeController;
 
 // Utility ============================================================================================================
-use App\Http\Controllers\Admin\Utility\HariBesarNasionalController;
-use App\Http\Controllers\Admin\Utility\NotifAdminAtasController;
-use App\Http\Controllers\Admin\Utility\NotifDepanAtasController;
+use App\Http\Controllers\App\Admin\Utility\HariBesarNasionalController;
+use App\Http\Controllers\App\Admin\Utility\NotifAdminAtasController;
+use App\Http\Controllers\App\Admin\Utility\NotifDepanAtasController;
 
 $name = 'admin';
 $prefix = 'dashboard';
+Route::get('/', [DashboardController::class, 'index'])->name($name);
 Route::group(
     [
         'prefix' => $prefix,

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Utility;
+namespace App\Http\Controllers\App\Admin\Utility;
 
 use App\Http\Controllers\Controller;
 use App\Models\Utility\HariBesarNasional;

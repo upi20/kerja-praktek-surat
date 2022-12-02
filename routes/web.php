@@ -3,7 +3,7 @@
 // ====================================================================================================================
 // utility ============================================================================================================
 
-use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\App\Admin\UserController;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 

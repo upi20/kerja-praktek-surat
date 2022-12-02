@@ -1,46 +1,45 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Contact;
+namespace App\Http\Controllers\App\Admin\Contact;
 
 use App\Http\Controllers\Controller;
-use App\Models\Contact\ListContact;
+use App\Models\Contact\FAQ;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use League\Config\Exception\ValidationException;
 use Yajra\Datatables\Datatables;
 
-class ListContactController extends Controller
+class FAQController extends Controller
 {
-
     private $validate_model = [
         'nama' => ['required', 'string', 'max:255'],
-        'icon' => ['required', 'string', 'max:255'],
-        'url' => ['nullable', 'string', 'max:255'],
-        'order' => ['nullable', 'int'],
-        'keterangan' => ['nullable', 'string'],
+        'link' => ['nullable', 'string', 'max:255'],
+        'jawaban' => ['nullable', 'string'],
+        'type' => ['required', 'int'],
         'status' => ['required', 'int'],
     ];
 
     private $query = [];
+
     public function index(Request $request)
     {
         if (request()->ajax()) {
             return $this->datatable($request);
         }
         $page_attr = [
-            'title' => 'List Kontak',
+            'title' => 'Frequently Asked Questions',
             'breadcrumbs' => [
                 ['name' => 'Kontak'],
             ]
         ];
         $setting = (object)[
-            'title' => settings()->get('setting.contact.list.title'),
-            'sub_title' => settings()->get('setting.contact.list.sub_title'),
+            'title' => settings()->get('setting.contact.faq.title'),
+            'sub_title' => settings()->get('setting.contact.faq.sub_title'),
         ];
 
         $data = compact('page_attr', 'setting');
         $data['compact'] = $data;
-        return view('admin.kontak.list', $data);
+        return view('admin.kontak.faq', $data);
     }
 
     public function insert(Request $request): mixed
@@ -48,12 +47,11 @@ class ListContactController extends Controller
         try {
             $request->validate($this->validate_model);
 
-            $model = new ListContact();
+            $model = new FAQ();
             $model->nama = $request->nama;
-            $model->icon = $request->icon;
-            $model->url = $request->url;
-            $model->order = $request->order;
-            $model->keterangan = $request->keterangan;
+            $model->link = $request->link;
+            $model->jawaban = $request->jawaban;
+            $model->type = $request->type;
             $model->status = $request->status;
             $model->save();
             return response()->json();
@@ -68,12 +66,11 @@ class ListContactController extends Controller
     public function update(Request $request): mixed
     {
         try {
-            $model = ListContact::findOrFail($request->id);
+            $model = FAQ::findOrFail($request->id);
             $model->nama = $request->nama;
-            $model->icon = $request->icon;
-            $model->url = $request->url;
-            $model->order = $request->order;
-            $model->keterangan = $request->keterangan;
+            $model->link = $request->link;
+            $model->jawaban = $request->jawaban;
+            $model->type = $request->type;
             $model->status = $request->status;
             $model->save();
             return response()->json();
@@ -85,7 +82,7 @@ class ListContactController extends Controller
         }
     }
 
-    public function delete(ListContact $model): mixed
+    public function delete(FAQ $model): mixed
     {
         try {
             $model->delete();
@@ -100,13 +97,13 @@ class ListContactController extends Controller
 
     public function find(Request $request)
     {
-        return ListContact::findOrFail($request->id);
+        return FAQ::findOrFail($request->id);
     }
 
     public function datatable(Request $request): mixed
     {
         // list table
-        $table = ListContact::tableName;
+        $table = FAQ::tableName;
 
         // cusotm query
         // ========================================================================================================
@@ -126,6 +123,13 @@ class ListContactController extends Controller
         $this->query = array_merge($this->query, $date_format_fun('created_at', '%W, %d %M %Y %H:%i:%s', $c_created_str));
         $this->query = array_merge($this->query, $date_format_fun('updated_at', '%d-%b-%Y', $c_updated));
         $this->query = array_merge($this->query, $date_format_fun('updated_at', '%W, %d %M %Y %H:%i:%s', $c_updated_str));
+
+        // type
+        $c_type_str = 'type_str';
+        $this->query[$c_type_str] = <<<SQL
+                (if($table.type = 1, 'Teks', if($table.type = 2, 'Link', 'Tidak Diketahui')))
+        SQL;
+        $this->query["{$c_type_str}_alias"] = $c_type_str;
 
         // status
         $c_status_str = 'status_str';
@@ -147,6 +151,7 @@ class ListContactController extends Controller
             $c_updated,
             $c_updated_str,
             $c_status_str,
+            $c_type_str,
         ];
 
         $to_db_raw = array_map(function ($a) use ($sraa) {
@@ -156,7 +161,7 @@ class ListContactController extends Controller
 
 
         // Select =====================================================================================================
-        $model = ListContact::select(array_merge([
+        $model = FAQ::select(array_merge([
             DB::raw("$table.*"),
         ], $to_db_raw));
 
@@ -178,7 +183,7 @@ class ListContactController extends Controller
         // }
 
         // filter custom
-        $filters = ['status'];
+        $filters = ['status', 'type'];
         foreach ($filters as  $f) {
             if ($f_c($f) !== false) {
                 $model->whereRaw("$table.$f='{$f_c($f)}'");
@@ -199,10 +204,11 @@ class ListContactController extends Controller
         // create datatable
         return $datatable->make(true);
     }
+
     public function setting(Request $request)
     {
-        settings()->set('setting.contact.list.title', $request->title)->save();
-        settings()->set('setting.contact.list.sub_title', $request->sub_title)->save();
+        settings()->set('setting.contact.faq.title', $request->title)->save();
+        settings()->set('setting.contact.faq.sub_title', $request->sub_title)->save();
         return response()->json();
     }
 }

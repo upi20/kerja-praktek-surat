@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Penduduk\HomeController;
-use App\Http\Controllers\Penduduk\PengajuanSuratController;
+use App\Http\Controllers\App\Penduduk\HomeController;
+use App\Http\Controllers\App\Penduduk\PengajuanSuratController;
 
 $name = 'penduduk';
 Route::get('/home', [HomeController::class, 'index'])->name("$name.home");

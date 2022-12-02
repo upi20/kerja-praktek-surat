@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\App\Admin\UserController;
 use App\Http\Controllers\DashboardController;
 
 $name = 'rt';

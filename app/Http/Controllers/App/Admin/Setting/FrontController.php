@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Setting;
+namespace App\Http\Controllers\App\Admin\Setting;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class FrontController extends Controller
 {
-    private $folder_logo = '/assets/setting/admin/logo';
-    private $folder_meta_logo = '/assets/setting/admin/meta';
+    private $folder_logo = '/assets/setting/front/logo';
+    private $folder_meta_logo = '/assets/setting/front/meta';
 
     public function index(Request $request)
     {
         $page_attr = [
-            'title' => 'Admin Setting',
+            'title' => 'Front Setting',
             'breadcrumbs' => [
                 ['name' => 'Setting'],
             ]
@@ -21,21 +21,21 @@ class AdminController extends Controller
         $data = compact(
             'page_attr',
         );
-        return view('admin.setting.admin',  array_merge($data, ['compact' => $data]));
+        return view('admin.setting.front',  array_merge($data, ['compact' => $data]));
     }
 
     public function save_app(Request $request)
     {
         $result = [];
-        settings()->set(set_admin('app.title'), $request->title)->save();
-        settings()->set(set_admin('app.copyright'), $request->copyright)->save();
-        settings()->set(set_admin('app.preloader'), !is_null($request->preloader))->save();
+        settings()->set(set_front('app.title'), $request->title)->save();
+        settings()->set(set_front('app.copyright'), $request->copyright)->save();
+        settings()->set(set_front('app.preloader'), !is_null($request->preloader))->save();
 
         // logo
         // dark mode
         $foto = '';
         $key = 'foto_dark_landscape_mode';
-        $current = settings()->get(set_admin("app.$key"));
+        $current = settings()->get(set_front("app.$key"));
         $result[] = [$key => $current];
         if ($image = $request->file($key)) {
             // delete foto
@@ -48,14 +48,14 @@ class AdminController extends Controller
             $image->move(public_path($this->folder_logo), $foto);
 
             // save foto
-            settings()->set(set_admin("app.$key"), $foto)->save();
+            settings()->set(set_front("app.$key"), $foto)->save();
             $result[count($result) - 1] = [$key => $foto];
         }
 
         // light mode
         $foto = '';
         $key = 'foto_light_landscape_mode';
-        $current = settings()->get(set_admin("app.$key"));
+        $current = settings()->get(set_front("app.$key"));
         $result[] = [$key => $current];
         if ($image = $request->file($key)) {
             // delete foto
@@ -68,7 +68,7 @@ class AdminController extends Controller
             $image->move(public_path($this->folder_logo), $foto);
 
             // save foto
-            settings()->set(set_admin("app.$key"), $foto)->save();
+            settings()->set(set_front("app.$key"), $foto)->save();
             $result[count($result) - 1] = [$key => $foto];
         }
 
@@ -76,7 +76,7 @@ class AdminController extends Controller
         // dark mode
         $foto = '';
         $key = 'foto_dark_mode';
-        $current = settings()->get(set_admin("app.$key"));
+        $current = settings()->get(set_front("app.$key"));
         $result[] = [$key => $current];
         if ($image = $request->file($key)) {
             // delete foto
@@ -89,14 +89,14 @@ class AdminController extends Controller
             $image->move(public_path($this->folder_logo), $foto);
 
             // save foto
-            settings()->set(set_admin("app.$key"), $foto)->save();
+            settings()->set(set_front("app.$key"), $foto)->save();
             $result[count($result) - 1] = [$key => $foto];
         }
 
         // light mode
         $foto = '';
         $key = 'foto_light_mode';
-        $current = settings()->get(set_admin("app.$key"));
+        $current = settings()->get(set_front("app.$key"));
         $result[] = [$key => $current];
         if ($image = $request->file($key)) {
             // delete foto
@@ -109,7 +109,7 @@ class AdminController extends Controller
             $image->move(public_path($this->folder_logo), $foto);
 
             // save foto
-            settings()->set(set_admin("app.$key"), $foto)->save();
+            settings()->set(set_front("app.$key"), $foto)->save();
             $result[count($result) - 1] = [$key => $foto];
         }
         return response()->json($result);
@@ -118,13 +118,13 @@ class AdminController extends Controller
     public function save_meta(Request $request)
     {
         $result = [];
-        settings()->set(set_admin('meta.author'), $request->author)->save();
-        settings()->set(set_admin('meta.keyword'), $request->keyword)->save();
-        settings()->set(set_admin('meta.description'), $request->description)->save();
+        settings()->set(set_front('meta.author'), $request->author)->save();
+        settings()->set(set_front('meta.keyword'), $request->keyword)->save();
+        settings()->set(set_front('meta.description'), $request->description)->save();
 
         // logo
         $key = 'image';
-        $current = settings()->get(set_admin("meta.$key"));
+        $current = settings()->get(set_front("meta.$key"));
         $result[] = [$key => $current];
         if ($image = $request->file($key)) {
             // delete foto
@@ -138,7 +138,7 @@ class AdminController extends Controller
             $image->move(public_path($folder), $foto);
 
             // save foto
-            settings()->set(set_admin("meta.$key"), $foto)->save();
+            settings()->set(set_front("meta.$key"), $foto)->save();
             $result[count($result) - 1] = [$key => $foto];
         }
 
@@ -148,14 +148,14 @@ class AdminController extends Controller
     private function meta_list_get()
     {
 
-        $list = settings()->get(set_admin("meta_list"), null);
+        $list = settings()->get(set_front("meta_list"), null);
         return is_null($list) ? [] : json_decode($list);
     }
 
     private function meta_list_set($list)
     {
         $list = json_encode($list);
-        settings()->set(set_admin("meta_list"), $list)->save();
+        settings()->set(set_front("meta_list"), $list)->save();
 
         return $this->meta_list_get();
     }
