@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('status_kawin')->nullable()->default(null);
             $table->string('no_kk')->nullable()->default(null);
             $table->string('hub_dgn_kk')->nullable()->default(null);
-            $table->int('hub_dgn_kk_urutan')->nullable()->default(null)->comment("Contoh kepala keluarga selalu no 1");
+            $table->integer('hub_dgn_kk_urutan')->nullable()->default(null)->comment("Contoh kepala keluarga selalu no 1");
             $table->string('warga_negara')->nullable()->default(null);
             $table->string('negara_nama')->nullable()->default(null);
             $table->string('no_passport')->nullable()->default(null);
