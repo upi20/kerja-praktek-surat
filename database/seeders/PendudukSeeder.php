@@ -194,6 +194,7 @@ class PendudukSeeder extends Seeder
                     $kepala->negara_nama = 'INDONESIA';
                     $kepala->rt_id = $rt->id;
                     $kepala->alamat = $alamat;
+                    $kepala->penduduk_ada = 'Ada';
                     $kepala->save();
 
                     // kepala user
@@ -282,6 +283,7 @@ class PendudukSeeder extends Seeder
                     $istri->negara_nama = 'INDONESIA';
                     $istri->rt_id = $rt->id;
                     $istri->alamat = $alamat;
+                    $istri->penduduk_ada = 'Ada';
                     $istri->save();
 
                     // istri user
@@ -326,6 +328,7 @@ class PendudukSeeder extends Seeder
                         $anak->negara_nama = 'INDONESIA';
                         $anak->rt_id = $rt->id;
                         $anak->alamat = $alamat;
+                        $anak->penduduk_ada = 'Ada';
                         $anak->save();
 
                         // anak user
