@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('nama')->nullable()->default(null);
             $table->string('jenis_kelamin')->nullable()->default(null);
             $table->string('tempat_lahir')->nullable()->default(null);
-            $table->string('tanggal_lahir')->nullable()->default(null);
+            $table->date('tanggal_lahir')->nullable()->default(null);
+            $table->date('tanggal_mati')->nullable()->default(null);
             $table->string('agama')->nullable()->default(null);
             $table->string('pendidikan')->nullable()->default(null);
             $table->string('pekerjaan')->nullable()->default(null);
