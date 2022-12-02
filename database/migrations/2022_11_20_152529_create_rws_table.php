@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('rws', function (Blueprint $table) {
             $table->id();
-            $table->string('nama')->nullable()->default(null);
+            $table->string('nomor')->nullable()->default(null);
             $table->string('nama_ketua')->nullable()->default(null);
             $table->timestamps();
         });

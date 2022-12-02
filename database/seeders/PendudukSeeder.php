@@ -4,10 +4,10 @@ namespace Database\Seeders;
 
 use App\Models\Desa\Pegawai;
 use App\Models\Desa\PegawaiJabatan;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Penduduk\KetuaRt;
 use App\Models\Penduduk\KetuaRw;
+use App\Models\Penduduk\Masuk;
 use App\Models\Penduduk\Penduduk;
 use App\Models\Penduduk\Rt;
 use App\Models\Penduduk\Rw;
@@ -31,12 +31,13 @@ class PendudukSeeder extends Seeder
         DB::table(Rw::tableName)->delete();
 
         $jml_rw = 15;
-        $jml_rt = 10;
-        $jml_kk_rt = 15;
-        $nik_counter = 1;
-        $kk_counter = 1;
+        $jml_rt = 5;
+        $jml_kk_rt = 10;
         $kepala_desa = 1;
         $pegawai_desa = 10;
+
+        $nik_counter = 1;
+        $kk_counter = 1;
         $password = bcrypt('12345678');
 
         // buat data jabatan ==========================================================================================
@@ -156,12 +157,12 @@ class PendudukSeeder extends Seeder
 
         for ($rw_no = 1; $rw_no <= $jml_rw; $rw_no++) {
             $rw = new Rw();
-            $rw->nama = "RW $rw_no";
+            $rw->nomor = $rw_no;
             $rw->nama_ketua = "Ketua RW $rw_no";
             $rw->save();
             for ($rt_no = 1; $rt_no <= $jml_rt; $rt_no++) {
                 $rt = new Rt();
-                $rt->nama = "RT $rt_no";
+                $rt->nomor = $rt_no;
                 $rt->nama_ketua = "Ketua RT $rt_no / RW $rw_no";
                 $rt->nama_daerah = "Kampung RT $rt_no / RW $rw_no";
                 $rt->rw_id = $rw->id;
@@ -204,6 +205,13 @@ class PendudukSeeder extends Seeder
                     $user->active = 1;
                     $user->save();
                     $user->assignRole('Penduduk');
+
+                    // simpan ke penduduk masuk
+                    $masuk = new Masuk();
+                    $masuk->penduduk_id = $kepala->id;
+                    $masuk->nama = 'Dibuat Untuk Testing';
+                    $masuk->tanggal = date('Y-m-d');
+                    $masuk->save();
 
                     // ketua rw
                     if ($rt_no == 1 && $kk == 1) {
@@ -286,6 +294,13 @@ class PendudukSeeder extends Seeder
                     $user->save();
                     $user->assignRole('Penduduk');
 
+                    // simpan ke penduduk masuk
+                    $masuk = new Masuk();
+                    $masuk->penduduk_id = $istri->id;
+                    $masuk->nama = 'Dibuat Untuk Testing';
+                    $masuk->tanggal = date('Y-m-d');
+                    $masuk->save();
+
                     // ================================================================================================
                     // anak
                     $tempat_lahir = $faker->city();
@@ -322,6 +337,13 @@ class PendudukSeeder extends Seeder
                         $user->active = 1;
                         $user->save();
                         $user->assignRole('Penduduk');
+
+                        // simpan ke penduduk masuk
+                        $masuk = new Masuk();
+                        $masuk->penduduk_id = $anak->id;
+                        $masuk->nama = 'Dibuat Untuk Testing';
+                        $masuk->tanggal = date('Y-m-d');
+                        $masuk->save();
                     }
                 }
 
@@ -338,40 +360,6 @@ class PendudukSeeder extends Seeder
                 echo ("  $persentase | $rw_pad RW | $rt_pad RT | $nik_counter_ PENDUDUK\n");
             }
         }
-
-        // rule
-        // 1rt = 12 kk
-        // 1kk = 3-6 penduduk
-
-        // kk pertama yang ada di rw jadi ketua rw 
-        // kk pertama yang ada di rt jadi ketua rt 
-
-
-        // kepala keluarga
-        // nik mmddhhiiss hhiiss 10082000 06
-
-        // [x] rt_id
-        // [x] nik
-        // [x] nama
-        // [x] jenis_kelamin
-        // [x] tempat_lahir
-        // [x] tanggal_lahir
-        // [x] agama
-        // [x] pendidikan
-        // [x] pekerjaan
-        // [x] status_kawin
-        // [x] no_kk
-        // [x] hub_dgn_kk
-        // [x] warga_negara
-        // [x] negara_nama
-        // [x] no_passport
-        // [x] kitas_kitap
-        // [x] foto_ktp
-
-
-        // istri
-
-        // anak
 
         return true;
     }

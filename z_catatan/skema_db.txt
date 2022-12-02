@@ -381,3 +381,19 @@ Table surat_kk_penduduk{
   ayah_nama varchar
   ibu_nama varchar
 }
+
+Table penduduk_masuk{
+  id int
+  penduduk_id int [ref: > penduduk.penduduk_id]
+  nama varchar
+  keterangan varchar
+  tanggal date
+}
+
+Table penduduk_keluar{
+  id int
+  penduduk_id int [ref: > penduduk.penduduk_id]
+  nama varchar
+  keterangan varchar
+  tanggal date
+}

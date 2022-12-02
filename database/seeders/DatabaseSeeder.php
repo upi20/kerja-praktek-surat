@@ -46,6 +46,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ContactMessagesTableSeeder::class);
         $this->call(FaqTableSeeder::class);
 
-        // $this->call(PendudukSeeder::class);
+        $this->call(PendudukSeeder::class);
     }
 }

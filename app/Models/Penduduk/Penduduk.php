@@ -49,4 +49,14 @@ class Penduduk extends Model
         $folder = self::imageFolder;
         return Attribute::make(get: fn ($value) => (is_null($value) ? null : asset("$folder/$value")));
     }
+
+    protected function keluars()
+    {
+        return $this->hasMany(Keluar::class, 'penduduk_id', 'id');
+    }
+
+    protected function masuks()
+    {
+        return $this->hasMany(Masuk::class, 'penduduk_id', 'id');
+    }
 }

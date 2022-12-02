@@ -28,6 +28,7 @@ Table penduduk{
   no_passport varchar
   kitas_kitap varchar
   rt_id int [ref: - rt.id]
+  penduduk_ada int
 }
 
 Table jabatan{
@@ -164,4 +165,20 @@ Table surat_kk_penduduk{
   ayah_id int [ref: < surat_kk_penduduk.id]
   ibu_nama varchar
   ibu_id int [ref: < surat_kk_penduduk.id]
+}
+
+Table penduduk_masuk{
+  id int
+  penduduk_id int [ref: > penduduk.penduduk_id]
+  nama varchar
+  keterangan varchar
+  tanggal date
+}
+
+Table penduduk_keluar{
+  id int
+  penduduk_id int [ref: > penduduk.penduduk_id]
+  nama varchar
+  keterangan varchar
+  tanggal date
 }
