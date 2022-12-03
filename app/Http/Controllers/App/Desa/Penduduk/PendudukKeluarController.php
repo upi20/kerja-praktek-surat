@@ -160,24 +160,6 @@ class PendudukKeluarController extends Controller
         }
     }
 
-    public function select2(Request $request)
-    {
-        try {
-            $model = SocialMedia::select(['id', DB::raw('nama as text')])
-                ->whereRaw("(`nama` like '%$request->search%' or `id` like '%$request->search%')")
-                ->limit(10);
-
-            $result = $model->get()->toArray();
-            if ($request->with_empty && $request->search) {
-                $result = array_merge([['id' => $request->search, 'text' => $request->search . ' (Buat Sosial Media Baru)']], $result);
-            }
-
-            return response()->json(['results' => $result]);
-        } catch (\Exception $error) {
-            return response()->json($error, 500);
-        }
-    }
-
     public function datatable(Request $request): mixed
     {
         // list table
