@@ -13,7 +13,7 @@ class Pegawai extends Model
         'nip',
         'nama',
         'jabatan_id',
-        'penduduk_id',
+        'penduduk_id', 'updated_by', 'created_by'
     ];
 
     protected $primaryKey = 'id';

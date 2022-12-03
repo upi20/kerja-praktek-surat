@@ -51,7 +51,7 @@ class SuratKelahiran extends Model
         'ayah_negara_nama',
         'ayah_no_passport',
         'ayah_kitas_kitap',
-        'ayah_foto_ktp',
+        'ayah_foto_ktp', 'updated_by', 'created_by'
     ];
 
     protected $primaryKey = 'id';

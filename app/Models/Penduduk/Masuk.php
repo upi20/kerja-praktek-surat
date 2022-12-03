@@ -9,7 +9,7 @@ class Masuk extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['penduduk_id', 'nama', 'keterangan', 'tanggal'];
+    protected $fillable = ['penduduk_id', 'nama', 'keterangan', 'tanggal', 'updated_by', 'created_by'];
     protected $primaryKey = 'id';
     protected $table = 'penduduk_masuks';
     const tableName = 'penduduk_masuks';

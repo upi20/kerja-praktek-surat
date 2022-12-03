@@ -39,7 +39,7 @@ class Surat extends Model
         'jenis',
         'dibatalkan',
         'alasan_dibatalkan',
-        'tanggal_dibatalkan',
+        'tanggal_dibatalkan', 'updated_by', 'created_by'
     ];
 
     protected $primaryKey = 'id';

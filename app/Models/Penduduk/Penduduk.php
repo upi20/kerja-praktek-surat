@@ -27,6 +27,8 @@ class Penduduk extends Model
         'no_passport',
         'kitas_kitap',
         'foto_ktp',
+        'updated_by',
+        'created_by',
     ];
     protected $primaryKey = 'id';
     protected $table = 'penduduks';

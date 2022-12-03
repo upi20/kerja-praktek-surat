@@ -27,7 +27,7 @@ class SuratDomisili extends Model
         'negara_nama',
         'no_passport',
         'kitas_kitap',
-        'foto_ktp',
+        'foto_ktp', 'updated_by', 'created_by'
     ];
 
     protected $primaryKey = 'id';

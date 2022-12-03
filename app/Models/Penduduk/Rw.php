@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Rw extends Model
 {
     use HasFactory;
-    protected $fillable = ['nomor', 'nama_ketua'];
+    protected $fillable = ['nomor', 'nama_ketua', 'updated_by', 'created_by'];
     protected $primaryKey = 'id';
     protected $table = 'rws';
     const tableName = 'rws';

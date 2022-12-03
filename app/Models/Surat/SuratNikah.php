@@ -81,7 +81,7 @@ class SuratNikah extends Model
         'calon_negara_nama',
         'calon_no_passport',
         'calon_kitas_kitap',
-        'calon_foto_ktp',
+        'calon_foto_ktp', 'updated_by', 'created_by'
     ];
     protected $primaryKey = 'id';
     protected $table = 'surat_nikahs';

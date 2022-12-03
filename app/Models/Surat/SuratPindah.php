@@ -33,7 +33,7 @@ class SuratPindah extends Model
         'ke_rt_rw',
         'ke_alamat_lengkap',
         'alasan_pindah',
-        'jml_pengikut',
+        'jml_pengikut', 'updated_by', 'created_by'
     ];
     protected $primaryKey = 'id';
     protected $table = 'surat_pindahs';
