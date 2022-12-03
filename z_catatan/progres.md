@@ -24,8 +24,6 @@
     Penduduk Profile
   [x] Penduduk Masuk
   [x] Penduduk Keluar
-  Rukun Tetangga
-  Rukun Warga
   Rt atau rw bisa melihat penduduk nya masing masing
 
 # Laporan
@@ -34,7 +32,10 @@
     Penduduk Masuk
     Penduduk Keluar
 
-# Setting 
+# Administrasi
   Kepala desa
+  Pegawai
   Jabatan Pegawai
-  Aplikasi
+  Rukun Warga
+  Rukun Tetangga
+  Aplikasi (Asalnya pengaturan halaman)
