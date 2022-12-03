@@ -125,7 +125,7 @@ class PendudukMasukController extends Controller
             $penduduk->negara_nama = $request->negara_nama;
             $penduduk->rt_id = $rt->id;
             $penduduk->alamat = $request->alamat;
-            $penduduk->penduduk_ada = 'Tidak Ada';
+            $penduduk->penduduk_ada = 'Ada';
             $penduduk->save();
 
             // catat penduduk masuk
