@@ -14,25 +14,10 @@ use App\Models\SocialMedia;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
-class PendudukMasukController extends Controller
+class PendudukKeluarController extends Controller
 {
     private $validate_model = [
         'nik' => ['required', 'string'],
-        'no_kk' => ['required', 'string'],
-        'hub_dgn_kk' => ['required', 'string'],
-        'nama' => ['required', 'string'],
-        'tempat_lahir' => ['required', 'string'],
-        'tanggal_lahir' => ['required', 'date'],
-        'jenis_kelamin' => ['required', 'string'],
-        'agama' => ['required', 'string'],
-        'pendidikan' => ['required', 'string'],
-        'pekerjaan' => ['required', 'string'],
-        'status_kawin' => ['required', 'string'],
-        'warga_negara' => ['required', 'string'],
-        'negara_nama' => ['required', 'string'],
-        'rt' => ['required', 'integer'],
-        'rw' => ['required', 'integer'],
-        'alamat' => ['required', 'string'],
         'tanggal' => ['required', 'date'],
         'masuk_nama' => ['required', 'string'],
         'masuk_keterangan' => ['nullable', 'string'],
@@ -134,7 +119,6 @@ class PendudukMasukController extends Controller
             $masuk->tanggal = $request->tanggal;
             $masuk->nama = $request->masuk_nama;
             $masuk->keterangan = $request->masuk_keterangan;
-            $masuk->created_by = auth()->user()->id;
             $masuk->save();
 
             // buat user untuk penduduk login
@@ -145,7 +129,6 @@ class PendudukMasukController extends Controller
                 $user->penduduk_id = $penduduk->id;
                 $user->password = bcrypt(config('app.password_default'));
                 $user->active = 1;
-                $user->created_by = auth()->user()->id;
                 $user->save();
                 $user->assignRole('Penduduk');
             }
@@ -190,7 +173,6 @@ class PendudukMasukController extends Controller
             $masuk->tanggal = $request->tanggal;
             $masuk->nama = $request->masuk_nama;
             $masuk->keterangan = $request->masuk_keterangan;
-            $masuk->updated_by = auth()->user()->id;
             $masuk->save();
 
             // set urutan hub dgn kk
@@ -219,7 +201,6 @@ class PendudukMasukController extends Controller
             $penduduk->rt_id = $rt->id;
             $penduduk->alamat = $request->alamat;
             $penduduk->penduduk_ada = 'Ada';
-            $penduduk->updated_by = auth()->user()->id;
             $penduduk->save();
 
             DB::commit();

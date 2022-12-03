@@ -125,7 +125,7 @@
                                 <span style="display: none;" id="hub_dgn_kk_text"></span>
                                 <select class="form-control" id="hub_dgn_kk" name="hub_dgn_kk">
                                     <option value="">Pilih Hubungan Dengan KK</option>
-                                    @foreach (config('app.hub_dgn_kks') as $hub)
+                                    @foreach ($hub_dgn_kks as $hub)
                                         <option value="{{ $hub['nama'] }}">{{ $hub['nama'] }}</option>
                                     @endforeach
                                 </select>
@@ -180,7 +180,7 @@
                                 <span style="display: none;" id="agama_text"></span>
                                 <select class="form-control" id="agama" name="agama">
                                     <option value="">Pilih Agama</option>
-                                    @foreach (config('app.agamas') as $agama)
+                                    @foreach ($agamas as $agama)
                                         <option value="{{ $agama }}">{{ $agama }}</option>
                                     @endforeach
                                 </select>
@@ -194,7 +194,7 @@
                                 <span style="display: none;" id="pendidikan_text"></span>
                                 <select class="form-control" id="pendidikan" name="pendidikan" required>
                                     <option value="">Pilih Pendidikan</option>
-                                    @foreach (config('app.pendidikans') as $pendidikan)
+                                    @foreach ($pendidikans as $pendidikan)
                                         <option value="{{ $pendidikan }}">{{ $pendidikan }}</option>
                                     @endforeach
                                 </select>
@@ -208,7 +208,7 @@
                                 <span style="display: none;" id="pekerjaan_text"></span>
                                 <select class="form-control" id="pekerjaan" name="pekerjaan" required>
                                     <option value="">Pilih Pekerjaan</option>
-                                    @foreach (config('app.pekerjaans') as $pekerjaan)
+                                    @foreach ($pekerjaans as $pekerjaan)
                                         <option value="{{ $pekerjaan }}">{{ $pekerjaan }}</option>
                                     @endforeach
                                 </select>
