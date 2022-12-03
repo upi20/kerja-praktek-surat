@@ -20,12 +20,13 @@
   Proses Surat
 
 # Data Kependudukan
-  Data Penduduk
+  [x] Data Penduduk
     Penduduk Profile
   [x] Penduduk Masuk
   [x] Penduduk Keluar
   Rukun Tetangga
   Rukun Warga
+  Rt atau rw bisa melihat penduduk nya masing masing
 
 # Laporan
   Surat Menyurat
