@@ -303,8 +303,7 @@
                             </label>
                             <div class="col-sm-9">
                                 <span style="display: none;" id="masuk_keterangan_text"></span>
-                                <textarea class="form-control" placeholder="Catatan Penduduk Masuk" id="masuk_keterangan" name="masuk_keterangan"
-                                    required></textarea>
+                                <textarea class="form-control" placeholder="Catatan Penduduk Masuk" id="masuk_keterangan" name="masuk_keterangan"></textarea>
                             </div>
                         </div>
                     </form>

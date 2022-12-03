@@ -75,7 +75,7 @@ class PendudukMasukController extends Controller
                 $penduduk->created_by = auth()->user()->id;
                 $new_penduduk = true;
             } else {
-                $penduduk->update_by = auth()->user()->id;
+                $penduduk->updated_by = auth()->user()->id;
             }
 
             // cek rt rw
