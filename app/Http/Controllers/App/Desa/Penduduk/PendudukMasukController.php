@@ -228,10 +228,18 @@ class PendudukMasukController extends Controller
         }
     }
 
-    public function delete(SocialMedia $model)
+    public function delete(Masuk $model)
     {
         try {
+            DB::beginTransaction();
+            $penduduk = $model->penduduk;
             $model->delete();
+
+            if ($penduduk->masuks->count() < 1) {
+                $penduduk->delete();
+            }
+
+            DB::commit();
             return response()->json();
         } catch (ValidationException $error) {
             return response()->json([
@@ -258,14 +266,6 @@ class PendudukMasukController extends Controller
             return response()->json($error, 500);
         }
     }
-
-
-
-
-
-
-
-
 
     public function datatable(Request $request): mixed
     {
@@ -427,16 +427,4 @@ class PendudukMasukController extends Controller
         $penduduk->rt->rw;
         return $penduduk;
     }
-
-
-
-
-    // insert
-    // insert data belum ada
-    // insert data Sudah ada
-    // update hanya tanggal, nama dan keterangan
-    // delete
-    // cek nik
-    // datatable
-
 }
