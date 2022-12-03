@@ -160,17 +160,65 @@ class PendudukMasukController extends Controller
     public function update(Request $request)
     {
         try {
-            $model = SocialMedia::find($request->id);
-            $request->validate(array_merge(['id' => ['required', 'int']], $this->validate_model));
+            DB::beginTransaction();
+            // cek rt rw
+            $rw = Rw::where('nomor', $request->rw)->first();
+            if (is_null($rw)) {
+                return response()->json([
+                    'errors' => [
+                        'rw' => ['Nomor RW Tidak Terdaftar']
+                    ],
+                    'message' => 'Something went wrong',
+                ], 422);
+            }
 
-            $model->url = $request->url;
-            $model->icon = $request->icon;
-            $model->nama = $request->nama;
-            $model->keterangan = $request->keterangan;
-            $model->status = $request->status;
-            $model->order = $request->order;
-            // $model->updated_by = auth()->user()->id;
-            $model->save();
+            $rt = Rt::where('nomor', $request->rt)->where('rw_id', $rw->id)->first();
+            if (is_null($rt)) {
+                return response()->json([
+                    'errors' => [
+                        'rt' => ['Nomor RT Tidak Terdaftar']
+                    ],
+                    'message' => 'Something went wrong',
+                ], 422);
+            }
+
+            // set urutan hub dgn kk
+            $request->validate(array_merge(['id' => ['required', 'int']], $this->validate_model));
+            $masuk = Masuk::findOrFail($request->id);
+            $masuk->tanggal = $request->tanggal;
+            $masuk->nama = $request->masuk_nama;
+            $masuk->keterangan = $request->masuk_keterangan;
+            $masuk->save();
+
+            // set urutan hub dgn kk
+            $hub_dgn_kk_urutan = 0;
+
+            foreach (config('app.hub_dgn_kks') as $v) {
+                if ($v['nama'] == $request->hub_dgn_kk) {
+                    $hub_dgn_kk_urutan = $v['urutan'];
+                }
+            }
+            $penduduk = $masuk->penduduk;
+            $penduduk->nik = $request->nik;
+            $penduduk->no_kk = $request->no_kk;
+            $penduduk->hub_dgn_kk = $request->hub_dgn_kk;
+            $penduduk->hub_dgn_kk_urutan = $hub_dgn_kk_urutan;
+            $penduduk->nama = $request->nama;
+            $penduduk->tempat_lahir = $request->tempat_lahir;
+            $penduduk->tanggal_lahir = $request->tanggal_lahir;
+            $penduduk->jenis_kelamin = $request->jenis_kelamin;
+            $penduduk->agama = $request->agama;
+            $penduduk->pendidikan = $request->pendidikan;
+            $penduduk->pekerjaan = $request->pekerjaan;
+            $penduduk->status_kawin = $request->status_kawin;
+            $penduduk->warga_negara = $request->warga_negara;
+            $penduduk->negara_nama = $request->negara_nama;
+            $penduduk->rt_id = $rt->id;
+            $penduduk->alamat = $request->alamat;
+            $penduduk->penduduk_ada = 'Ada';
+            $penduduk->save();
+
+            DB::commit();
             return response()->json();
         } catch (ValidationException $error) {
             return response()->json([

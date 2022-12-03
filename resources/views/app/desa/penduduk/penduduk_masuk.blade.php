@@ -611,6 +611,7 @@
                 success: (data) => {
                     $('#modal-default-title').html("Ubah {{ $page_attr['title'] }}");
                     $('#modal-default').modal('show');
+                    $('#id').val(data.id);
                     input_form_data(data);
                     view_form('update');
                     render_tanggal('#tanggal');
