@@ -56,7 +56,7 @@ class PendudukMasukController extends Controller
         $pekerjaans = config('app.pekerjaans');
 
         $agamas = config('app.agamas');
-        $data = compact('page_attr', 'hub_dgn_kks', 'pendidikans', 'pekerjaans');
+        $data = compact('page_attr', 'hub_dgn_kks', 'pendidikans', 'pekerjaans', 'agamas');
         $data['compact'] = $data;
         return view('app.desa.penduduk.penduduk_masuk', $data);
     }
