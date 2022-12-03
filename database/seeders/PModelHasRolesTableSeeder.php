@@ -20073,605 +20073,635 @@ class PModelHasRolesTableSeeder extends Seeder
             ),
             340 => 
             array (
-                'role_id' => 4,
+                'role_id' => 3,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 13,
+                'model_id' => 3341,
             ),
             341 => 
             array (
-                'role_id' => 4,
+                'role_id' => 3,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 17,
+                'model_id' => 3342,
             ),
             342 => 
             array (
-                'role_id' => 4,
+                'role_id' => 3,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 22,
+                'model_id' => 3343,
             ),
             343 => 
             array (
-                'role_id' => 4,
+                'role_id' => 3,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 25,
+                'model_id' => 3344,
             ),
             344 => 
             array (
-                'role_id' => 4,
+                'role_id' => 3,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 28,
+                'model_id' => 3345,
             ),
             345 => 
             array (
                 'role_id' => 4,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 32,
+                'model_id' => 13,
             ),
             346 => 
             array (
                 'role_id' => 4,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 35,
+                'model_id' => 17,
             ),
             347 => 
             array (
                 'role_id' => 4,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 40,
+                'model_id' => 22,
             ),
             348 => 
             array (
                 'role_id' => 4,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 54,
+                'model_id' => 25,
             ),
             349 => 
             array (
                 'role_id' => 4,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 57,
+                'model_id' => 28,
             ),
             350 => 
             array (
                 'role_id' => 4,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 61,
+                'model_id' => 32,
             ),
             351 => 
             array (
-                'role_id' => 5,
+                'role_id' => 4,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2,
+                'model_id' => 35,
             ),
             352 => 
             array (
-                'role_id' => 5,
+                'role_id' => 4,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 218,
+                'model_id' => 40,
             ),
             353 => 
             array (
-                'role_id' => 5,
+                'role_id' => 4,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 448,
+                'model_id' => 54,
             ),
             354 => 
             array (
-                'role_id' => 5,
+                'role_id' => 4,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 673,
+                'model_id' => 57,
             ),
             355 => 
             array (
-                'role_id' => 5,
+                'role_id' => 4,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 885,
+                'model_id' => 61,
             ),
             356 => 
             array (
                 'role_id' => 5,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1104,
+                'model_id' => 2,
             ),
             357 => 
             array (
                 'role_id' => 5,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1336,
+                'model_id' => 218,
             ),
             358 => 
             array (
                 'role_id' => 5,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1568,
+                'model_id' => 448,
             ),
             359 => 
             array (
                 'role_id' => 5,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1801,
+                'model_id' => 673,
             ),
             360 => 
             array (
                 'role_id' => 5,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2011,
+                'model_id' => 885,
             ),
             361 => 
             array (
                 'role_id' => 5,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2238,
+                'model_id' => 1104,
             ),
             362 => 
             array (
                 'role_id' => 5,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2457,
+                'model_id' => 1336,
             ),
             363 => 
             array (
                 'role_id' => 5,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2677,
+                'model_id' => 1568,
             ),
             364 => 
             array (
                 'role_id' => 5,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2895,
+                'model_id' => 1801,
             ),
             365 => 
             array (
                 'role_id' => 5,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 3113,
+                'model_id' => 2011,
             ),
             366 => 
             array (
-                'role_id' => 6,
+                'role_id' => 5,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 8,
+                'model_id' => 2238,
             ),
             367 => 
             array (
-                'role_id' => 6,
+                'role_id' => 5,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 48,
+                'model_id' => 2457,
             ),
             368 => 
             array (
-                'role_id' => 6,
+                'role_id' => 5,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 95,
+                'model_id' => 2677,
             ),
             369 => 
             array (
-                'role_id' => 6,
+                'role_id' => 5,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 138,
+                'model_id' => 2895,
             ),
             370 => 
             array (
-                'role_id' => 6,
+                'role_id' => 5,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 181,
+                'model_id' => 3113,
             ),
             371 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 222,
+                'model_id' => 8,
             ),
             372 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 271,
+                'model_id' => 48,
             ),
             373 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 312,
+                'model_id' => 95,
             ),
             374 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 359,
+                'model_id' => 138,
             ),
             375 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 407,
+                'model_id' => 181,
             ),
             376 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 453,
+                'model_id' => 222,
             ),
             377 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 495,
+                'model_id' => 271,
             ),
             378 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 541,
+                'model_id' => 312,
             ),
             379 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 582,
+                'model_id' => 359,
             ),
             380 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 631,
+                'model_id' => 407,
             ),
             381 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 677,
+                'model_id' => 453,
             ),
             382 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 719,
+                'model_id' => 495,
             ),
             383 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 759,
+                'model_id' => 541,
             ),
             384 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 805,
+                'model_id' => 582,
             ),
             385 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 849,
+                'model_id' => 631,
             ),
             386 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 888,
+                'model_id' => 677,
             ),
             387 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 938,
+                'model_id' => 719,
             ),
             388 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 979,
+                'model_id' => 759,
             ),
             389 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1021,
+                'model_id' => 805,
             ),
             390 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1064,
+                'model_id' => 849,
             ),
             391 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1109,
+                'model_id' => 888,
             ),
             392 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1153,
+                'model_id' => 938,
             ),
             393 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1197,
+                'model_id' => 979,
             ),
             394 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1245,
+                'model_id' => 1021,
             ),
             395 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1292,
+                'model_id' => 1064,
             ),
             396 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1342,
+                'model_id' => 1109,
             ),
             397 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1393,
+                'model_id' => 1153,
             ),
             398 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1440,
+                'model_id' => 1197,
             ),
             399 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1480,
+                'model_id' => 1245,
             ),
             400 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1527,
+                'model_id' => 1292,
             ),
             401 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1574,
+                'model_id' => 1342,
             ),
             402 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1619,
+                'model_id' => 1393,
             ),
             403 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1668,
+                'model_id' => 1440,
             ),
             404 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1715,
+                'model_id' => 1480,
             ),
             405 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1761,
+                'model_id' => 1527,
             ),
             406 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1806,
+                'model_id' => 1574,
             ),
             407 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1850,
+                'model_id' => 1619,
             ),
             408 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1894,
+                'model_id' => 1668,
             ),
             409 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1934,
+                'model_id' => 1715,
             ),
             410 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 1976,
+                'model_id' => 1761,
             ),
             411 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2016,
+                'model_id' => 1806,
             ),
             412 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2065,
+                'model_id' => 1850,
             ),
             413 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2106,
+                'model_id' => 1894,
             ),
             414 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2152,
+                'model_id' => 1934,
             ),
             415 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2196,
+                'model_id' => 1976,
             ),
             416 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2241,
+                'model_id' => 2016,
             ),
             417 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2282,
+                'model_id' => 2065,
             ),
             418 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2333,
+                'model_id' => 2106,
             ),
             419 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2379,
+                'model_id' => 2152,
             ),
             420 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2419,
+                'model_id' => 2196,
             ),
             421 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2463,
+                'model_id' => 2241,
             ),
             422 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2505,
+                'model_id' => 2282,
             ),
             423 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2550,
+                'model_id' => 2333,
             ),
             424 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2598,
+                'model_id' => 2379,
             ),
             425 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2639,
+                'model_id' => 2419,
             ),
             426 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2682,
+                'model_id' => 2463,
             ),
             427 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2730,
+                'model_id' => 2505,
             ),
             428 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2774,
+                'model_id' => 2550,
             ),
             429 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2817,
+                'model_id' => 2598,
             ),
             430 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2856,
+                'model_id' => 2639,
             ),
             431 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2900,
+                'model_id' => 2682,
             ),
             432 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2942,
+                'model_id' => 2730,
             ),
             433 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 2991,
+                'model_id' => 2774,
             ),
             434 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 3038,
+                'model_id' => 2817,
             ),
             435 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 3079,
+                'model_id' => 2856,
             ),
             436 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 3116,
+                'model_id' => 2900,
             ),
             437 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 3161,
+                'model_id' => 2942,
             ),
             438 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 3205,
+                'model_id' => 2991,
             ),
             439 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
-                'model_id' => 3258,
+                'model_id' => 3038,
             ),
             440 => 
+            array (
+                'role_id' => 6,
+                'model_type' => 'App\\Models\\User',
+                'model_id' => 3079,
+            ),
+            441 => 
+            array (
+                'role_id' => 6,
+                'model_type' => 'App\\Models\\User',
+                'model_id' => 3116,
+            ),
+            442 => 
+            array (
+                'role_id' => 6,
+                'model_type' => 'App\\Models\\User',
+                'model_id' => 3161,
+            ),
+            443 => 
+            array (
+                'role_id' => 6,
+                'model_type' => 'App\\Models\\User',
+                'model_id' => 3205,
+            ),
+            444 => 
+            array (
+                'role_id' => 6,
+                'model_type' => 'App\\Models\\User',
+                'model_id' => 3258,
+            ),
+            445 => 
             array (
                 'role_id' => 6,
                 'model_type' => 'App\\Models\\User',
