@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\App\Desa\DashboardController;
+use App\Http\Controllers\App\Desa\PendudukController;
 use App\Http\Controllers\App\Desa\Penduduk\PendudukKeluarController;
 use App\Http\Controllers\App\Desa\Penduduk\PendudukMasukController;
 use Illuminate\Support\Facades\Route;
@@ -13,6 +14,7 @@ Route::get("/", [DashboardController::class, 'index'])
 $prefix = 'penduduk';
 Route::prefix($prefix)->group(function () use ($name, $prefix) {
     $name = "$name.$prefix"; // desa.penduduk
+    Route::get('/', [PendudukController::class, 'index'])->name($name)->middleware("permission:$name");
 
     $prefix = 'masuk';
     Route::controller(PendudukMasukController::class)->prefix($prefix)->group(function () use ($name, $prefix) {
