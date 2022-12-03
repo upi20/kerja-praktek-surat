@@ -202,6 +202,20 @@
                         </div>
 
                         <div class="row mb-3">
+                            <label for="pekerjaan" class="col-sm-3 col-form-label">Pekerjaan
+                                <span class="text-danger">*</span></label>
+                            <div class="col-sm-9">
+                                <span style="display: none;" id="pekerjaan_text"></span>
+                                <select class="form-control" id="pekerjaan" name="pekerjaan" required>
+                                    <option value="">Pilih Pekerjaan</option>
+                                    @foreach (config('app.pekerjaans') as $pekerjaan)
+                                        <option value="{{ $pekerjaan }}">{{ $pekerjaan }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
                             <label for="status_kawin" class="col-sm-3 col-form-label">Status Kawin
                                 <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
@@ -279,8 +293,8 @@
                             </label>
                             <div class="col-sm-9">
                                 <span style="display: none;" id="masuk_nama_text"></span>
-                                <input type="text" class="form-control date-input-str"
-                                    placeholder="Keterangan Penduduk Masuk" id="masuk_nama" name="masuk_nama" required>
+                                <input type="text" class="form-control" placeholder="Keterangan Penduduk Masuk"
+                                    id="masuk_nama" name="masuk_nama" required>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -361,6 +375,24 @@
                     }
                 }
             });
+
+            $('#warga_negara').change(function() {
+                if (this.value == "WNI") {
+                    $('#negara_nama').val('INDONESIA');
+                } else {
+                    $('#negara_nama').val('');
+                }
+            })
+
+            $('#negara_nama').keyup(function() {
+                if (String(this.value).toLocaleLowerCase() == 'indonesia') {
+                    $('#warga_negara').val('WNI');
+                } else if (String(this.value).toLocaleLowerCase() == '') {
+                    $('#warga_negara').val('');
+                } else {
+                    $('#warga_negara').val('WNA');
+                }
+            })
 
             // datatable ====================================================================================
             $.ajaxSetup({
@@ -658,6 +690,7 @@
             $('#tanggal_lahir').val(data.penduduk.tanggal_lahir);
             $('#agama').val(data.penduduk.agama);
             $('#pendidikan').val(data.penduduk.pendidikan);
+            $('#pekerjaan').val(data.penduduk.pekerjaan);
             $('#status_kawin').val(data.penduduk.status_kawin);
             $('#warga_negara').val(data.penduduk.warga_negara);
             $('#negara_nama').val(data.penduduk.negara_nama);
@@ -682,6 +715,7 @@
             const ttl_text = $('#ttl_text');
             const agama_text = $('#agama_text');
             const pendidikan_text = $('#pendidikan_text');
+            const pekerjaan_text = $('#pekerjaan_text');
             const status_kawin_text = $('#status_kawin_text');
             const warga_negara_text = $('#warga_negara_text');
             const negara_nama_text = $('#negara_nama_text');
@@ -700,6 +734,7 @@
             const tanggal_lahir = $('#tanggal_lahir');
             const agama = $('#agama');
             const pendidikan = $('#pendidikan');
+            const pekerjaan = $('#pekerjaan');
             const status_kawin = $('#status_kawin');
             const warga_negara = $('#warga_negara');
             const negara_nama = $('#negara_nama');
@@ -737,6 +772,10 @@
                     pendidikan_text.html(pendidikan.val());
                     pendidikan_text.show();
                     pendidikan.hide();
+
+                    pekerjaan_text.html(pekerjaan.val());
+                    pekerjaan_text.show();
+                    pekerjaan.hide();
 
                     status_kawin_text.html(status_kawin.val());
                     status_kawin_text.show();
@@ -810,6 +849,10 @@
                     pendidikan_text.html(pendidikan.val());
                     pendidikan_text.hide();
                     pendidikan.show();
+
+                    pekerjaan_text.html(pekerjaan.val());
+                    pekerjaan_text.hide();
+                    pekerjaan.show();
 
                     status_kawin_text.html(status_kawin.val());
                     status_kawin_text.hide();
@@ -887,6 +930,10 @@
                     pendidikan_text.show();
                     pendidikan.hide();
 
+                    pekerjaan_text.html(pekerjaan.val());
+                    pekerjaan_text.show();
+                    pekerjaan.hide();
+
                     status_kawin_text.html(status_kawin.val());
                     status_kawin_text.show();
                     status_kawin.hide();
@@ -962,6 +1009,10 @@
                     pendidikan_text.hide();
                     pendidikan.show();
 
+                    pekerjaan_text.html(pekerjaan.val());
+                    pekerjaan_text.hide();
+                    pekerjaan.show();
+
                     status_kawin_text.html(status_kawin.val());
                     status_kawin_text.hide();
                     status_kawin.show();
@@ -1036,6 +1087,7 @@
                     $('#tanggal_lahir').val(penduduk.tanggal_lahir);
                     $('#agama').val(penduduk.agama);
                     $('#pendidikan').val(penduduk.pendidikan);
+                    $('#pekerjaan').val(penduduk.pekerjaan);
                     $('#status_kawin').val(penduduk.status_kawin);
                     $('#warga_negara').val(penduduk.warga_negara);
                     $('#negara_nama').val(penduduk.negara_nama);
@@ -1063,7 +1115,10 @@
         }
 
         function reset_form() {
+            $('.is-valid').removeClass('is-valid');
             $('#MainForm').trigger("reset");
+            $('#warga_negara').val('WNI');
+            $('#negara_nama').val('INDONESIA');
             $('#id').val('');
             $('#tanggal').val("{{ date('Y-m-d') }}");
             view_form();

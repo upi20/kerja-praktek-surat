@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('penduduk_id', false, true)->nullable()->default(null);
             $table->foreign('penduduk_id')
                 ->references('id')->on('penduduks')
-                ->nullOnDelete()
+                ->cascadeOnDelete()
                 ->cascadeOnUpdate();
             $table->bigInteger('updated_by', false, true)->nullable()->default(null);
             $table->bigInteger('created_by', false, true)->nullable()->default(null);

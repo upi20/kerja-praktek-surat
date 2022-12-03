@@ -207,6 +207,7 @@ return [
     'role_rt' => env('ROLE_RT', 'Rukun Tetangga'),
     'role_rw' => env('ROLE_RW', 'Rukun Warga'),
     'role_desa' => env('ROLE_DESA', 'Pihak Desa'),
+    'password_default' => env('PASSWORD_DEFAULT', '12345678'),
 
     // config data penduduk
     'pendidikans' => [
@@ -224,6 +225,7 @@ return [
     ],
 
     'pekerjaans' => [
+        'TIDAK BEKERJA',
         'PEGAWAI NEGERI SIPIL',
         'ABRI/POLRI',
         'PEGAWAI SWASTA',
@@ -232,6 +234,7 @@ return [
         'PENSIUNAN',
         'PRA SEKOLAH',
         'IBU RUMAH TANGGA',
+        'PELAJAR/MAHASISWA',
         'LAINNYA',
     ],
 

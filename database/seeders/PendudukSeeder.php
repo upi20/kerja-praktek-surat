@@ -38,7 +38,7 @@ class PendudukSeeder extends Seeder
 
         $nik_counter = 1;
         $kk_counter = 1;
-        $password = bcrypt('12345678');
+        $password = bcrypt(config('app.password_default'));
 
         // buat data jabatan ==========================================================================================
         $jabatan = new PegawaiJabatan();
@@ -166,6 +166,7 @@ class PendudukSeeder extends Seeder
                 $rt->nama_ketua = "Ketua RT $rt_no / RW $rw_no";
                 $rt->nama_daerah = "Kampung RT $rt_no / RW $rw_no";
                 $rt->rw_id = $rw->id;
+                $rt->created_by = 1;
                 $rt->save();
 
                 // tambah data penduduk
@@ -205,6 +206,7 @@ class PendudukSeeder extends Seeder
                     $user->penduduk_id = $kepala->id;
                     $user->password = $password;
                     $user->active = 1;
+                    $user->created_by = 1;
                     $user->save();
                     $user->assignRole('Penduduk');
 
@@ -213,6 +215,7 @@ class PendudukSeeder extends Seeder
                     $masuk->penduduk_id = $kepala->id;
                     $masuk->nama = 'Dibuat Untuk Testing';
                     $masuk->tanggal = date('Y-m-d');
+                    $masuk->created_by = 1;
                     $masuk->save();
 
                     // ketua rw
@@ -220,9 +223,11 @@ class PendudukSeeder extends Seeder
                         $ketua_rw = new KetuaRw();
                         $ketua_rw->rw_id = $rw->id;
                         $ketua_rw->penduduk_id = $kepala->id;
+                        $ketua_rw->created_by = 1;
                         $ketua_rw->save();
 
                         $rw->nama_ketua = $kepala->nama;
+                        $rw->created_by = 1;
                         $rw->save();
                         $user->assignRole('Rukun Warga');
                     }
@@ -232,9 +237,11 @@ class PendudukSeeder extends Seeder
                         $ketua_rt = new KetuaRt();
                         $ketua_rt->rt_id = $rt->id;
                         $ketua_rt->penduduk_id = $kepala->id;
+                        $ketua_rt->created_by = 1;
                         $ketua_rt->save();
 
                         $rt->nama_ketua = $kepala->nama;
+                        $rt->created_by = 1;
                         $rt->save();
                         $user->assignRole('Rukun Tetangga');
                     }
@@ -246,6 +253,7 @@ class PendudukSeeder extends Seeder
                             $pegawai->penduduk_id = $kepala->id;
                             // kepala desa
                             $pegawai->jabatan_id = 1;
+                            $pegawai->created_by = 1;
                             $pegawai->save();
                             $user->assignRole('Pihak Desa');
 
@@ -256,6 +264,7 @@ class PendudukSeeder extends Seeder
                             $pegawai->penduduk_id = $kepala->id;
                             // pegawai desa
                             $pegawai->jabatan_id = $pegawai_desa + 1;
+                            $pegawai->created_by = 1;
                             $pegawai->save();
                             $user->assignRole('Pihak Desa');
 
@@ -303,6 +312,7 @@ class PendudukSeeder extends Seeder
                     $masuk->penduduk_id = $istri->id;
                     $masuk->nama = 'Dibuat Untuk Testing';
                     $masuk->tanggal = date('Y-m-d');
+                    $masuk->created_by = 1;
                     $masuk->save();
 
                     // ================================================================================================
@@ -341,6 +351,7 @@ class PendudukSeeder extends Seeder
                         $user->penduduk_id = $anak->id;
                         $user->password = $password;
                         $user->active = 1;
+                        $user->created_by = 1;
                         $user->save();
                         $user->assignRole('Penduduk');
 
@@ -349,6 +360,7 @@ class PendudukSeeder extends Seeder
                         $masuk->penduduk_id = $anak->id;
                         $masuk->nama = 'Dibuat Untuk Testing';
                         $masuk->tanggal = date('Y-m-d');
+                        $masuk->created_by = 1;
                         $masuk->save();
                     }
                 }
