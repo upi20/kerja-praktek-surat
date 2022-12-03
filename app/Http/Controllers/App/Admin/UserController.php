@@ -23,9 +23,9 @@ class UserController extends Controller
         }
 
         $page_attr = [
-            'title' => 'View User',
+            'title' => 'Pengguna',
             'breadcrumbs' => [
-                ['name' => 'Manage User'],
+                ['name' => 'Manage Pengguna'],
             ],
             'navigation' => 'user.view',
         ];

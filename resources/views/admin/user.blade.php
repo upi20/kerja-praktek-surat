@@ -15,7 +15,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header d-md-flex flex-row justify-content-between">
-                    <h3 class="card-title">User Table</h3>
+                    <h3 class="card-title">Pengguna Table</h3>
                     <div>
                         @if ($can_excel)
                             <button class="btn btn-success btn-sm" onclick="exportExcel()">
@@ -34,9 +34,9 @@
                     <h5 class="h5">Filter Data</h5>
                     <form action="javascript:void(0)" class="form-inline ml-md-3 mb-md-3" id="FilterForm">
                         <div class="form-group me-md-3">
-                            <label for="filter_role">User Role</label>
+                            <label for="filter_role">Pengguna Jabatan</label>
                             <select class="form-control" id="filter_role" name="filter_role" style="max-width: 200px">
-                                <option value="">All User Role</option>
+                                <option value="">All Pengguna Jabatan</option>
                                 @foreach ($user_role as $role)
                                     <option value="{{ $role->name }}">
                                         {{ ucfirst(implode(' ', explode('_', $role->name))) }}
@@ -45,9 +45,9 @@
                             </select>
                         </div>
                         <div class="form-group me-md-3">
-                            <label for="filter_active">User Active</label>
+                            <label for="filter_active">Pengguna Active</label>
                             <select class="form-control" id="filter_active" name="filter_active" style="max-width: 200px">
-                                <option value="">All User Active</option>
+                                <option value="">All Pengguna Active</option>
                                 <option value="1">Yes</option>
                                 <option value="0">No</option>
                             </select>
@@ -56,22 +56,20 @@
                             <i class="fas fa-sync"></i> Refresh
                         </button>
                     </form>
-                    <div class="table-responsive table-striped">
-                        <table class="table table-bordered text-nowrap border-bottom" id="tbl_main">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Name</th>
-                                    <th>NIK</th>
-                                    {!! $is_admin ? '<th>Email</th>' : '' !!}
-                                    <th>Role</th>
-                                    <th>Active</th>
-                                    {!! $can_delete || $can_update ? '<th>Action</th>' : '' !!}
-                                </tr>
-                            </thead>
-                            <tbody> </tbody>
-                        </table>
-                    </div>
+                    <table class="table table-hover" id="tbl_main">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Name</th>
+                                <th>NIK</th>
+                                {!! $is_admin ? '<th>Email</th>' : '' !!}
+                                <th>Jabatan</th>
+                                <th>Active</th>
+                                {!! $can_delete || $can_update ? '<th>Action</th>' : '' !!}
+                            </tr>
+                        </thead>
+                        <tbody> </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -85,7 +83,7 @@
                         data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                    <form action="javascript:void(0)" id="UserForm" name="UserForm" method="POST"
+                    <form action="javascript:void(0)" id="PenggunaForm" name="PenggunaForm" method="POST"
                         enctype="multipart/form-data">
                         <input type="hidden" name="id" id="id">
                         <div class="form-group">
@@ -113,7 +111,7 @@
                                 placeholder="Enter Password" required="">
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="role">User Role</label>
+                            <label class="form-label" for="role">Pengguna Jabatan</label>
                             <select class="form-control select2" multiple style="width: 100%;" required=""
                                 id="roles" name="roles[]">
                                 @foreach ($user_role as $role)
@@ -135,7 +133,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" id="btn-save" form="UserForm">
+                    <button type="submit" class="btn btn-primary" id="btn-save" form="PenggunaForm">
                         <li class="fas fa-save mr-1"></li> Save changes
                     </button>
                     <button class="btn btn-light" data-bs-dismiss="modal">
@@ -223,9 +221,9 @@
                         data: 'active_str',
                         name: 'active',
                         render(data, type, full, meta) {
-                            const class_el = full.active == 1 ? 'badge bg-success' :
-                                'badge bg-danger';
-                            return `<span class="${class_el} p-2">${full.active_str}</span>`;
+                            const class_el = full.active == 1 ? 'success' :
+                                'danger';
+                            return `<i class="fas fa-circle text-${class_el} me-2"></i>${full.active_str}`;
                         },
                     },
                     ...((can_update || can_delete) ? [{
@@ -265,7 +263,7 @@
             });
 
             // insertForm ===================================================================================
-            $('#UserForm').submit(function(e) {
+            $('#PenggunaForm').submit(function(e) {
                 e.preventDefault();
                 var formData = new FormData(this);
                 setBtnLoading('#btn-save', 'Save Changes');
@@ -320,8 +318,8 @@
         });
 
         function add() {
-            $('#UserForm').trigger("reset");
-            $('#modal-default-title').html("Add User");
+            $('#PenggunaForm').trigger("reset");
+            $('#modal-default-title').html("Add Pengguna");
             $('#modal-default').modal('show');
             $('#id').val('');
             $('#roles').val('').trigger('change');
@@ -341,9 +339,9 @@
                     id
                 },
                 success: (data) => {
-                    $('#modal-default-title').html("Edit User");
+                    $('#modal-default-title').html("Edit Pengguna");
                     $('#modal-default').modal('show');
-                    $('#UserForm').trigger("reset");
+                    $('#PenggunaForm').trigger("reset");
                     $('#id').val(data.id);
                     $('#name').val(data.name);
                     $('#email').val(data.email);
