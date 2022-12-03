@@ -22,9 +22,8 @@
 # Data Kependudukan
   Data Penduduk
     Penduduk Profile
-  Penduduk Masuk
-  Penduduk Keluar
-
+  [x] Penduduk Masuk
+  [x] Penduduk Keluar
   Rukun Tetangga
   Rukun Warga
 

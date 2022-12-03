@@ -2,6 +2,7 @@
 
 namespace App\Models\Penduduk;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -34,6 +35,7 @@ class Penduduk extends Model
     protected $table = 'penduduks';
     const imageFolder = '/assets/upload';
     const tableName = 'penduduks';
+    protected $appends = ['tanggal_lahir_text'];
 
     public function rt()
     {
@@ -60,5 +62,11 @@ class Penduduk extends Model
     protected function masuks()
     {
         return $this->hasMany(Masuk::class, 'penduduk_id', 'id');
+    }
+
+    protected function getTanggalLahirTextAttribute()
+    {
+        return Carbon::parse($this->attributes['tanggal_lahir'])
+            ->isoFormat("D MMMM Y");
     }
 }

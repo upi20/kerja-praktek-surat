@@ -15,6 +15,7 @@ $prefix = 'penduduk';
 Route::prefix($prefix)->group(function () use ($name, $prefix) {
     $name = "$name.$prefix"; // desa.penduduk
     Route::get('/', [PendudukController::class, 'index'])->name($name)->middleware("permission:$name");
+    Route::get('/find/{penduduk:nik}', [PendudukController::class, 'find'])->name("$name.find")->middleware("permission:$name");
 
     $prefix = 'masuk';
     Route::controller(PendudukMasukController::class)->prefix($prefix)->group(function () use ($name, $prefix) {

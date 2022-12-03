@@ -171,6 +171,25 @@
             </table>
         </div>
     </div>
+
+    <!-- End Row -->
+    <div class="modal fade" id="modal-default">
+        <div class="modal-dialog modal-dialog-centered  modal-lg" role="document">
+            <div class="modal-content modal-content-demo">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="modal-default-title"></h6><button aria-label="Tutup" class="btn-close"
+                        data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body"> </div>
+                <div class="modal-footer">
+                    <button class="btn btn-light" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i>
+                        Tutup
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('javascript')
@@ -308,8 +327,8 @@
                         className: 'text-nowrap'
                     },
                     {
-                        data: 'id',
-                        name: 'id',
+                        data: 'nik',
+                        name: 'nik',
                         render(data, type, full, meta) {
                             return `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-info btn-sm me-1" title="Lihat Data" onClick="viewFunc('${data}')">
                                 <i class="fas fa-eye"></i>
@@ -343,5 +362,107 @@
                 oTable.fnDraw(false);
             });
         });
+
+        function viewFunc(nik) {
+            $.LoadingOverlay("show");
+            $.ajax({
+                type: "GET",
+                url: `{{ url(h_prefix_uri('find')) }}/${nik}`,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: (penduduk) => {
+                    $('#modal-default-title').html("Lihat {{ $page_attr['title'] }}");
+                    $('#modal-default').modal('show');
+                    $('#modal-default').find('.modal-body').html(`
+                        <table class="table">
+                            <tr>
+                                <td >Nomor Induk Kependudukan</td>
+                                <td style="width: 10px; text-align: center">:</td>
+                                <td>${penduduk.nik}</td>
+                            </tr>
+                            <tr>
+                                <td >NO Kartu Keluarga</td>
+                                <td style="width: 10px; text-align: center">:</td>
+                                <td>${penduduk.no_kk}</td>
+                            </tr>
+                            <tr>
+                                <td >Hubungan Dengan KK</td>
+                                <td style="width: 10px; text-align: center">:</td>
+                                <td>${penduduk.hub_dgn_kk}</td>
+                            </tr>
+                            <tr>
+                                <td >Nama Lengkap</td>
+                                <td style="width: 10px; text-align: center">:</td>
+                                <td>${penduduk.nama}</td>
+                            </tr>
+                            <tr>
+                                <td >Tempat, Tanggal lahir</td>
+                                <td style="width: 10px; text-align: center">:</td>
+                                <td>${penduduk.tempat_lahir}, ${penduduk.tanggal_lahir_text}</td>
+                            </tr>
+                            <tr>
+                                <td >Jenis Kelamin</td>
+                                <td style="width: 10px; text-align: center">:</td>
+                                <td>${penduduk.jenis_kelamin}</td>
+                            </tr>
+                            <tr>
+                                <td >Agama</td>
+                                <td style="width: 10px; text-align: center">:</td>
+                                <td>${penduduk.agama}</td>
+                            </tr>
+                            <tr>
+                                <td >Pendidikan</td>
+                                <td style="width: 10px; text-align: center">:</td>
+                                <td>${penduduk.pendidikan}</td>
+                            </tr>
+                            <tr>
+                                <td >Pekerjaan</td>
+                                <td style="width: 10px; text-align: center">:</td>
+                                <td>${penduduk.pekerjaan}</td>
+                            </tr>
+                            <tr>
+                                <td >Status Kawin</td>
+                                <td style="width: 10px; text-align: center">:</td>
+                                <td>${penduduk.status_kawin}</td>
+                            </tr>
+                            <tr>
+                                <td >Kewarganegaraan</td>
+                                <td style="width: 10px; text-align: center">:</td>
+                                <td>${penduduk.warga_negara}</td>
+                            </tr>
+                            <tr>
+                                <td >Nama Negara</td>
+                                <td style="width: 10px; text-align: center">:</td>
+                                <td>${penduduk.negara_nama}</td>
+                            </tr>
+                            <tr>
+                                <td >RT/RW</td>
+                                <td style="width: 10px; text-align: center">:</td>
+                                <td>${penduduk.rt.nomor}/${penduduk.rt.rw.nomor}/</td>
+                            </tr>
+                            <tr>
+                                <td >Alamat Lengkap</td>
+                                <td style="width: 10px; text-align: center">:</td>
+                                <td>${penduduk.alamat}</td>
+                            </tr>
+                        </table>
+                    `);
+                },
+                error: function(data) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Something went wrong',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                },
+                complete: function() {
+                    $.LoadingOverlay("hide");
+                }
+            });
+
+        }
     </script>
 @endsection

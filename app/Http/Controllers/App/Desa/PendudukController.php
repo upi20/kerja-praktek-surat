@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\App\Desa;
 
 use App\Http\Controllers\Controller;
-use App\Models\Penduduk\Keluar;
 use App\Models\Penduduk\Penduduk;
 use App\Models\Penduduk\Rt;
 use App\Models\Penduduk\Rw;
@@ -22,7 +21,7 @@ class PendudukController extends Controller
             return $this->datatable($request);
         }
         $page_attr = [
-            'title' => 'Data Penduduk Keluar',
+            'title' => 'Data Penduduk',
             'breadcrumbs' => [
                 ['name' => 'Dashboard'],
             ]
@@ -193,20 +192,8 @@ class PendudukController extends Controller
         return $datatable->make(true);
     }
 
-    public function find(Request $request)
+    public function find(Penduduk $penduduk)
     {
-        $keluar = Keluar::with('penduduk')->findOrFail($request->id);
-        $keluar->penduduk->rt->rw;
-        return $keluar;
-    }
-
-    public function find_by_nik(Request $request)
-    {
-        $penduduk = Penduduk::where('nik', $request->nik)->first();
-        if (is_null($penduduk)) {
-            return response()->json(['message' => 'Nik Tidak Ditemukan'], 400);
-        }
-
         $penduduk->rt->rw;
         return $penduduk;
     }
