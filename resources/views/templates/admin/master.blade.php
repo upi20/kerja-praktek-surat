@@ -286,6 +286,22 @@ $notifikasi = notif_admin_atas();
                 scrollTop: 0
             }, "slow");
         })
+
+        $(document).ready(function() {
+            $('.date-input-str').each((i, e) => {
+                render_tanggal(e);
+                $(e).change(function() {
+                    render_tanggal(this);
+                });
+                $(e).click(function() {
+                    render_tanggal(this);
+                });
+                $(e).keyup(function() {
+                    render_tanggal(this);
+                });
+            })
+        });
+
         const datatable_indonesia_language_url =
             "{{ asset('assets/templates/admin/plugins/datatable/indonesia.json') }}";
     </script>

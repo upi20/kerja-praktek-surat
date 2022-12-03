@@ -278,7 +278,20 @@ class PendudukMasukController extends Controller
 
     public function find(Request $request)
     {
-        return Masuk::with('penduduk')->findOrFail($request->id);
+        $masuk = Masuk::with('penduduk')->findOrFail($request->id);
+        $masuk->penduduk->rt->rw;
+        return $masuk;
+    }
+
+    public function find_by_nik(Request $request)
+    {
+        $penduduk = Penduduk::where('nik', $request->nik)->first();
+        if (is_null($penduduk)) {
+            return response()->json(['message' => 'Nik Tidak Ditemukan'], 400);
+        }
+
+        $penduduk->rt->rw;
+        return $penduduk;
     }
 
 

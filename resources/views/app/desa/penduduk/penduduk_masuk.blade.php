@@ -65,7 +65,7 @@
                         <th class="text-nowrap">Keterangan</th>
                         <th class="text-nowrap">Tanggal</th>
                         <th class="text-nowrap">Diubah</th>
-                        {!! $can_delete || $can_update ? '<th>Aksi</th>' : '' !!}
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody> </tbody>
@@ -73,8 +73,8 @@
             </table>
         </div>
     </div>
-    <!-- End Row -->
 
+    <!-- End Row -->
     <div class="modal fade" id="modal-default">
         <div class="modal-dialog modal-dialog-centered  modal-lg" role="document">
             <div class="modal-content modal-content-demo">
@@ -87,12 +87,23 @@
                         enctype="multipart/form-data">
                         <input type="hidden" name="id" id="id">
                         <div class="row mb-3">
-                            <label for="nik" class="col-sm-3 col-form-label">NIK
+                            <label for="nama" class="col-sm-3 col-form-label">NIK
                                 <span class="text-danger">*</span>
                             </label>
-                            <div class="col-sm-9">
-                                <input type="number" class="form-control" placeholder="Nomor Induk Kependudukan"
-                                    id="nik" name="nik" required>
+                            <div class="col-sm-9 d-flex flex-row justify-content-between">
+                                <span style="display: none;" id="nik_text"></span>
+                                <div class="w-100">
+                                    <input type="number" class="form-control" placeholder="Nomor Induk Kependudukan"
+                                        id="nik" name="nik" required>
+                                </div>
+                                <div class="ms-2" id="btn_cari_nik">
+                                    <button type="button" class="btn btn-primary" onclick="cek_nik()">
+                                        <i class="fas fa-search me-2"></i>Cari</button>
+                                </div>
+                                <div class="ms-2" id="btn_reset_nik">
+                                    <button type="button" class="btn btn-danger" onclick="reset_form()">
+                                        <i class="fas fa-times me-2"></i>Reset</button>
+                                </div>
                             </div>
                         </div>
 
@@ -101,16 +112,18 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                <span style="display: none;" id="no_kk_text"></span>
                                 <input type="number" class="form-control" placeholder="Nomor Kartu Keluarga"
                                     id="no_kk" name="no_kk">
                             </div>
                         </div>
 
                         <div class="row mb-3">
-                            <label for="agama" class="col-sm-3 col-form-label">Hubungan Dengan KK
+                            <label for="hub_dgn_kk" class="col-sm-3 col-form-label">Hubungan Dengan KK
                                 <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <select class="form-control" id="agama" name="agama">
+                                <span style="display: none;" id="hub_dgn_kk_text"></span>
+                                <select class="form-control" id="hub_dgn_kk" name="hub_dgn_kk">
                                     <option value="">Pilih Hubungan Dengan KK</option>
                                     @foreach (config('app.hub_dgn_kks') as $hub)
                                         <option value="{{ $hub['nama'] }}">{{ $hub['nama'] }}</option>
@@ -124,6 +137,7 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                <span style="display: none;" id="nama_text"></span>
                                 <input type="text" class="form-control" placeholder="Nama Lengkap" id="nama"
                                     name="nama" required>
                             </div>
@@ -134,10 +148,28 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9 d-flex flex-row">
-                                <input type="text" class="form-control d-inline me-lg-2" placeholder="Tempat Lahir"
-                                    value="" id="tempat_lahir" name="tempat_lahir"required>
-                                <input type="date" class="form-control d-inline" placeholder="Tanggal Lahir"
-                                    value="" id="tanggal_lahir" name="tanggal_lahir" required>
+                                <span style="display: none;" id="ttl_text"></span>
+                                <div class="w-100">
+                                    <input type="text" class="form-control me-lg-2" placeholder="Tempat Lahir"
+                                        value="" id="tempat_lahir" name="tempat_lahir"required>
+                                </div>
+                                <div>
+                                    <input type="date" class="form-control date-input-str" placeholder="Tanggal Lahir"
+                                        value="" id="tanggal_lahir" name="tanggal_lahir" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="jenis_kelamin" class="col-sm-3 col-form-label">Jenis Kelamin
+                                <span class="text-danger">*</span></label>
+                            <div class="col-sm-9">
+                                <span style="display: none;" id="jenis_kelamin_text"></span>
+                                <select class="form-control" id="jenis_kelamin" name="jenis_kelamin">
+                                    <option value="">Pilih Jenis Kelamin</option>
+                                    <option value="LAKI-LAKI">LAKI-LAKI</option>
+                                    <option value="PEREMPUAN">PEREMPUAN</option>
+                                </select>
                             </div>
                         </div>
 
@@ -145,6 +177,7 @@
                             <label for="agama" class="col-sm-3 col-form-label">Agama
                                 <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
+                                <span style="display: none;" id="agama_text"></span>
                                 <select class="form-control" id="agama" name="agama">
                                     <option value="">Pilih Agama</option>
                                     @foreach (config('app.agamas') as $agama)
@@ -158,6 +191,7 @@
                             <label for="pendidikan" class="col-sm-3 col-form-label">Pendidikan
                                 <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
+                                <span style="display: none;" id="pendidikan_text"></span>
                                 <select class="form-control" id="pendidikan" name="pendidikan" required>
                                     <option value="">Pilih Pendidikan</option>
                                     @foreach (config('app.pendidikans') as $pendidikan)
@@ -171,6 +205,7 @@
                             <label for="status_kawin" class="col-sm-3 col-form-label">Status Kawin
                                 <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
+                                <span style="display: none;" id="status_kawin_text"></span>
                                 <select class="form-control" id="status_kawin" name="status_kawin" required>
                                     <option value="">Pilih Status Kawin</option>
                                     <option value="KAWIN">KAWIN</option>
@@ -180,10 +215,11 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="negara_nama" class="col-sm-3 col-form-label">Kewarganegaraan
+                            <label for="warga_negara" class="col-sm-3 col-form-label">Kewarganegaraan
                                 <span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <select class="form-control" id="negara_nama" name="negara_nama" required>
+                                <span style="display: none;" id="warga_negara_text"></span>
+                                <select class="form-control" id="warga_negara" name="warga_negara" required>
                                     <option value="">Pilih Kewarganegaraan</option>
                                     <option value="WNI">Warga Negara Indonesia</option>
                                     <option value="WNA">Warga Negara Asing</option>
@@ -196,8 +232,9 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" placeholder="Nama Negara" id="negara_nama"
-                                    name="negara_nama" required>
+                                <span style="display: none;" id="negara_nama_text"></span>
+                                <input type="text" class="form-control" placeholder="Negara Asal Penduduk"
+                                    id="negara_nama" name="negara_nama" required>
                             </div>
                         </div>
 
@@ -206,10 +243,13 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9 d-flex flex-row">
-                                <input type="number" class="form-control d-inline me-lg-2" placeholder="Rukun Tetangga"
-                                    value="" id="rt" name="rt"required>
-                                <input type="number" class="form-control d-inline me-lg-2" placeholder="Rukun Warga"
-                                    value="" id="rw" name="rw"required>
+                                <span style="display: none;" id="rt_rw_text"></span>
+                                <div class="w-100"><input type="number" class="form-control me-lg-2"
+                                        placeholder="Rukun Tetangga" value="" id="rt"
+                                        name="rt"required></div>
+                                <div class="w-100"><input type="number" class="form-control me-lg-2"
+                                        placeholder="Rukun Warga" value="" id="rw" name="rw"required>
+                                </div>
                             </div>
                         </div>
 
@@ -218,7 +258,39 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
-                                <textarea class="form-control" placeholder="Nama Negara" id="alamat" name="alamat" required></textarea>
+                                <span style="display: none;" id="alamat_text"></span>
+                                <textarea class="form-control" placeholder="Alamat Lengkap" id="alamat" name="alamat" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="tanggal" class="col-sm-3 col-form-label">Tanggal Masuk
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-sm-9">
+                                <span style="display: none;" id="tanggal_text"></span>
+                                <input type="date" class="form-control date-input-str"
+                                    placeholder="Tanggal Penduduk Masuk" id="tanggal" name="tanggal" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="tanggal" class="col-sm-3 col-form-label">Keterangan Masuk
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-sm-9">
+                                <span style="display: none;" id="masuk_nama_text"></span>
+                                <input type="text" class="form-control date-input-str"
+                                    placeholder="Keterangan Penduduk Masuk" id="masuk_nama" name="masuk_nama" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="masuk_keterangan" class="col-sm-3 col-form-label">Catatan Masuk
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-sm-9">
+                                <span style="display: none;" id="masuk_keterangan_text"></span>
+                                <textarea class="form-control" placeholder="Catatan Penduduk Masuk" id="masuk_keterangan" name="masuk_keterangan"
+                                    required></textarea>
                             </div>
                         </div>
                     </form>
@@ -349,21 +421,24 @@
                         },
                         className: 'text-nowrap'
                     },
-                    ...(can_update || can_delete ? [{
+                    {
                         data: 'id',
                         name: 'id',
                         render(data, type, full, meta) {
+                            const btn_view = `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-info btn-sm me-1" title="Lihat Data" onClick="viewFunc('${data}')">
+                                <i class="fas fa-eye"></i>
+                                </button>`;
                             const btn_update = can_update ? `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-primary btn-sm me-1" title="Ubah Data" onClick="editFunc('${data}')">
                                 <i class="fas fa-edit"></i>
                                 </button>` : '';
                             const btn_delete = can_delete ? `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-danger btn-sm me-1" title="Hapus Data" onClick="deleteFunc('${data}')">
                                 <i class="fas fa-trash"></i>
                                 </button>` : '';
-                            return btn_update + btn_delete;
+                            return btn_view + btn_update + btn_delete;
                         },
                         className: 'text-nowrap',
                         orderable: false,
-                    }] : []),
+                    },
                 ],
                 order: [
                     [1, 'asc']
@@ -451,14 +526,44 @@
         });
 
         function add() {
-            if (!isEdit) return false;
-            $('#MainForm').trigger("reset");
             $('#modal-default-title').html("Tambah {{ $page_attr['title'] }}");
             $('#modal-default').modal('show');
-            $('#id').val('');
+            reset_form();
             resetErrorAfterInput();
-            isEdit = false;
             return true;
+        }
+
+        function viewFunc(id) {
+            $.LoadingOverlay("show");
+            $.ajax({
+                type: "GET",
+                url: `{{ route(h_prefix('find')) }}`,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    id
+                },
+                success: (data) => {
+                    $('#modal-default-title').html("Lihat {{ $page_attr['title'] }}");
+                    $('#modal-default').modal('show');
+                    input_form_data(data);
+                    view_form('view');
+                },
+                error: function(data) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Something went wrong',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                },
+                complete: function() {
+                    $.LoadingOverlay("hide");
+                }
+            });
+
         }
 
         function editFunc(id) {
@@ -473,16 +578,12 @@
                     id
                 },
                 success: (data) => {
-                    isEdit = true;
                     $('#modal-default-title').html("Ubah {{ $page_attr['title'] }}");
                     $('#modal-default').modal('show');
-                    $('#id').val(data.id);
-                    $('#nama').val(data.nama);
-                    $('#kode').val(data.kode);
-                    $('#harga').val(data.harga);
-                    $('#jenis').val(data.jenis).trigger('change');
-                    $('#satuan').val(data.satuan).trigger('change');
-                    $('#keterangan').val(data.keterangan);
+                    input_form_data(data);
+                    view_form('update');
+                    render_tanggal('#tanggal');
+                    render_tanggal('#tanggal_lahir');
                 },
                 error: function(data) {
                     Swal.fire({
@@ -546,6 +647,427 @@
                     });
                 }
             });
+        }
+
+        function input_form_data(data) {
+            $('#nik').val(data.penduduk.nik);
+            $('#no_kk').val(data.penduduk.no_kk);
+            $('#hub_dgn_kk').val(data.penduduk.hub_dgn_kk);
+            $('#nama').val(data.penduduk.nama);
+            $('#tempat_lahir').val(data.penduduk.tempat_lahir);
+            $('#tanggal_lahir').val(data.penduduk.tanggal_lahir);
+            $('#agama').val(data.penduduk.agama);
+            $('#pendidikan').val(data.penduduk.pendidikan);
+            $('#status_kawin').val(data.penduduk.status_kawin);
+            $('#warga_negara').val(data.penduduk.warga_negara);
+            $('#negara_nama').val(data.penduduk.negara_nama);
+            $('#rt').val(data.penduduk.rt.nomor);
+            $('#rw').val(data.penduduk.rt.rw.nomor);
+            $('#alamat').val(data.penduduk.alamat);
+            $('#jenis_kelamin').val(data.penduduk.jenis_kelamin);
+            $('#tanggal').val(data.tanggal);
+            $('#masuk_nama').val(data.nama);
+            $('#masuk_keterangan').val(data.keterangan);
+        }
+
+        function view_form(view = null) {
+            const btn_cari_nik = $('#btn_cari_nik');
+            const btn_reset_nik = $('#btn_reset_nik');
+            const btn_submit = $('#modal-default').find('button[type=submit]');
+
+            const nik_text = $('#nik_text');
+            const no_kk_text = $('#no_kk_text');
+            const hub_dgn_kk_text = $('#hub_dgn_kk_text');
+            const nama_text = $('#nama_text');
+            const ttl_text = $('#ttl_text');
+            const agama_text = $('#agama_text');
+            const pendidikan_text = $('#pendidikan_text');
+            const status_kawin_text = $('#status_kawin_text');
+            const warga_negara_text = $('#warga_negara_text');
+            const negara_nama_text = $('#negara_nama_text');
+            const rt_rw_text = $('#rt_rw_text');
+            const alamat_text = $('#alamat_text');
+            const jenis_kelamin_text = $('#jenis_kelamin_text');
+            const tanggal_text = $('#tanggal_text');
+            const masuk_nama_text = $('#masuk_nama_text');
+            const masuk_keterangan_text = $('#masuk_keterangan_text');
+
+            const nik = $('#nik');
+            const no_kk = $('#no_kk');
+            const hub_dgn_kk = $('#hub_dgn_kk');
+            const nama = $('#nama');
+            const tempat_lahir = $('#tempat_lahir');
+            const tanggal_lahir = $('#tanggal_lahir');
+            const agama = $('#agama');
+            const pendidikan = $('#pendidikan');
+            const status_kawin = $('#status_kawin');
+            const warga_negara = $('#warga_negara');
+            const negara_nama = $('#negara_nama');
+            const rt = $('#rt');
+            const rw = $('#rw');
+            const alamat = $('#alamat');
+            const jenis_kelamin = $('#jenis_kelamin');
+            const tanggal = $('#tanggal');
+            const masuk_nama = $('#masuk_nama');
+            const masuk_keterangan = $('#masuk_keterangan');
+
+            switch (view) {
+                case 'insert-nik': // insert dengan nik yang sudah terdaftar yang bisa di ubah cuman status tombol reset ada
+                    nik_text.html(nik.val());
+                    nik_text.show();
+                    nik.hide();
+
+                    no_kk_text.html(no_kk.val());
+                    no_kk_text.show();
+                    no_kk.hide();
+
+                    hub_dgn_kk_text.html(hub_dgn_kk.val());
+                    hub_dgn_kk_text.show();
+                    hub_dgn_kk.hide();
+
+                    nama_text.html(nama.val());
+                    nama_text.show();
+                    nama.hide();
+
+                    ttl_text.html(`${tempat_lahir.val()}, ${format_tanggal(tanggal_lahir.val()).tanggal}`);
+                    ttl_text.show();
+                    tempat_lahir.parent().hide();
+                    tanggal_lahir.parent().hide();
+
+                    pendidikan_text.html(pendidikan.val());
+                    pendidikan_text.show();
+                    pendidikan.hide();
+
+                    status_kawin_text.html(status_kawin.val());
+                    status_kawin_text.show();
+                    status_kawin.hide();
+
+                    warga_negara_text.html(warga_negara.val());
+                    warga_negara_text.show();
+                    warga_negara.hide();
+
+                    negara_nama_text.html(negara_nama.val());
+                    negara_nama_text.show();
+                    negara_nama.hide();
+
+                    rt_rw_text.html(`${rt.val()}/${rw.val()}`);
+                    rt_rw_text.show();
+                    rt.parent().hide();
+                    rw.parent().hide();
+
+                    alamat_text.html(alamat.val());
+                    alamat_text.show();
+                    alamat.hide();
+
+                    jenis_kelamin_text.html(jenis_kelamin.val());
+                    jenis_kelamin_text.show();
+                    jenis_kelamin.hide();
+
+                    agama_text.html(agama.val());
+                    agama_text.show();
+                    agama.hide();
+
+                    tanggal_text.html(format_tanggal(tanggal_lahir.val()).tanggal);
+                    tanggal_text.hide();
+                    tanggal.show();
+
+                    masuk_nama_text.html(masuk_nama.val());
+                    masuk_nama_text.hide();
+                    masuk_nama.show();
+
+                    masuk_keterangan_text.html(masuk_keterangan.val());
+                    masuk_keterangan_text.hide();
+                    masuk_keterangan.show();
+
+                    // nik
+                    btn_cari_nik.hide();
+                    btn_reset_nik.show();
+                    btn_submit.show();
+                    break;
+
+                case 'update': // update data yang bisa diubah cuman status, tombol reset tidak ada
+                    nik_text.html(nik.val());
+                    nik_text.show();
+                    nik.hide();
+
+                    no_kk_text.html(no_kk.val());
+                    no_kk_text.hide();
+                    no_kk.show();
+
+                    hub_dgn_kk_text.html(hub_dgn_kk.val());
+                    hub_dgn_kk_text.hide();
+                    hub_dgn_kk.show();
+
+                    nama_text.html(nama.val());
+                    nama_text.hide();
+                    nama.show();
+
+                    ttl_text.html(`${tempat_lahir.val()}, ${format_tanggal(tanggal_lahir.val()).tanggal}`);
+                    ttl_text.hide();
+                    tempat_lahir.parent().show();
+                    tanggal_lahir.parent().show();
+
+                    pendidikan_text.html(pendidikan.val());
+                    pendidikan_text.hide();
+                    pendidikan.show();
+
+                    status_kawin_text.html(status_kawin.val());
+                    status_kawin_text.hide();
+                    status_kawin.show();
+
+                    warga_negara_text.html(warga_negara.val());
+                    warga_negara_text.hide();
+                    warga_negara.show();
+
+                    negara_nama_text.html(negara_nama.val());
+                    negara_nama_text.hide();
+                    negara_nama.show();
+
+                    rt_rw_text.html(`${rt.val()}/${rw.val()}`);
+                    rt_rw_text.hide();
+                    rt.parent().show();
+                    rw.parent().show();
+
+                    alamat_text.html(alamat.val());
+                    alamat_text.hide();
+                    alamat.show();
+
+                    jenis_kelamin_text.html(jenis_kelamin.val());
+                    jenis_kelamin_text.hide();
+                    jenis_kelamin.show();
+
+                    agama_text.html(agama.val());
+                    agama_text.hide();
+                    agama.show();
+
+                    tanggal_text.html(format_tanggal(tanggal_lahir.val()).tanggal);
+                    tanggal_text.hide();
+                    tanggal.show();
+
+                    masuk_nama_text.html(masuk_nama.val());
+                    masuk_nama_text.hide();
+                    masuk_nama.show();
+
+                    masuk_keterangan_text.html(masuk_keterangan.val());
+                    masuk_keterangan_text.hide();
+                    masuk_keterangan.show();
+                    // nik
+                    btn_cari_nik.hide();
+                    btn_reset_nik.hide();
+                    btn_submit.show();
+                    break;
+
+
+                case 'view': // view data
+                    nik_text.html(nik.val());
+                    nik_text.show();
+                    nik.hide();
+                    nik_text.html(nik.val());
+                    nik_text.show();
+                    nik.hide();
+
+                    no_kk_text.html(no_kk.val());
+                    no_kk_text.show();
+                    no_kk.hide();
+
+                    hub_dgn_kk_text.html(hub_dgn_kk.val());
+                    hub_dgn_kk_text.show();
+                    hub_dgn_kk.hide();
+
+                    nama_text.html(nama.val());
+                    nama_text.show();
+                    nama.hide();
+
+                    ttl_text.html(`${tempat_lahir.val()}, ${format_tanggal(tanggal_lahir.val()).tanggal}`);
+                    ttl_text.show();
+                    tempat_lahir.parent().hide();
+                    tanggal_lahir.parent().hide();
+
+                    pendidikan_text.html(pendidikan.val());
+                    pendidikan_text.show();
+                    pendidikan.hide();
+
+                    status_kawin_text.html(status_kawin.val());
+                    status_kawin_text.show();
+                    status_kawin.hide();
+
+                    warga_negara_text.html(warga_negara.val());
+                    warga_negara_text.show();
+                    warga_negara.hide();
+
+                    negara_nama_text.html(negara_nama.val());
+                    negara_nama_text.show();
+                    negara_nama.hide();
+
+                    rt_rw_text.html(`${rt.val()}/${rw.val()}`);
+                    rt_rw_text.show();
+                    rt.parent().hide();
+                    rw.parent().hide();
+
+                    alamat_text.html(alamat.val());
+                    alamat_text.show();
+                    alamat.hide();
+
+                    jenis_kelamin_text.html(jenis_kelamin.val());
+                    jenis_kelamin_text.show();
+                    jenis_kelamin.hide();
+
+                    agama_text.html(agama.val());
+                    agama_text.show();
+                    agama.hide();
+
+                    tanggal_text.html(format_tanggal(tanggal_lahir.val()).tanggal);
+                    tanggal_text.show();
+                    tanggal.hide();
+
+                    masuk_nama_text.html(masuk_nama.val());
+                    masuk_nama_text.show();
+                    masuk_nama.hide();
+
+                    masuk_keterangan_text.html(masuk_keterangan.val());
+                    masuk_keterangan_text.show();
+                    masuk_keterangan.hide();
+
+                    // nik
+                    btn_cari_nik.hide();
+                    btn_reset_nik.hide();
+                    btn_submit.hide();
+                    break;
+
+
+
+                default: // insert dengan nik yang belum terdaftar semua bisa di ubah tombol reset tidak ada
+                    nik_text.html(nik.val());
+                    nik_text.hide();
+                    nik.show();
+
+                    no_kk_text.html(no_kk.val());
+                    no_kk_text.hide();
+                    no_kk.show();
+
+                    hub_dgn_kk_text.html(hub_dgn_kk.val());
+                    hub_dgn_kk_text.hide();
+                    hub_dgn_kk.show();
+
+                    nama_text.html(nama.val());
+                    nama_text.hide();
+                    nama.show();
+
+                    ttl_text.html(`${tempat_lahir.val()}, ${format_tanggal(tanggal_lahir.val()).tanggal}`);
+                    ttl_text.hide();
+                    tempat_lahir.parent().show();
+                    tanggal_lahir.parent().show();
+
+                    pendidikan_text.html(pendidikan.val());
+                    pendidikan_text.hide();
+                    pendidikan.show();
+
+                    status_kawin_text.html(status_kawin.val());
+                    status_kawin_text.hide();
+                    status_kawin.show();
+
+                    warga_negara_text.html(warga_negara.val());
+                    warga_negara_text.hide();
+                    warga_negara.show();
+
+                    negara_nama_text.html(negara_nama.val());
+                    negara_nama_text.hide();
+                    negara_nama.show();
+
+                    rt_rw_text.html(`${rt.val()}/${rw.val()}`);
+                    rt_rw_text.hide();
+                    rt.parent().show();
+                    rw.parent().show();
+
+                    alamat_text.html(alamat.val());
+                    alamat_text.hide();
+                    alamat.show();
+
+                    jenis_kelamin_text.html(jenis_kelamin.val());
+                    jenis_kelamin_text.hide();
+                    jenis_kelamin.show();
+
+                    agama_text.html(agama.val());
+                    agama_text.hide();
+                    agama.show();
+
+                    tanggal_text.html(format_tanggal(tanggal_lahir.val()).tanggal);
+                    tanggal_text.hide();
+                    tanggal.show();
+
+                    masuk_nama_text.html(masuk_nama.val());
+                    masuk_nama_text.hide();
+                    masuk_nama.show();
+
+                    masuk_keterangan_text.html(masuk_keterangan.val());
+                    masuk_keterangan_text.hide();
+                    masuk_keterangan.show();
+
+                    // nik
+                    btn_cari_nik.show();
+                    btn_reset_nik.hide();
+                    btn_submit.show();
+                    break;
+            }
+        }
+
+        function cek_nik() {
+            const nik = $('#nik').val();
+            $.LoadingOverlay("show");
+            $.ajax({
+                type: "GET",
+                url: `{{ route(h_prefix('find_by_nik')) }}`,
+                data: {
+                    nik
+                },
+                success: (penduduk) => {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'info',
+                        title: `NIK ditemukan`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    $('#nik').val(penduduk.nik);
+                    $('#no_kk').val(penduduk.no_kk);
+                    $('#hub_dgn_kk').val(penduduk.hub_dgn_kk);
+                    $('#nama').val(penduduk.nama);
+                    $('#tempat_lahir').val(penduduk.tempat_lahir);
+                    $('#tanggal_lahir').val(penduduk.tanggal_lahir);
+                    $('#agama').val(penduduk.agama);
+                    $('#pendidikan').val(penduduk.pendidikan);
+                    $('#status_kawin').val(penduduk.status_kawin);
+                    $('#warga_negara').val(penduduk.warga_negara);
+                    $('#negara_nama').val(penduduk.negara_nama);
+                    $('#rt').val(penduduk.rt.nomor);
+                    $('#rw').val(penduduk.rt.rw.nomor);
+                    $('#alamat').val(penduduk.alamat);
+                    $('#jenis_kelamin').val(penduduk.jenis_kelamin);
+                    view_form('insert-nik');
+                    render_tanggal('#tanggal');
+                },
+                error: function(err) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: err.status == 400 ? 'info' : 'error',
+                        title: ((err.responseJSON) ? err.responseJSON.message :
+                            'Something went wrong'),
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+                },
+                complete: function() {
+                    $.LoadingOverlay("hide");
+                }
+            });
+        }
+
+        function reset_form() {
+            $('#MainForm').trigger("reset");
+            $('#id').val('');
+            $('#tanggal').val("{{ date('Y-m-d') }}");
+            view_form();
+            render_tanggal('#tanggal');
         }
     </script>
 @endsection

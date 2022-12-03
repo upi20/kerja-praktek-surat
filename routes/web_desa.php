@@ -20,6 +20,7 @@ Route::prefix($prefix)->group(function () use ($name, $prefix) {
         Route::post('/', 'insert')->name("$name.insert")->middleware("permission:$name.insert");
         Route::delete('/{model}', 'delete')->name("$name.delete")->middleware("permission:$name.delete");
         Route::get('/find', 'find')->name("$name.find")->middleware("permission:$name.update");
+        Route::get('/find_by_nik', 'find_by_nik')->name("$name.find_by_nik")->middleware("permission:$name");
         Route::post('/update', 'update')->name("$name.update")->middleware("permission:$name.update");
     });
 });
