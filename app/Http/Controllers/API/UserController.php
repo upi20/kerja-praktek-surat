@@ -44,7 +44,7 @@ class UserController extends Controller
                 ], 'Authentication Failed', 500);
             }
 
-            $user = User::where('nik', $request->nik)->first();
+            $user = User::with('roles')->where('nik', $request->nik)->first();
             if (!Hash::check($request->password, $user->password, [])) {
                 throw new \Exception('Invalid Credentials');
             }
@@ -53,7 +53,7 @@ class UserController extends Controller
             return ResponseFormatter::success([
                 'access_token' => $tokenResult,
                 'token_type' => 'Bearer',
-                'user' => $user
+                'user' => $user,
             ], 'Authenticated');
         } catch (Exception $error) {
             return ResponseFormatter::error([

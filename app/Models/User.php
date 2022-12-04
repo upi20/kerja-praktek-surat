@@ -68,24 +68,4 @@ class User extends Authenticatable
         $foto = $this->attributes['foto'];
         return $foto ? url(self::image_folder . '/' . $foto) : asset('assets/image/anggota_default.png');
     }
-
-    public function province()
-    {
-        return $this->belongsTo(Province::class, 'province_id');
-    }
-
-    public function regencie()
-    {
-        return $this->belongsTo(Regencie::class, 'regency_id');
-    }
-
-    public function district()
-    {
-        return $this->belongsTo(District::class, 'district_id');
-    }
-
-    public function village()
-    {
-        return $this->belongsTo(Village::class, 'village_id');
-    }
 }
