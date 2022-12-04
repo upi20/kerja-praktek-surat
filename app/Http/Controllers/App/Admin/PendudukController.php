@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\App\Desa;
+namespace App\Http\Controllers\App\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Penduduk\Penduduk;
@@ -33,7 +33,7 @@ class PendudukController extends Controller
         $agamas = config('app.agamas');
         $data = compact('page_attr', 'hub_dgn_kks', 'pendidikans', 'pekerjaans', 'agamas');
         $data['compact'] = $data;
-        return view('app.desa.penduduk.penduduk', $data);
+        return view('app.admin.penduduk.penduduk', $data);
     }
 
     public function datatable(Request $request): mixed

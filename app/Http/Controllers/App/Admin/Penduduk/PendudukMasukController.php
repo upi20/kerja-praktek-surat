@@ -1,26 +1,41 @@
 <?php
 
-namespace App\Http\Controllers\App\Desa\Penduduk;
+namespace App\Http\Controllers\App\Admin\Penduduk;
 
 use App\Http\Controllers\Controller;
-use App\Models\Penduduk\Keluar;
 use App\Models\Penduduk\Masuk;
 use App\Models\Penduduk\Penduduk;
+use App\Models\Penduduk\Rt;
+use App\Models\Penduduk\Rw;
 use Illuminate\Http\Request;
 use League\Config\Exception\ValidationException;
 use Yajra\Datatables\Datatables;
 use App\Models\SocialMedia;
 use App\Models\User;
-use DateTime;
 use Illuminate\Support\Facades\DB;
 
-class PendudukKeluarController extends Controller
+class PendudukMasukController extends Controller
 {
     private $validate_model = [
         'nik' => ['required', 'string'],
+        'no_kk' => ['required', 'string'],
+        'hub_dgn_kk' => ['required', 'string'],
+        'nama' => ['required', 'string'],
+        'tempat_lahir' => ['required', 'string'],
+        'tanggal_lahir' => ['required', 'date'],
+        'jenis_kelamin' => ['required', 'string'],
+        'agama' => ['required', 'string'],
+        'pendidikan' => ['required', 'string'],
+        'pekerjaan' => ['required', 'string'],
+        'status_kawin' => ['required', 'string'],
+        'warga_negara' => ['required', 'string'],
+        'negara_nama' => ['required', 'string'],
+        'rt' => ['required', 'integer'],
+        'rw' => ['required', 'integer'],
+        'alamat' => ['required', 'string'],
         'tanggal' => ['required', 'date'],
-        'keluar_nama' => ['required', 'string'],
-        'keluar_keterangan' => ['nullable', 'string'],
+        'masuk_nama' => ['required', 'string'],
+        'masuk_keterangan' => ['nullable', 'string'],
     ];
 
     private $query = [];
@@ -31,7 +46,7 @@ class PendudukKeluarController extends Controller
             return $this->datatable($request);
         }
         $page_attr = [
-            'title' => 'Data Penduduk Keluar',
+            'title' => 'Data Penduduk Masuk',
             'breadcrumbs' => [
                 ['name' => 'Dashboard'],
             ]
@@ -43,7 +58,7 @@ class PendudukKeluarController extends Controller
         $agamas = config('app.agamas');
         $data = compact('page_attr', 'hub_dgn_kks', 'pendidikans', 'pekerjaans', 'agamas');
         $data['compact'] = $data;
-        return view('app.desa.penduduk.penduduk_keluar', $data);
+        return view('app.admin.penduduk.penduduk_masuk', $data);
     }
 
     public function insert(Request $request)
@@ -54,29 +69,86 @@ class PendudukKeluarController extends Controller
 
             // cek nik
             $penduduk = Penduduk::where('nik', $request->nik)->first();
+            $new_penduduk = false;
             if (is_null($penduduk)) {
+                $penduduk = new Penduduk();
+                $penduduk->created_by = auth()->user()->id;
+                $new_penduduk = true;
+            } else {
+                $penduduk->updated_by = auth()->user()->id;
+            }
+
+            // cek rt rw
+            $rw = Rw::where('nomor', $request->rw)->first();
+            if (is_null($rw)) {
                 return response()->json([
                     'errors' => [
-                        'nik' => ['Nik Tidak Terdaftar']
+                        'rw' => ['Nomor RW Tidak Terdaftar']
                     ],
                     'message' => 'Something went wrong',
                 ], 422);
             }
 
+
+            $rt = Rt::where('nomor', $request->rt)->where('rw_id', $rw->id)->first();
+            if (is_null($rt)) {
+                return response()->json([
+                    'errors' => [
+                        'rt' => ['Nomor RT Tidak Terdaftar']
+                    ],
+                    'message' => 'Something went wrong',
+                ], 422);
+            }
+            // set urutan hub dgn kk
+            $hub_dgn_kk_urutan = 0;
+
+            foreach (config('app.hub_dgn_kks') as $v) {
+                if ($v['nama'] == $request->hub_dgn_kk) {
+                    $hub_dgn_kk_urutan = $v['urutan'];
+                }
+            }
+
             // simpan data penduduk
-            $penduduk->updated_by = auth()->user()->id;
-            $penduduk->penduduk_ada = 'Tidak Ada';
+            $penduduk->nik = $request->nik;
+            $penduduk->no_kk = $request->no_kk;
+            $penduduk->hub_dgn_kk = $request->hub_dgn_kk;
+            $penduduk->hub_dgn_kk_urutan = $hub_dgn_kk_urutan;
+            $penduduk->nama = $request->nama;
+            $penduduk->tempat_lahir = $request->tempat_lahir;
+            $penduduk->tanggal_lahir = $request->tanggal_lahir;
+            $penduduk->jenis_kelamin = $request->jenis_kelamin;
+            $penduduk->agama = $request->agama;
+            $penduduk->pendidikan = $request->pendidikan;
+            $penduduk->pekerjaan = $request->pekerjaan;
+            $penduduk->status_kawin = $request->status_kawin;
+            $penduduk->warga_negara = $request->warga_negara;
+            $penduduk->negara_nama = $request->negara_nama;
+            $penduduk->rt_id = $rt->id;
+            $penduduk->alamat = $request->alamat;
+            $penduduk->penduduk_ada = 'Ada';
             $penduduk->save();
 
-            // catat penduduk keluar
-            $keluar = new Keluar();
-            $keluar->penduduk_id = $penduduk->id;
-            $keluar->tanggal = $request->tanggal;
-            $keluar->nama = $request->keluar_nama;
-            $keluar->keterangan = $request->keluar_keterangan;
-            $keluar->created_by = auth()->user()->id;
-            $keluar->save();
+            // catat penduduk masuk
+            $masuk = new Masuk();
+            $masuk->penduduk_id = $penduduk->id;
+            $masuk->tanggal = $request->tanggal;
+            $masuk->nama = $request->masuk_nama;
+            $masuk->keterangan = $request->masuk_keterangan;
+            $masuk->created_by = auth()->user()->id;
+            $masuk->save();
 
+            // buat user untuk penduduk login
+            if ($new_penduduk) {
+                $user = new User();
+                $user->name = $penduduk->nama;
+                $user->nik = $penduduk->nik;
+                $user->penduduk_id = $penduduk->id;
+                $user->password = bcrypt(config('app.password_default'));
+                $user->active = 1;
+                $user->created_by = auth()->user()->id;
+                $user->save();
+                $user->assignRole('Penduduk');
+            }
             DB::commit();
             return response()->json();
         } catch (ValidationException $error) {
@@ -91,12 +163,64 @@ class PendudukKeluarController extends Controller
     {
         try {
             DB::beginTransaction();
+            // cek rt rw
+            $rw = Rw::where('nomor', $request->rw)->first();
+            if (is_null($rw)) {
+                return response()->json([
+                    'errors' => [
+                        'rw' => ['Nomor RW Tidak Terdaftar']
+                    ],
+                    'message' => 'Something went wrong',
+                ], 422);
+            }
+
+            $rt = Rt::where('nomor', $request->rt)->where('rw_id', $rw->id)->first();
+            if (is_null($rt)) {
+                return response()->json([
+                    'errors' => [
+                        'rt' => ['Nomor RT Tidak Terdaftar']
+                    ],
+                    'message' => 'Something went wrong',
+                ], 422);
+            }
+
+            // set urutan hub dgn kk
             $request->validate(array_merge(['id' => ['required', 'int']], $this->validate_model));
-            $keluar = Keluar::findOrFail($request->id);
-            $keluar->tanggal = $request->tanggal;
-            $keluar->nama = $request->keluar_nama;
-            $keluar->keterangan = $request->keluar_keterangan;
-            $keluar->save();
+            $masuk = Masuk::findOrFail($request->id);
+            $masuk->tanggal = $request->tanggal;
+            $masuk->nama = $request->masuk_nama;
+            $masuk->keterangan = $request->masuk_keterangan;
+            $masuk->updated_by = auth()->user()->id;
+            $masuk->save();
+
+            // set urutan hub dgn kk
+            $hub_dgn_kk_urutan = 0;
+
+            foreach (config('app.hub_dgn_kks') as $v) {
+                if ($v['nama'] == $request->hub_dgn_kk) {
+                    $hub_dgn_kk_urutan = $v['urutan'];
+                }
+            }
+            $penduduk = $masuk->penduduk;
+            $penduduk->nik = $request->nik;
+            $penduduk->no_kk = $request->no_kk;
+            $penduduk->hub_dgn_kk = $request->hub_dgn_kk;
+            $penduduk->hub_dgn_kk_urutan = $hub_dgn_kk_urutan;
+            $penduduk->nama = $request->nama;
+            $penduduk->tempat_lahir = $request->tempat_lahir;
+            $penduduk->tanggal_lahir = $request->tanggal_lahir;
+            $penduduk->jenis_kelamin = $request->jenis_kelamin;
+            $penduduk->agama = $request->agama;
+            $penduduk->pendidikan = $request->pendidikan;
+            $penduduk->pekerjaan = $request->pekerjaan;
+            $penduduk->status_kawin = $request->status_kawin;
+            $penduduk->warga_negara = $request->warga_negara;
+            $penduduk->negara_nama = $request->negara_nama;
+            $penduduk->rt_id = $rt->id;
+            $penduduk->alamat = $request->alamat;
+            $penduduk->penduduk_ada = 'Ada';
+            $penduduk->updated_by = auth()->user()->id;
+            $penduduk->save();
 
             DB::commit();
             return response()->json();
@@ -108,47 +232,16 @@ class PendudukKeluarController extends Controller
         }
     }
 
-    public function delete(Keluar $model)
+    public function delete(Masuk $model)
     {
-        // bandingkan ambil data keluar terbaru dan data masuk terbaru
-        // jika data yang paling baru adalah data keluar maka
-        // status penduduk ada = "Tidak Ada"
-        // begitupun sebaliknya
-        // jika sama dengan bandingkan created_at nya
         try {
             DB::beginTransaction();
             $penduduk = $model->penduduk;
             $model->delete();
 
-            $masuk = Masuk::where('penduduk_id', 1)->orderBy('tanggal', 'desc')->first();
-            $keluar = Keluar::where('penduduk_id', 1)->orderBy('tanggal', 'desc')->first();
-
-            $penduduk_ada = "Tidak Ada";
-            if (is_null($keluar)) {
-                $penduduk_ada = "Ada";
-            } else {
-                $keluar_tanggal = new DateTime($keluar->tanggal);
-                $masuk_tanggal = new DateTime($masuk->tanggal);
-                if ($masuk_tanggal > $keluar_tanggal) {
-                    $penduduk_ada = "Ada";
-                } else if ($masuk_tanggal == $keluar_tanggal) {
-                    $penduduk_ada = "Sama";
-                    $keluar_created_at = new DateTime($keluar->created_at);
-                    $masuk_created_at = new DateTime($masuk->created_at);
-                    if ($keluar_created_at > $masuk_created_at) {
-                        $penduduk_ada = "Tidak Ada";
-                    } else {
-                        $penduduk_ada = "Ada";
-                    }
-                } else {
-                    $penduduk_ada = "Tidak Ada";
-                }
+            if ($penduduk->masuks->count() < 1) {
+                $penduduk->delete();
             }
-
-            $penduduk = $model->penduduk;
-            $penduduk->updated_by = auth()->user()->id;
-            $penduduk->penduduk_ada = $penduduk_ada;
-            $penduduk->save();
 
             DB::commit();
             return response()->json();
@@ -163,7 +256,7 @@ class PendudukKeluarController extends Controller
     public function datatable(Request $request): mixed
     {
         // list table
-        $table = Keluar::tableName;
+        $table = Masuk::tableName;
         $t_penduduk = Penduduk::tableName;
         $t_user = User::tableName;
 
@@ -236,7 +329,7 @@ class PendudukKeluarController extends Controller
 
 
         // Select =====================================================================================================
-        $model = Keluar::select(array_merge([
+        $model = Masuk::select(array_merge([
             DB::raw("$table.*"),
         ], $to_db_raw))
             ->leftJoin("$t_user as $t_created_by", "$t_created_by.id", '=', "$table.created_by")
@@ -305,9 +398,9 @@ class PendudukKeluarController extends Controller
 
     public function find(Request $request)
     {
-        $keluar = Keluar::with('penduduk')->findOrFail($request->id);
-        $keluar->penduduk->rt->rw;
-        return $keluar;
+        $masuk = Masuk::with('penduduk')->findOrFail($request->id);
+        $masuk->penduduk->rt->rw;
+        return $masuk;
     }
 
     public function find_by_nik(Request $request)

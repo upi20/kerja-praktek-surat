@@ -179,14 +179,14 @@ class PMenuTableSeeder extends Seeder
             array (
                 'id' => 369,
                 'parent_id' => 367,
-                'title' => 'Peran Pengguna',
+                'title' => 'Izin Fitur Jabatan',
                 'icon' => NULL,
                 'route' => 'admin.user_access.role',
                 'sequence' => 32,
                 'active' => 1,
                 'type' => 1,
                 'created_at' => '2022-08-05 23:50:28',
-                'updated_at' => '2022-12-04 15:05:05',
+                'updated_at' => '2022-12-04 19:29:05',
             ),
             13 => 
             array (
@@ -402,12 +402,12 @@ class PMenuTableSeeder extends Seeder
                 'parent_id' => NULL,
                 'title' => 'Penduduk Masuk',
                 'icon' => 'fas fa-sign-in-alt',
-                'route' => 'desa.penduduk.masuk',
+                'route' => 'admin.penduduk.masuk',
                 'sequence' => 13,
                 'active' => 1,
                 'type' => 1,
                 'created_at' => '2022-12-03 00:18:41',
-                'updated_at' => '2022-12-03 01:14:50',
+                'updated_at' => '2022-12-04 19:23:51',
             ),
             30 => 
             array (
@@ -415,12 +415,12 @@ class PMenuTableSeeder extends Seeder
                 'parent_id' => NULL,
                 'title' => 'Penduduk',
                 'icon' => 'fas fa-users',
-                'route' => 'desa.penduduk',
+                'route' => 'admin.penduduk',
                 'sequence' => 12,
                 'active' => 1,
                 'type' => 1,
                 'created_at' => '2022-12-03 00:19:21',
-                'updated_at' => '2022-12-04 14:50:07',
+                'updated_at' => '2022-12-04 19:23:43',
             ),
             31 => 
             array (
@@ -428,12 +428,12 @@ class PMenuTableSeeder extends Seeder
                 'parent_id' => NULL,
                 'title' => 'Penduduk Keluar',
                 'icon' => 'fas fa-sign-out-alt',
-                'route' => 'desa.penduduk.keluar',
+                'route' => 'admin.penduduk.keluar',
                 'sequence' => 14,
                 'active' => 1,
                 'type' => 1,
                 'created_at' => '2022-12-03 00:19:41',
-                'updated_at' => '2022-12-03 23:27:50',
+                'updated_at' => '2022-12-04 19:24:04',
             ),
             32 => 
             array (
