@@ -1155,6 +1155,70 @@ class PPermissionsTableSeeder extends Seeder
                 'created_at' => '2022-12-04 22:07:10',
                 'updated_at' => '2022-12-04 22:07:10',
             ),
+            142 => 
+            array (
+                'id' => 152,
+                'name' => 'admin.rt',
+                'guard_name' => 'web',
+                'created_at' => '2022-12-05 00:57:26',
+                'updated_at' => '2022-12-05 00:57:26',
+            ),
+            143 => 
+            array (
+                'id' => 153,
+                'name' => 'admin.rt.insert',
+                'guard_name' => 'web',
+                'created_at' => '2022-12-05 00:57:31',
+                'updated_at' => '2022-12-05 00:57:31',
+            ),
+            144 => 
+            array (
+                'id' => 154,
+                'name' => 'admin.rt.update',
+                'guard_name' => 'web',
+                'created_at' => '2022-12-05 00:57:35',
+                'updated_at' => '2022-12-05 00:57:35',
+            ),
+            145 => 
+            array (
+                'id' => 155,
+                'name' => 'admin.rt.delete',
+                'guard_name' => 'web',
+                'created_at' => '2022-12-05 00:57:41',
+                'updated_at' => '2022-12-05 00:57:41',
+            ),
+            146 => 
+            array (
+                'id' => 156,
+                'name' => 'admin.rw',
+                'guard_name' => 'web',
+                'created_at' => '2022-12-05 00:57:55',
+                'updated_at' => '2022-12-05 00:57:55',
+            ),
+            147 => 
+            array (
+                'id' => 157,
+                'name' => 'admin.rw.insert',
+                'guard_name' => 'web',
+                'created_at' => '2022-12-05 00:58:00',
+                'updated_at' => '2022-12-05 00:58:00',
+            ),
+            148 => 
+            array (
+                'id' => 158,
+                'name' => 'admin.rw.update',
+                'guard_name' => 'web',
+                'created_at' => '2022-12-05 00:58:04',
+                'updated_at' => '2022-12-05 00:58:04',
+            ),
+            149 => 
+            array (
+                'id' => 159,
+                'name' => 'admin.rw.delete',
+                'guard_name' => 'web',
+                'created_at' => '2022-12-05 00:58:09',
+                'updated_at' => '2022-12-05 00:58:09',
+            ),
         ));
         
         

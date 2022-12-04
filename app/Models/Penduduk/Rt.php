@@ -14,13 +14,18 @@ class Rt extends Model
     protected $table = 'rts';
     const tableName = 'rts';
 
-    public function rw()
+    protected function rw()
     {
         return $this->belongsTo(Rt::class, 'rw_id', 'id');
     }
 
-    public function surats()
+    protected function surats()
     {
         return $this->hasMany(Surat::class, 'rw_id', 'id');
+    }
+
+    protected function ketua()
+    {
+        return $this->hasOne(KetuaRt::class, 'rt_id', 'id');
     }
 }

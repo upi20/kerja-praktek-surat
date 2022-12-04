@@ -636,12 +636,12 @@ class PMenuTableSeeder extends Seeder
                 'parent_id' => 431,
                 'title' => 'Rukun Warga',
                 'icon' => NULL,
-                'route' => NULL,
+                'route' => 'admin.rw',
                 'sequence' => 20,
                 'active' => 1,
                 'type' => 1,
                 'created_at' => '2022-12-04 14:51:22',
-                'updated_at' => '2022-12-04 14:51:46',
+                'updated_at' => '2022-12-05 00:56:13',
             ),
             48 => 
             array (
@@ -649,12 +649,12 @@ class PMenuTableSeeder extends Seeder
                 'parent_id' => 431,
                 'title' => 'Rukun Tetangga',
                 'icon' => NULL,
-                'route' => NULL,
+                'route' => 'admin.rt',
                 'sequence' => 21,
                 'active' => 1,
                 'type' => 1,
                 'created_at' => '2022-12-04 14:51:36',
-                'updated_at' => '2022-12-04 14:51:46',
+                'updated_at' => '2022-12-05 00:56:23',
             ),
             49 => 
             array (
@@ -671,19 +671,6 @@ class PMenuTableSeeder extends Seeder
             ),
             50 => 
             array (
-                'id' => 435,
-                'parent_id' => 397,
-                'title' => 'Kepala Desa',
-                'icon' => NULL,
-                'route' => NULL,
-                'sequence' => 24,
-                'active' => 1,
-                'type' => 1,
-                'created_at' => '2022-12-04 14:54:45',
-                'updated_at' => '2022-12-04 14:55:16',
-            ),
-            51 => 
-            array (
                 'id' => 436,
                 'parent_id' => 421,
                 'title' => 'Surat Menyurat',
@@ -695,7 +682,7 @@ class PMenuTableSeeder extends Seeder
                 'created_at' => '2022-12-04 15:06:26',
                 'updated_at' => '2022-12-04 15:06:26',
             ),
-            52 => 
+            51 => 
             array (
                 'id' => 437,
                 'parent_id' => 421,
@@ -708,7 +695,7 @@ class PMenuTableSeeder extends Seeder
                 'created_at' => '2022-12-04 15:06:52',
                 'updated_at' => '2022-12-04 15:06:52',
             ),
-            53 => 
+            52 => 
             array (
                 'id' => 438,
                 'parent_id' => 421,
@@ -721,7 +708,7 @@ class PMenuTableSeeder extends Seeder
                 'created_at' => '2022-12-04 15:07:07',
                 'updated_at' => '2022-12-04 15:07:07',
             ),
-            54 => 
+            53 => 
             array (
                 'id' => 439,
                 'parent_id' => 421,

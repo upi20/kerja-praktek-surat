@@ -158,12 +158,10 @@ class PendudukSeeder extends Seeder
         for ($rw_no = 1; $rw_no <= $jml_rw; $rw_no++) {
             $rw = new Rw();
             $rw->nomor = $rw_no;
-            $rw->nama_ketua = "Ketua RW $rw_no";
             $rw->save();
             for ($rt_no = 1; $rt_no <= $jml_rt; $rt_no++) {
                 $rt = new Rt();
                 $rt->nomor = $rt_no;
-                $rt->nama_ketua = "Ketua RT $rt_no / RW $rw_no";
                 $rt->nama_daerah = "Kampung RT $rt_no / RW $rw_no";
                 $rt->rw_id = $rw->id;
                 $rt->created_by = 1;
@@ -226,7 +224,6 @@ class PendudukSeeder extends Seeder
                         $ketua_rw->created_by = 1;
                         $ketua_rw->save();
 
-                        $rw->nama_ketua = $kepala->nama;
                         $rw->created_by = 1;
                         $rw->save();
                         $user->assignRole('Rukun Warga');
@@ -240,7 +237,6 @@ class PendudukSeeder extends Seeder
                         $ketua_rt->created_by = 1;
                         $ketua_rt->save();
 
-                        $rt->nama_ketua = $kepala->nama;
                         $rt->created_by = 1;
                         $rt->save();
                         $user->assignRole('Rukun Tetangga');

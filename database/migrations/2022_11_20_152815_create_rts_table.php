@@ -15,8 +15,7 @@ return new class extends Migration
     {
         Schema::create('rts', function (Blueprint $table) {
             $table->id();
-            $table->string('nomor')->nullable()->default(null);
-            $table->string('nama_ketua')->nullable()->default(null);
+            $table->integer('nomor')->nullable()->default(null);
             $table->string('nama_daerah')->nullable()->default(null)->comment('Nama kampung atau yg lain');
             $table->bigInteger('rw_id', false, true)->nullable()->default(null);
             $table->foreign('rw_id')

@@ -19,8 +19,13 @@ use App\Http\Controllers\App\Admin\Artikel\TagController;
 use App\Http\Controllers\App\Admin\Contact\FAQController;
 use App\Http\Controllers\App\Admin\Contact\ListContactController;
 use App\Http\Controllers\App\Admin\Contact\MessageController;
+
+// Administrasi =======================================================================================================
 use App\Http\Controllers\App\Admin\Kepegawaian\JabatanController;
 use App\Http\Controllers\App\Admin\Kepegawaian\PegawaiController;
+use App\Http\Controllers\App\Admin\RwController;
+use App\Http\Controllers\App\Admin\RtController;
+
 // User Access ========================================================================================================
 use App\Http\Controllers\App\Admin\UserAccess\PermissionController;
 use App\Http\Controllers\App\Admin\UserAccess\RoleController;
@@ -117,7 +122,27 @@ Route::prefix($prefix)->group(function () use ($name, $prefix) {
     });
 });
 
+$prefix = 'rw';
+Route::controller(RwController::class)->prefix($prefix)->group(function () use ($name, $prefix) {
+    $name = "$name.$prefix"; // admin.rw
+    Route::get('/', 'index')->name($name)->middleware("permission:$name");
+    Route::post('/', 'insert')->name("$name.insert")->middleware("permission:$name.insert");
+    Route::get('/find', 'find')->name("$name.find")->middleware("permission:$name");
+    Route::post('/update', 'update')->name("$name.update")->middleware("permission:$name.update");
+    Route::delete('/{model}', 'delete')->name("$name.delete")->middleware("permission:$name.delete");
+    Route::get('/penduduk', 'penduduk_select2')->name("$name.penduduk")->middleware("permission:$name");
+});
 
+$prefix = 'rt';
+Route::controller(RtController::class)->prefix($prefix)->group(function () use ($name, $prefix) {
+    $name = "$name.$prefix"; // admin.rt
+    Route::get('/', 'index')->name($name)->middleware("permission:$name");
+    Route::post('/', 'insert')->name("$name.insert")->middleware("permission:$name.insert");
+    Route::get('/find', 'find')->name("$name.find")->middleware("permission:$name");
+    Route::post('/update', 'update')->name("$name.update")->middleware("permission:$name.update");
+    Route::delete('/{model}', 'delete')->name("$name.delete")->middleware("permission:$name.delete");
+    Route::get('/penduduk', 'penduduk_select2')->name("$name.penduduk")->middleware("permission:$name");
+});
 
 
 

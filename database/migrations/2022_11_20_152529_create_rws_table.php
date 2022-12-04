@@ -15,8 +15,7 @@ return new class extends Migration
     {
         Schema::create('rws', function (Blueprint $table) {
             $table->id();
-            $table->string('nomor')->nullable()->default(null);
-            $table->string('nama_ketua')->nullable()->default(null);
+            $table->integer('nomor')->nullable()->default(null);
             $table->timestamps();
             $table->bigInteger('updated_by', false, true)->nullable()->default(null);
             $table->bigInteger('created_by', false, true)->nullable()->default(null);
