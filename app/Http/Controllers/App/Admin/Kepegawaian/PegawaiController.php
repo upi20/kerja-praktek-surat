@@ -45,9 +45,7 @@ class PegawaiController extends Controller
             $request->validate($this->validate_model);
             DB::beginTransaction();
             // pasang role penduduk
-            $penduduk = Penduduk::find($request->penduduk_id);
-            $penduduk->save();
-            $user = $penduduk->user;
+            $user = User::where('penduduk_id', $request->penduduk_id)->first();
             $user->assignRole(config('app.role_desa'));
             $user->save();
 
@@ -76,17 +74,13 @@ class PegawaiController extends Controller
             DB::beginTransaction();
             $model = Pegawai::findOrFail($request->id);
 
-            // lepas role dari penduduk
-            $penduduk = Penduduk::find($model->penduduk_id);
-            $penduduk->save();
-            $user = $penduduk->user;
+            // lepas role dari penduduk lama
+            $user = $model->penduduk->user;
             $user->removeRole(config('app.role_desa'));
             $user->save();
 
-            // pasang role penduduk
-            $penduduk = Penduduk::find($request->penduduk_id);
-            $penduduk->save();
-            $user = $penduduk->user;
+            // pasang role penduduk baru
+            $user = User::where('penduduk_id', $request->penduduk_id)->first();
             $user->assignRole(config('app.role_desa'));
             $user->save();
 
@@ -110,9 +104,7 @@ class PegawaiController extends Controller
         try {
             DB::beginTransaction();
             // lepas role dari penduduk
-            $penduduk = Penduduk::find($model->penduduk_id);
-            $penduduk->save();
-            $user = $penduduk->user;
+            $user = $model->penduduk->user;
             $user->removeRole(config('app.role_desa'));
             $user->save();
 
