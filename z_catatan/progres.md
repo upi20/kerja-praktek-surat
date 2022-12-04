@@ -32,10 +32,11 @@
     Penduduk Masuk
     Penduduk Keluar
 
-# Administrasi
+# Administrasi // tugas terbaru
   Kepala desa
-  Pegawai
-  Jabatan Pegawai
+    Pegawai
+    Jabatan Pegawai
   Rukun Warga
   Rukun Tetangga
   Aplikasi (Asalnya pengaturan halaman)
+  Pegawai Penerima pertama surat dari pihak desa
