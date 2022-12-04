@@ -505,13 +505,13 @@ class PMenuTableSeeder extends Seeder
                 'id' => 421,
                 'parent_id' => NULL,
                 'title' => 'Laporan',
-                'icon' => 'fas fa-tasks',
+                'icon' => 'fas fa-file-alt',
                 'route' => NULL,
                 'sequence' => 27,
                 'active' => 1,
                 'type' => 1,
                 'created_at' => '2022-12-03 00:22:36',
-                'updated_at' => '2022-12-04 15:06:04',
+                'updated_at' => '2022-12-04 22:11:21',
             ),
             38 => 
             array (
@@ -583,13 +583,13 @@ class PMenuTableSeeder extends Seeder
                 'id' => 428,
                 'parent_id' => NULL,
                 'title' => 'Kepegawaian',
-                'icon' => 'fas fa-list',
+                'icon' => 'fas fa-id-card-alt',
                 'route' => NULL,
                 'sequence' => 16,
                 'active' => 1,
                 'type' => 1,
                 'created_at' => '2022-12-04 14:48:01',
-                'updated_at' => '2022-12-04 14:48:15',
+                'updated_at' => '2022-12-04 22:10:49',
             ),
             44 => 
             array (
@@ -610,12 +610,12 @@ class PMenuTableSeeder extends Seeder
                 'parent_id' => 428,
                 'title' => 'Pegawai',
                 'icon' => NULL,
-                'route' => NULL,
+                'route' => 'admin.kepegawaian.pegawai',
                 'sequence' => 18,
                 'active' => 1,
                 'type' => 1,
                 'created_at' => '2022-12-04 14:48:47',
-                'updated_at' => '2022-12-04 14:51:46',
+                'updated_at' => '2022-12-04 22:06:25',
             ),
             46 => 
             array (

@@ -208,7 +208,7 @@ class PendudukSeeder extends Seeder
                     $user->active = 1;
                     $user->created_by = 1;
                     $user->save();
-                    $user->assignRole('Penduduk');
+                    $user->assignRole(config('app.role_penduduk'));
 
                     // simpan ke penduduk masuk
                     $masuk = new Masuk();
@@ -255,7 +255,7 @@ class PendudukSeeder extends Seeder
                             $pegawai->jabatan_id = 1;
                             $pegawai->created_by = 1;
                             $pegawai->save();
-                            $user->assignRole('Pihak Desa');
+                            $user->assignRole(config('app.role_desa'));
 
                             $kepala_desa--;
                         } else if ($pegawai_desa > 0) {
@@ -266,7 +266,7 @@ class PendudukSeeder extends Seeder
                             $pegawai->jabatan_id = $pegawai_desa + 1;
                             $pegawai->created_by = 1;
                             $pegawai->save();
-                            $user->assignRole('Pihak Desa');
+                            $user->assignRole(config('app.role_desa'));
 
                             $pegawai_desa--;
                         }
@@ -305,7 +305,7 @@ class PendudukSeeder extends Seeder
                     $user->password = $password;
                     $user->active = 1;
                     $user->save();
-                    $user->assignRole('Penduduk');
+                    $user->assignRole(config('app.role_penduduk'));
 
                     // simpan ke penduduk masuk
                     $masuk = new Masuk();
@@ -353,7 +353,7 @@ class PendudukSeeder extends Seeder
                         $user->active = 1;
                         $user->created_by = 1;
                         $user->save();
-                        $user->assignRole('Penduduk');
+                        $user->assignRole(config('app.role_penduduk'));
 
                         // simpan ke penduduk masuk
                         $masuk = new Masuk();

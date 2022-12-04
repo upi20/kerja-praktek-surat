@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('pegawais', function (Blueprint $table) {
             $table->id();
+            $table->string('nip')->nullable()->unique()->default(null);
             $table->bigInteger('penduduk_id', false, true)->nullable()->default(null);
             $table->bigInteger('jabatan_id', false, true)->nullable()->default(null);
             $table->foreign('jabatan_id')

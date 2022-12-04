@@ -1123,6 +1123,38 @@ class PPermissionsTableSeeder extends Seeder
                 'created_at' => '2022-12-04 20:15:34',
                 'updated_at' => '2022-12-04 20:15:34',
             ),
+            138 => 
+            array (
+                'id' => 148,
+                'name' => 'admin.kepegawaian.pegawai',
+                'guard_name' => 'web',
+                'created_at' => '2022-12-04 22:06:52',
+                'updated_at' => '2022-12-04 22:06:52',
+            ),
+            139 => 
+            array (
+                'id' => 149,
+                'name' => 'admin.kepegawaian.pegawai.insert',
+                'guard_name' => 'web',
+                'created_at' => '2022-12-04 22:06:57',
+                'updated_at' => '2022-12-04 22:06:57',
+            ),
+            140 => 
+            array (
+                'id' => 150,
+                'name' => 'admin.kepegawaian.pegawai.update',
+                'guard_name' => 'web',
+                'created_at' => '2022-12-04 22:07:03',
+                'updated_at' => '2022-12-04 22:07:03',
+            ),
+            141 => 
+            array (
+                'id' => 151,
+                'name' => 'admin.kepegawaian.pegawai.delete',
+                'guard_name' => 'web',
+                'created_at' => '2022-12-04 22:07:10',
+                'updated_at' => '2022-12-04 22:07:10',
+            ),
         ));
         
         

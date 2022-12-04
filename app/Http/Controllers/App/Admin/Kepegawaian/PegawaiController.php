@@ -3,18 +3,21 @@
 namespace App\Http\Controllers\App\Admin\Kepegawaian;
 
 use App\Http\Controllers\Controller;
+use App\Models\Desa\Pegawai;
 use App\Models\Desa\PegawaiJabatan;
+use App\Models\Penduduk\Penduduk;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use League\Config\Exception\ValidationException;
 use Yajra\Datatables\Datatables;
 
-class JabatanController extends Controller
+class PegawaiController extends Controller
 {
     private $validate_model = [
-        'nama' => ['required', 'string', 'max:255'],
-        'urutan' => ['required', 'integer'],
+        'nip' => ['nullable', 'integer', ('unique:' . Pegawai::tableName)],
+        'jabatan_id' => ['required', 'integer'],
+        'penduduk_id' => ['required', 'integer'],
     ];
 
     private $query = [];
@@ -25,35 +28,37 @@ class JabatanController extends Controller
             return $this->datatable($request);
         }
         $page_attr = [
-            'title' => 'Jabatan Pegawai',
+            'title' => 'Pegawai',
             'breadcrumbs' => [
                 ['name' => 'Kepegawaian'],
             ]
         ];
-
-        $data = compact('page_attr');
+        $jabatans = PegawaiJabatan::orderBy('urutan')->get();
+        $data = compact('page_attr', 'jabatans');
         $data['compact'] = $data;
-        return view('app.admin.kepegawaian.jabatan', $data);
+        return view('app.admin.kepegawaian.pegawai', $data);
     }
 
     public function insert(Request $request): mixed
     {
         try {
             $request->validate($this->validate_model);
-            if ($request->urutan == "1") {
-                return response()->json([
-                    'errors' => [
-                        'urutan' => ['Nomor Urutan 1 Khusus Untuk Kepala Desa']
-                    ],
-                    'message' => 'Something went wrong',
-                ], 422);
-            }
+            DB::beginTransaction();
+            // pasang role penduduk
+            $penduduk = Penduduk::find($request->penduduk_id);
+            $penduduk->save();
+            $user = $penduduk->user;
+            $user->assignRole(config('app.role_desa'));
+            $user->save();
 
-            $model = new PegawaiJabatan();
-            $model->nama = $request->nama;
-            $model->urutan = $request->urutan;
+            // simpan pegawai
+            $model = new Pegawai();
+            $model->nip = $request->nip;
+            $model->jabatan_id = $request->jabatan_id;
+            $model->penduduk_id = $request->penduduk_id;
             $model->created_by = auth()->user()->id;
             $model->save();
+            DB::commit();
             return response()->json();
         } catch (ValidationException $error) {
             return response()->json([
@@ -66,21 +71,31 @@ class JabatanController extends Controller
     public function update(Request $request): mixed
     {
         try {
+            $this->validate_model['nip'] = ['nullable', 'integer', ('unique:' . Pegawai::tableName . ',nip,' . $request->id)];
             $request->validate(array_merge(['id' => ['required', 'int']], $this->validate_model));
-            $model = PegawaiJabatan::findOrFail($request->id);
-            if ($request->urutan == "1" && $model->id != 1) {
-                return response()->json([
-                    'errors' => [
-                        'urutan' => ['Nomor Urutan 1 Khusus Untuk Kepala Desa']
-                    ],
-                    'message' => 'Something went wrong',
-                ], 422);
-            }
+            DB::beginTransaction();
+            $model = Pegawai::findOrFail($request->id);
 
-            $model->nama = $request->nama;
-            $model->urutan = $model->id == 1 ? 1 : $request->urutan;
+            // lepas role dari penduduk
+            $penduduk = Penduduk::find($model->penduduk_id);
+            $penduduk->save();
+            $user = $penduduk->user;
+            $user->removeRole(config('app.role_desa'));
+            $user->save();
+
+            // pasang role penduduk
+            $penduduk = Penduduk::find($request->penduduk_id);
+            $penduduk->save();
+            $user = $penduduk->user;
+            $user->assignRole(config('app.role_desa'));
+            $user->save();
+
+            $model->nip = $request->nip;
+            $model->jabatan_id = $request->jabatan_id;
+            $model->penduduk_id = $request->penduduk_id;
             $model->updated_by = auth()->user()->id;
             $model->save();
+            DB::commit();
             return response()->json();
         } catch (ValidationException $error) {
             return response()->json([
@@ -90,15 +105,19 @@ class JabatanController extends Controller
         }
     }
 
-    public function delete(PegawaiJabatan $model): mixed
+    public function delete(Pegawai $model): mixed
     {
         try {
-            if ($model->id == 1) {
-                return response()->json([
-                    'message' => 'Jabatan Kepala desa tidak boleh di hapus',
-                ], 400);
-            }
+            DB::beginTransaction();
+            // lepas role dari penduduk
+            $penduduk = Penduduk::find($model->penduduk_id);
+            $penduduk->save();
+            $user = $penduduk->user;
+            $user->removeRole(config('app.role_desa'));
+            $user->save();
+
             $model->delete();
+            DB::commit();
             return response()->json();
         } catch (ValidationException $error) {
             return response()->json([
@@ -110,13 +129,18 @@ class JabatanController extends Controller
 
     public function find(Request $request)
     {
-        return PegawaiJabatan::findOrFail($request->id);
+        $pegawai = Pegawai::findOrFail($request->id);
+        $pegawai->penduduk;
+        $pegawai->jabatan;
+        return $pegawai;
     }
 
     public function datatable(Request $request): mixed
     {
         // list table
-        $table = PegawaiJabatan::tableName;
+        $table = Pegawai::tableName;
+        $t_jabatan = PegawaiJabatan::tableName;
+        $t_penduduk = Penduduk::tableName;
         $t_user = User::tableName;
 
         // cusotm query
@@ -150,6 +174,20 @@ class JabatanController extends Controller
         $t_updated_by = 'c';
         $this->query[$c_updated_by] = "$t_updated_by.name";
         $this->query["{$c_updated_by}_alias"] = $c_updated_by;
+
+        // penduduk
+        $c_penduduk_nama = 'penduduk_nama';
+        $this->query[$c_penduduk_nama] = "$t_penduduk.nama";
+        $this->query["{$c_penduduk_nama}_alias"] = $c_penduduk_nama;
+
+        $c_penduduk_nik = 'penduduk_nik';
+        $this->query[$c_penduduk_nik] = "$t_penduduk.nik";
+        $this->query["{$c_penduduk_nik}_alias"] = $c_penduduk_nik;
+
+        // jabatan
+        $c_jabatan_nama = 'jabatan_nama';
+        $this->query[$c_jabatan_nama] = "$t_jabatan.nama";
+        $this->query["{$c_jabatan_nama}_alias"] = $c_jabatan_nama;
         // ========================================================================================================
 
 
@@ -165,6 +203,9 @@ class JabatanController extends Controller
             $c_updated_str,
             $c_created_by,
             $c_updated_by,
+            $c_penduduk_nama,
+            $c_penduduk_nik,
+            $c_jabatan_nama,
         ];
 
         $to_db_raw = array_map(function ($a) use ($sraa) {
@@ -174,11 +215,13 @@ class JabatanController extends Controller
 
 
         // Select =====================================================================================================
-        $model = PegawaiJabatan::select(array_merge([
+        $model = Pegawai::select(array_merge([
             DB::raw("$table.*"),
         ], $to_db_raw))
             ->leftJoin("$t_user as $t_created_by", "$t_created_by.id", '=', "$table.created_by")
-            ->leftJoin("$t_user as $t_updated_by", "$t_updated_by.id", '=', "$table.updated_by");
+            ->leftJoin("$t_user as $t_updated_by", "$t_updated_by.id", '=', "$table.updated_by")
+            ->leftJoin($t_penduduk, "$t_penduduk.id", '=', "$table.penduduk_id")
+            ->leftJoin($t_jabatan, "$t_jabatan.id", '=', "$table.jabatan_id");
 
         // Filter =====================================================================================================
         // filter check
@@ -197,12 +240,14 @@ class JabatanController extends Controller
         }
 
         // filter custom
-        $filters = ['updated_by', 'created_by'];
+        $filters = ['updated_by', 'created_by', 'jabatan_id'];
         foreach ($filters as  $f) {
             if ($f_c($f) !== false) {
                 $model->whereRaw("$table.$f='{$f_c($f)}'");
             }
         }
+
+        $model->orderBy('urutan');
         // ========================================================================================================
 
 
@@ -218,7 +263,7 @@ class JabatanController extends Controller
             if ((is_null($search) || $search == '') && count($model_filter) > 0) return false;
 
             // tambah pencarian
-            $search_add = ['nama', 'urutan'];
+            $search_add = ['nip', 'jabatan_id', 'penduduk_id', 'updated_by', 'created_by'];
             $search_add = array_map(function ($v) use ($table) {
                 return "$table.$v";
             }, $search_add);
@@ -238,5 +283,23 @@ class JabatanController extends Controller
 
         // create datatable
         return $datatable->make(true);
+    }
+
+    public function penduduk_select2(Request $request)
+    {
+        try {
+            $table = Penduduk::tableName;
+            $_pegawai = Pegawai::tableName;
+            $model = DB::table($table)->select(['id', DB::raw("concat($table.nik, ' ', $table.nama) as text")])
+                ->whereRaw("(
+                    ($table.nama like '%$request->search%' or $table.nik like '%$request->search%' ) and 
+                    ($table.id not in (select penduduk_id from $_pegawai))
+                )")
+                ->limit(20);
+            $result = $model->get()->toArray();
+            return response()->json(['results' => $result]);
+        } catch (\Exception $error) {
+            return response()->json($error, 500);
+        }
     }
 }

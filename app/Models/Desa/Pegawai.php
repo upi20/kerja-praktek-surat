@@ -11,7 +11,6 @@ class Pegawai extends Model
     use HasFactory;
     protected $fillable = [
         'nip',
-        'nama',
         'jabatan_id',
         'penduduk_id', 'updated_by', 'created_by'
     ];

@@ -6,6 +6,7 @@ use App\Models\Address\District;
 use App\Models\Address\Province;
 use App\Models\Address\Regencie;
 use App\Models\Address\Village;
+use App\Models\Penduduk\Penduduk;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -67,5 +68,10 @@ class User extends Authenticatable
     {
         $foto = $this->attributes['foto'];
         return $foto ? url(self::image_folder . '/' . $foto) : asset('assets/image/anggota_default.png');
+    }
+
+    public function penduduk()
+    {
+        return $this->belongsTo(Penduduk::class, 'penduduk_id', 'id');
     }
 }

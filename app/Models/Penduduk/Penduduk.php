@@ -2,10 +2,12 @@
 
 namespace App\Models\Penduduk;
 
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Penduduk extends Model
 {
@@ -68,5 +70,10 @@ class Penduduk extends Model
     {
         return Carbon::parse($this->attributes['tanggal_lahir'])
             ->isoFormat("D MMMM Y");
+    }
+
+    protected function user()
+    {
+        return $this->hasOne(User::class, 'penduduk_id', 'id');
     }
 }
