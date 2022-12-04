@@ -597,12 +597,12 @@ class PMenuTableSeeder extends Seeder
                 'parent_id' => 428,
                 'title' => 'Jabatan',
                 'icon' => NULL,
-                'route' => NULL,
+                'route' => 'admin.kepegawaian.jabatan',
                 'sequence' => 17,
                 'active' => 1,
                 'type' => 1,
                 'created_at' => '2022-12-04 14:48:36',
-                'updated_at' => '2022-12-04 14:51:46',
+                'updated_at' => '2022-12-04 20:15:54',
             ),
             45 => 
             array (

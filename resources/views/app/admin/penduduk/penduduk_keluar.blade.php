@@ -449,7 +449,7 @@
                         render(data, type, full, meta) {
                             const tanggal = data ?? full.created;
                             const oleh = full.updated_by_str ?? full.created_by_str
-                            return `${oleh ?? ''}<br><small>${tanggal}</small>`;
+                            return `${oleh? `${oleh}<br>` : ''}<small>${tanggal}</small>`;
                         },
                         className: 'text-nowrap'
                     },
@@ -1101,7 +1101,7 @@
                 error: function(err) {
                     Swal.fire({
                         position: 'center',
-                        icon: err.status == 400 ? 'info' : 'error',
+                        icon: 'error',
                         title: ((err.responseJSON) ? err.responseJSON.message :
                             'Something went wrong'),
                         showConfirmButton: false,

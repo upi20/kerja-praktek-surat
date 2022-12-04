@@ -19,8 +19,7 @@ use App\Http\Controllers\App\Admin\Artikel\TagController;
 use App\Http\Controllers\App\Admin\Contact\FAQController;
 use App\Http\Controllers\App\Admin\Contact\ListContactController;
 use App\Http\Controllers\App\Admin\Contact\MessageController;
-
-
+use App\Http\Controllers\App\Admin\Kepegawaian\JabatanController;
 // User Access ========================================================================================================
 use App\Http\Controllers\App\Admin\UserAccess\PermissionController;
 use App\Http\Controllers\App\Admin\UserAccess\RoleController;
@@ -64,30 +63,44 @@ Route::group(
 
 $prefix = 'penduduk';
 Route::prefix($prefix)->group(function () use ($name, $prefix) {
-    $name = "$name.$prefix"; // desa.penduduk
+    $name = "$name.$prefix"; // admin.penduduk
     Route::get('/', [PendudukController::class, 'index'])->name($name)->middleware("permission:$name");
     Route::get('/find/{penduduk:nik}', [PendudukController::class, 'find'])->name("$name.find")->middleware("permission:$name");
 
     $prefix = 'masuk';
     Route::controller(PendudukMasukController::class)->prefix($prefix)->group(function () use ($name, $prefix) {
-        $name = "$name.$prefix"; // desa.penduduk.masuk
+        $name = "$name.$prefix"; // admin.penduduk.masuk
         Route::get('/', 'index')->name($name)->middleware("permission:$name");
         Route::post('/', 'insert')->name("$name.insert")->middleware("permission:$name.insert");
-        Route::delete('/{model}', 'delete')->name("$name.delete")->middleware("permission:$name.delete");
         Route::get('/find', 'find')->name("$name.find")->middleware("permission:$name");
         Route::get('/find_by_nik', 'find_by_nik')->name("$name.find_by_nik")->middleware("permission:$name");
         Route::post('/update', 'update')->name("$name.update")->middleware("permission:$name.update");
+        Route::delete('/{model}', 'delete')->name("$name.delete")->middleware("permission:$name.delete");
     });
 
     $prefix = 'keluar';
     Route::controller(PendudukKeluarController::class)->prefix($prefix)->group(function () use ($name, $prefix) {
-        $name = "$name.$prefix"; // desa.penduduk.keluar
+        $name = "$name.$prefix"; // admin.penduduk.keluar
         Route::get('/', 'index')->name($name)->middleware("permission:$name");
         Route::post('/', 'insert')->name("$name.insert")->middleware("permission:$name.insert");
-        Route::delete('/{model}', 'delete')->name("$name.delete")->middleware("permission:$name.delete");
         Route::get('/find', 'find')->name("$name.find")->middleware("permission:$name");
         Route::get('/find_by_nik', 'find_by_nik')->name("$name.find_by_nik")->middleware("permission:$name");
         Route::post('/update', 'update')->name("$name.update")->middleware("permission:$name.update");
+        Route::delete('/{model}', 'delete')->name("$name.delete")->middleware("permission:$name.delete");
+    });
+});
+
+$prefix = 'kepegawaian';
+Route::prefix($prefix)->group(function () use ($name, $prefix) {
+    $name = "$name.$prefix"; // admin.kepegawaian
+    $prefix = 'jabatan';
+    Route::controller(JabatanController::class)->prefix($prefix)->group(function () use ($name, $prefix) {
+        $name = "$name.$prefix"; // admin.kepegawaian.jabatan
+        Route::get('/', 'index')->name($name)->middleware("permission:$name");
+        Route::post('/', 'insert')->name("$name.insert")->middleware("permission:$name.insert");
+        Route::get('/find', 'find')->name("$name.find")->middleware("permission:$name");
+        Route::post('/update', 'update')->name("$name.update")->middleware("permission:$name.update");
+        Route::delete('/{model}', 'delete')->name("$name.delete")->middleware("permission:$name.delete");
     });
 });
 
