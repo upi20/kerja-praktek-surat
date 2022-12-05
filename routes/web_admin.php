@@ -51,6 +51,7 @@ use App\Http\Controllers\App\Admin\Utility\NotifDepanAtasController;
 use App\Http\Controllers\App\Admin\PendudukController;
 use App\Http\Controllers\App\Admin\Penduduk\PendudukKeluarController;
 use App\Http\Controllers\App\Admin\Penduduk\PendudukMasukController;
+use App\Http\Controllers\App\Admin\Setting\PenerimaSuratController;
 
 $name = 'admin';
 $prefix = 'dashboard';
@@ -431,6 +432,18 @@ Route::prefix($prefix)->group(function () use ($name, $prefix) {
 
         $method = 'sensus';
         Route::post("/$method", $method)->name("$name_.$method");
+    });
+
+    $prefix = 'penerima_surat';
+    $name_ = "$name.$prefix"; // admin.setting.penerima_surat
+    Route::group([
+        'controller' => PenerimaSuratController::class,
+        'prefix' => $prefix,
+        'middleware' => "permission:$name_"
+    ], function () use ($name_) {
+        Route::get('/', 'index')->name($name_);
+        Route::get('/pegawai', 'pegawai_select2')->name("$name_.pegawai");
+        Route::post('/simpan', 'simpan')->name("$name_.simpan");
     });
 });
 
