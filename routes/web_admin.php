@@ -36,16 +36,17 @@ use App\Http\Controllers\App\Admin\Menu\FrontendController as MenuFrontendContro
 
 // Pendaftaran ========================================================================================================
 use App\Http\Controllers\App\Admin\Pendaftaran\GFormController;
+
 // Setting ============================================================================================================
 use App\Http\Controllers\App\Admin\Setting\AdminController;
 use App\Http\Controllers\App\Admin\Setting\FrontController;
 use App\Http\Controllers\App\Admin\Setting\HomeController;
+use App\Http\Controllers\App\Admin\Setting\JenisSuratKeteranganController;
 
 // Utility ============================================================================================================
 use App\Http\Controllers\App\Admin\Utility\HariBesarNasionalController;
 use App\Http\Controllers\App\Admin\Utility\NotifAdminAtasController;
 use App\Http\Controllers\App\Admin\Utility\NotifDepanAtasController;
-
 
 // Penduduk ===========================================================================================================
 use App\Http\Controllers\App\Admin\PendudukController;
@@ -444,6 +445,16 @@ Route::prefix($prefix)->group(function () use ($name, $prefix) {
         Route::get('/', 'index')->name($name_);
         Route::get('/pegawai', 'pegawai_select2')->name("$name_.pegawai");
         Route::post('/simpan', 'simpan')->name("$name_.simpan");
+    });
+
+    $prefix = 'jenis_surat_keterangan';
+    Route::controller(JenisSuratKeteranganController::class)->prefix($prefix)->group(function () use ($name, $prefix) {
+        $name = "$name.$prefix"; // admin.setting.jenis_surat_keterangan
+        Route::get('/', 'index')->name($name)->middleware("permission:$name");
+        Route::post('/', 'insert')->name("$name.insert")->middleware("permission:$name.insert");
+        Route::get('/find', 'find')->name("$name.find")->middleware("permission:$name");
+        Route::post('/update', 'update')->name("$name.update")->middleware("permission:$name.update");
+        Route::delete('/{model}', 'delete')->name("$name.delete")->middleware("permission:$name.delete");
     });
 });
 

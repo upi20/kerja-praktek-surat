@@ -95,7 +95,7 @@
                         <div class="form-group">
                             <label class="form-label" for="email">Email <span class="text-danger">*</span></label>
                             <input type="email" id="email" name="email" class="form-control"
-                                placeholder="Email Address" required="" />
+                                placeholder="Email Address" />
                             <div class="help-block"></div>
                         </div>
                         <div class="form-group">

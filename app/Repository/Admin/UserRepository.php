@@ -78,7 +78,7 @@ class UserRepository
         try {
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'email' => ['nullable', 'string', 'email', 'max:255', 'unique:users'],
                 'active' => ['required', 'int', 'in:1,0'],
                 'nik' => ['required', 'string', 'max:16'],
                 'password' => ['required', 'string', new Password]
@@ -110,7 +110,7 @@ class UserRepository
             $request->validate([
                 'id' => ['required', 'int'],
                 'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+                'email' => ['nullable', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
                 'active' => ['required', 'int', 'in:1,0'],
                 'nik' => ['required', 'string', 'max:16'],
                 'password' => $request->password ? ['required', 'string', new Password] : ''
