@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\DB;
 
 class PenerimaSuratController extends Controller
 {
-    private $folder_logo = '/assets/setting/admin/logo';
-    private $folder_meta_logo = '/assets/setting/admin/meta';
     private $key = 'setting.penerimma_surat.pegawai_id';
 
     public function index(Request $request)

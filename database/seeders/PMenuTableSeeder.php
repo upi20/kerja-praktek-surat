@@ -662,12 +662,12 @@ class PMenuTableSeeder extends Seeder
                 'parent_id' => 397,
                 'title' => 'Pegawai Penerima Surat',
                 'icon' => NULL,
-                'route' => NULL,
+                'route' => 'admin.setting.penerima_surat',
                 'sequence' => 25,
                 'active' => 1,
                 'type' => 1,
                 'created_at' => '2022-12-04 14:54:11',
-                'updated_at' => '2022-12-04 14:55:16',
+                'updated_at' => '2022-12-05 07:06:14',
             ),
             50 => 
             array (
