@@ -197,4 +197,17 @@ class PendudukController extends Controller
         $penduduk->rt->rw;
         return $penduduk;
     }
+
+    public function cari_penduduk(Request $request)
+    {
+        $penduduk = Penduduk::where('nik', $request->nik)->first();
+        if (is_null($penduduk)) {
+            return response()->json([
+                'message' => 'Nomor NIK Tidak Ditemukan'
+            ], 400);
+        }
+
+        $penduduk->rt->rw;
+        return $penduduk;
+    }
 }

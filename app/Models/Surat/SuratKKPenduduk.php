@@ -27,7 +27,9 @@ class SuratKKPenduduk extends Model
         'negara_nama',
         'no_passport',
         'kitas_kitap',
-        'foto_ktp', 'updated_by', 'created_by'
+        'foto_ktp',
+        'updated_by',
+        'created_by'
     ];
     protected $primaryKey = 'id';
     protected $table = 'surat_k_k_penduduks';

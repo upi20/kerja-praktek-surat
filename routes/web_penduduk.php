@@ -1,13 +1,29 @@
 <?php
 
+use App\Http\Controllers\App\Admin\PendudukController;
 use App\Http\Controllers\App\Penduduk\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\App\Penduduk\PengajuanSuratController;
+
+// Surat ==============================================================================================================
+use App\Http\Controllers\App\Penduduk\Surat\KeteranganController;
 
 $name = 'penduduk';
 Route::get("/", [DashboardController::class, 'index'])
     ->name("$name.home")
     ->middleware("permission:$name.home");
+
+$prefix = 'surat';
+Route::prefix($prefix)->group(function () use ($name, $prefix) {
+    $name = "$name.$prefix"; // penduduk.surat
+
+    $prefix = 'keterangan';
+    Route::prefix($prefix)->controller(KeteranganController::class)->group(function () use ($name, $prefix) {
+        $name = "$name.$prefix"; // penduduk.surat.keterangan
+        Route::get('/', 'index')->name($name)->middleware("permission:$name");
+        Route::post('/simpan', 'simpan')->name("$name.simpan")->middleware("permission:$name");
+    });
+});
 
 $prefix = 'pengajuan_surat';
 Route::prefix($prefix)->controller(PengajuanSuratController::class)->group(function () use ($name, $prefix) {
@@ -19,4 +35,10 @@ Route::prefix($prefix)->controller(PengajuanSuratController::class)->group(funct
     Route::get('pindah', 'pindah')->name("$name.pindah");
     Route::get('nikah', 'nikah')->name("$name.nikah");
     Route::get('kematian', 'kematian')->name("$name.kematian");
+
+
+    // cari warga berdasarkan nik
+    Route::get('cari_penduduk', 'cari_penduduk')->name("$name.cari_penduduk");
 });
+
+Route::get('cari_penduduk', [PendudukController::class, 'cari_penduduk'])->name("$name.cari_penduduk");

@@ -27,12 +27,15 @@ class SuratDomisili extends Model
         'negara_nama',
         'no_passport',
         'kitas_kitap',
-        'foto_ktp', 'updated_by', 'created_by'
+        'foto_ktp',
+        'updated_by',
+        'created_by'
     ];
 
     protected $primaryKey = 'id';
     protected $table = 'surat_domisilis';
     const tableName = 'surat_domisilis';
+    const jenis = 'SURAT DOMISILI';
 
     public function surat()
     {

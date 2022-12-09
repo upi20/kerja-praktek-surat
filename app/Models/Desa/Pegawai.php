@@ -12,7 +12,9 @@ class Pegawai extends Model
     protected $fillable = [
         'nip',
         'jabatan_id',
-        'penduduk_id', 'updated_by', 'created_by'
+        'penduduk_id',
+        'updated_by',
+        'created_by'
     ];
 
     protected $primaryKey = 'id';

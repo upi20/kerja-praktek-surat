@@ -26,11 +26,15 @@ class SuratKeterangan extends Model
         'negara_nama',
         'no_passport',
         'kitas_kitap',
-        'foto_ktp', 'updated_by', 'created_by'
+        'foto_ktp',
+        'alamat',
+        'updated_by',
+        'created_by'
     ];
     protected $primaryKey = 'id';
     protected $table = 'surat_keterangans';
     const tableName = 'surat_keterangans';
+    const jenis = 'SURAT KETERANGAN';
 
     public function surat()
     {

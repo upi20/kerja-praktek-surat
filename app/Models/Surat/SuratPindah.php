@@ -33,11 +33,14 @@ class SuratPindah extends Model
         'ke_rt_rw',
         'ke_alamat_lengkap',
         'alasan_pindah',
-        'jml_pengikut', 'updated_by', 'created_by'
+        'jml_pengikut',
+        'updated_by',
+        'created_by'
     ];
     protected $primaryKey = 'id';
     protected $table = 'surat_pindahs';
     const tableName = 'surat_pindahs';
+    const jenis = 'SURAT PINDAH';
 
     public function surat()
     {

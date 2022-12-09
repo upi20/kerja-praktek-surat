@@ -51,12 +51,15 @@ class SuratKelahiran extends Model
         'ayah_negara_nama',
         'ayah_no_passport',
         'ayah_kitas_kitap',
-        'ayah_foto_ktp', 'updated_by', 'created_by'
+        'ayah_foto_ktp',
+        'updated_by',
+        'created_by'
     ];
 
     protected $primaryKey = 'id';
     protected $table = 'surat_kelahirans';
     const tableName = 'surat_kelahirans';
+    const jenis = 'SURAT KELAHIRAN';
 
     public function surat()
     {

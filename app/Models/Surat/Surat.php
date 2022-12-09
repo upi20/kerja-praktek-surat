@@ -22,7 +22,6 @@ class Surat extends Model
         'nik_penduduk',
         'nama_untuk_penduduk',
         'nik_untuk_penduduk',
-        'nama_surat',
         'rt_nik',
         'rt_nama',
         'rw_nik',
@@ -39,7 +38,9 @@ class Surat extends Model
         'jenis',
         'dibatalkan',
         'alasan_dibatalkan',
-        'tanggal_dibatalkan', 'updated_by', 'created_by'
+        'tanggal_dibatalkan',
+        'updated_by',
+        'created_by'
     ];
 
     protected $primaryKey = 'id';

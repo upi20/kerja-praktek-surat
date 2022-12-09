@@ -34,6 +34,7 @@ return new class extends Migration
             $table->string('no_passport')->nullable()->default(null);
             $table->string('kitas_kitap')->nullable()->default(null);
             $table->string('foto_ktp')->nullable()->default(null);
+            $table->text('alamat')->nullable()->default(null);
 
             $table->timestamps();
 

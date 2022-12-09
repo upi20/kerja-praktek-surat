@@ -24,12 +24,14 @@ return new class extends Migration
             $table->bigInteger('kades_pend_id', false, true)->nullable()->default(null);
             $table->bigInteger('rw_id', false, true)->nullable()->default(null);
 
-            $table->string('nama_penduduk')->nullable()->default(null);
-            $table->string('nik_penduduk')->nullable()->default(null);
-            $table->string('nama_untuk_penduduk')->nullable()->default(null);
-            $table->string('nik_untuk_penduduk')->nullable()->default(null);
+            // penduduk yang membuat
+            $table->string('nama_penduduk')->nullable()->default(null)->comment("Nama penduduk yang mengajukan");
+            $table->string('nik_penduduk')->nullable()->default(null)->comment("NIK penduduk yang mengajukan");
 
-            $table->string('nama_surat')->nullable()->default(null);
+            // untuk penduduk
+            $table->string('nama_untuk_penduduk')->nullable()->default(null)->comment("Nama penduduk yang ada di surat");
+            $table->string('nik_untuk_penduduk')->nullable()->default(null)->comment("NIK penduduk yang ada di surat");
+
             $table->string('rt_nik')->nullable()->default(null);
             $table->string('rt_nama')->nullable()->default(null);
             $table->string('rw_nik')->nullable()->default(null);
@@ -40,9 +42,9 @@ return new class extends Migration
             $table->string('no_resi')->nullable()->default(null);
             $table->string('foto_pbb')->nullable()->default(null);
             $table->string('foto_kk')->nullable()->default(null);
-            $table->string('reg_no')->nullable()->default(null);
+            $table->string('reg_no')->nullable()->default(null)->comment('Ada di atas tanda tangan rw');
             $table->string('tanggal')->nullable()->default(null);
-            $table->integer('status')->nullable()->default(0)->comment('0 Penduduk, 1 Rt, 2 Rw, 3 Pihak Desa, 4 Selesai');
+            $table->string('status')->nullable()->default(0)->comment('PENDUDUK, RUKUN WARGA, RUKUN TETANGGA, PIHAK DESA, SELESAI, DIBATALKAN');
             $table->string('jenis');
 
             $table->boolean('dibatalkan')->nullable()->default(0);

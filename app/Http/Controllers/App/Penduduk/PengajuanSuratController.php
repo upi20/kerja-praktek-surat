@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\App\Penduduk;
 
 use App\Http\Controllers\Controller;
+use App\Models\Penduduk\Penduduk;
+use App\Models\Surat\SuratKeteranganJenis;
 use Illuminate\Http\Request;
 
 class PengajuanSuratController extends Controller
@@ -12,11 +14,16 @@ class PengajuanSuratController extends Controller
     {
         $page_attr = [
             'title' => 'Form Surat Pengantar Keterangan',
-            'navigation' => 'penduduk.home'
         ];
-        return view('penduduk.form_surat.keterangan', compact(
-            'page_attr',
-        ));
+        $hub_dgn_kks = config('app.hub_dgn_kks');
+        $pendidikans = config('app.pendidikans');
+        $pekerjaans = config('app.pekerjaans');
+        $agamas = config('app.agamas');
+
+        $jenis_keterangan = SuratKeteranganJenis::orderBy('nama')->get();
+        $data =  compact('page_attr', 'jenis_keterangan',  'hub_dgn_kks', 'pendidikans', 'pekerjaans', 'agamas');
+        $data['compact'] = $data;
+        return view('app.penduduk.surat.keterangan', $data);
     }
 
 
@@ -89,5 +96,18 @@ class PengajuanSuratController extends Controller
         return view('penduduk.form_surat.kematian', compact(
             'page_attr',
         ));
+    }
+
+    public function cari_penduduk(Request $request)
+    {
+        $penduduk = Penduduk::where('nik', $request->nik)->first();
+        if (is_null($penduduk)) {
+            return response()->json([
+                'message' => 'Nomor NIK Tidak Ditemukan'
+            ], 400);
+        }
+
+        $penduduk->rt->rw;
+        return $penduduk;
     }
 }

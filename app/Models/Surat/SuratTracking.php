@@ -19,7 +19,9 @@ class SuratTracking extends Model
         'dari_nip',
         'ke_nama',
         'ke_nip',
-        'status', 'updated_by', 'created_by'
+        'status',
+        'updated_by',
+        'created_by'
     ];
 
     protected $primaryKey = 'id';

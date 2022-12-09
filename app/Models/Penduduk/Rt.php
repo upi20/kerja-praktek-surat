@@ -9,7 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 class Rt extends Model
 {
     use HasFactory;
-    protected $fillable = ['nomor', 'nama_ketua', 'nama_daerah', 'rw_id', 'updated_by', 'created_by'];
+    protected $fillable = [
+        'nomor',
+        'nama_ketua',
+        'nama_daerah',
+        'rw_id',
+        'updated_by',
+        'created_by'
+    ];
     protected $primaryKey = 'id';
     protected $table = 'rts';
     const tableName = 'rts';

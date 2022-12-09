@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class KetuaRt extends Model
 {
     use HasFactory;
-    protected $fillable = ['rt_id', 'penduduk_id', 'updated_by', 'created_by'];
+    protected $fillable = [
+        'rt_id',
+        'penduduk_id',
+        'updated_by',
+        'created_by'
+    ];
     protected $primaryKey = 'id';
     protected $table = 'ketua_rts';
     const tableName = 'ketua_rts';

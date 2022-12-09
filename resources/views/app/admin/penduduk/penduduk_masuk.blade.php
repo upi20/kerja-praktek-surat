@@ -1097,6 +1097,7 @@
                     $('#jenis_kelamin').val(penduduk.jenis_kelamin);
                     view_form('insert-nik');
                     render_tanggal('#tanggal');
+                    render_tanggal('#tanggal_lahir');
                 },
                 error: function(err) {
                     Swal.fire({

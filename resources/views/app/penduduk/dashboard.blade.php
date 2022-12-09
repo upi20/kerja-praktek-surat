@@ -4,7 +4,7 @@
     <h3 class="h4 fw-bold">Pengajuan Surat</h3>
     <div class="row">
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-            <a href="{{ route('penduduk.pengajuan_surat.kelahiran') }}">
+            <a href="{{ route('penduduk.surat.keterangan') }}">
                 <div class="card bg-primary img-card card-main">
                     <div class="card-body">
                         <div class="d-flex">
@@ -38,7 +38,7 @@
         </div>
 
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-            <a href="{{ route('penduduk.pengajuan_surat.keterangan') }}">
+            <a href="{{ route('penduduk.surat.keterangan') }}">
                 <div class="card bg-secondary img-card card-main">
                     <div class="card-body">
                         <div class="d-flex">

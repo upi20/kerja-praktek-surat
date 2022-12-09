@@ -23,11 +23,14 @@ class SuratKK extends Model
         'provinsi',
         'nama_desa',
         'rt_nama',
-        'rw_nama', 'updated_by', 'created_by'
+        'rw_nama',
+        'updated_by',
+        'created_by'
     ];
     protected $primaryKey = 'id';
     protected $table = 'surat_k_k_s';
     const tableName = 'surat_k_k_s';
+    const jenis = 'SURAT KARTU KELUARGA';
 
     public function surat()
     {

@@ -261,4 +261,12 @@ return [
         ['urutan' => 11, 'nama' => 'LAINNYA'],
     ],
 
+    'status_surats' => [
+        'PENDUDUK',
+        'RUKUN WARGA',
+        'RUKUN TETANGGA',
+        'PIHAK DESA',
+        'SELESAI',
+        'DIBATALKAN',
+    ],
 ];
