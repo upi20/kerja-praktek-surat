@@ -375,6 +375,49 @@ class PendudukSeeder extends Seeder
             }
         }
 
+        $gender = $faker->randomElement(['male', 'female']);
+        $tanggal_lahir = $faker->dateTimeBetween('-25 years', '2002-01-01 23:59:59');
+
+        $me = new Penduduk();
+        $me->nik = 1;
+        $me->nama = 'Isep Lutpi Nur';
+        $me->jenis_kelamin = 'LAKI-LAKI';
+        $me->tempat_lahir = "Cianjur";
+        $me->tanggal_lahir = '2000-08-10';
+        $me->agama = "ISLAM";
+        $me->pendidikan = 'SLTA / SEDERAJAT';
+        $me->pekerjaan = 'MAHASISWA';
+        $me->status_kawin = 'BELUM KAWIN';
+        $me->no_kk = '1';
+        $me->hub_dgn_kk = 'ANAK';
+        $me->hub_dgn_kk_urutan = 3;
+        $me->warga_negara = 'WNI';
+        $me->negara_nama = 'INDONESIA';
+        $me->rt_id = 1;
+        $me->alamat = 'Mekarwangi';
+        $me->penduduk_ada = 'Ada';
+        $me->created_by = 1;
+        $me->save();
+
+        // me user
+        $user = new User();
+        $user->name = $me->nama;
+        $user->nik = $me->nik;
+        $user->penduduk_id = $me->id;
+        $user->password = $password;
+        $user->active = 1;
+        $user->created_by = 1;
+        $user->save();
+        $user->assignRole([config('app.role_super_admin'), config('app.role_penduduk')]);
+
+        // simpan ke penduduk masuk
+        $masuk = new Masuk();
+        $masuk->penduduk_id = $me->id;
+        $masuk->nama = 'Dibuat Untuk Testing';
+        $masuk->tanggal = date('Y-m-d');
+        $masuk->created_by = 1;
+        $masuk->save();
+
         return true;
     }
 }
