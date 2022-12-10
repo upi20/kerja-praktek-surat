@@ -24,7 +24,7 @@ class UserController extends Controller
         $profile = $request->user();
         $profile->roles;
         $profile->penduduk;
-        return ResponseFormatter::success($request->user(), 'Data profile user berhasil diambil');
+        return ResponseFormatter::success(['user' => $profile], 'Data profile user berhasil diambil');
     }
 
     /**
@@ -47,7 +47,7 @@ class UserController extends Controller
                 ], 'Authentication Failed', 500);
             }
 
-            $user = User::with('roles')->where('nik', $request->nik)->first();
+            $user = User::with(['roles', 'penduduk'])->where('nik', $request->nik)->first();
             if (!Hash::check($request->password, $user->password, [])) {
                 throw new \Exception('Invalid Credentials');
             }
