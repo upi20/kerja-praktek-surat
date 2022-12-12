@@ -18,7 +18,7 @@
                         <span style="display: none;" id="nik_text"></span>
                         <div class="w-100">
                             <input type="number" class="form-control" placeholder="Nomor Induk Kependudukan" id="nik"
-                                name="nik" required>
+                                name="nik" required value="{{ $penduduk->nik }}">
                         </div>
                         <div class="ms-2" id="btn_cari_nik">
                             <button type="button" class="btn btn-primary" onclick="cek_nik()">
@@ -152,11 +152,11 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="jenis_surat" class="col-sm-3 col-form-label">Jenis Surrat
+                    <label for="jenis_surat_id" class="col-sm-3 col-form-label">Jenis Surrat
                         <span class="text-danger">*</span></label>
                     <div class="col-sm-9">
                         <span style="display: none;" id="jenis_surat_text"></span>
-                        <select class="form-control" id="jenis_surat" name="jenis_surat" required>
+                        <select class="form-control" id="jenis_surat_id" name="jenis_surat_id" required>
                             <option value="">Pilih Jenis Surat</option>
                             @foreach ($jenis_keterangan as $jenis)
                                 <option value="{{ $jenis->id }}">{{ $jenis->nama }}</option>
@@ -193,6 +193,9 @@
 
     <script>
         $(document).ready(function() {
+            setTimeout(() => {
+                cek_nik();
+            }, 500);
             // simpan form ============================================================================================
             $('#MainForm').submit(function(e) {
                 e.preventDefault();
@@ -232,7 +235,7 @@
                         $('#rw').val('');
                         $('#alamat').val('');
                         $('#jenis_kelamin').val('');
-                        $('#jenis_surat').val('');
+                        $('#jenis_surat_id').val('');
                     },
                     error: function(data) {
                         const res = data.responseJSON ?? {};
