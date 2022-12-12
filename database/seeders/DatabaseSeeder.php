@@ -47,5 +47,6 @@ class DatabaseSeeder extends Seeder
         $this->call(FaqTableSeeder::class);
 
         $this->call(PendudukSeeder::class);
+        $this->call(SuratKeteranganJenisTableSeeder::class);
     }
 }

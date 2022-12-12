@@ -263,8 +263,8 @@ return [
 
     'status_surats' => [
         'PENDUDUK',
-        'RUKUN WARGA',
         'RUKUN TETANGGA',
+        'RUKUN WARGA',
         'PIHAK DESA',
         'SELESAI',
         'DIBATALKAN',

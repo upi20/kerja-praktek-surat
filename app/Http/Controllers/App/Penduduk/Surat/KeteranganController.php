@@ -11,6 +11,7 @@ use App\Models\Penduduk\Rw;
 use App\Models\Surat\Surat;
 use App\Models\Surat\SuratKeterangan;
 use App\Models\Surat\SuratKeteranganJenis;
+use App\Models\Surat\SuratTracking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -58,9 +59,9 @@ class KeteranganController extends Controller
             ]);
 
             DB::beginTransaction();
+            $SURAT_DI_RT = config('app.status_surats')[1];
 
             // simpan header surat
-
             // penduduk yang membuat surat
             $penduduk = auth()->user()->penduduk;
 
@@ -138,7 +139,7 @@ class KeteranganController extends Controller
             $surat->nik_untuk_penduduk = $request->nik;
             $surat->no_resi = date('Ymdhis') . Str::upper(Str::random(4));;
             $surat->tanggal = date('Y-m-d');
-            $surat->status = config('app.status_surats')[1]; // rt yang bersangkutan
+            $surat->status = $SURAT_DI_RT;
             $surat->jenis = SuratKeterangan::jenis;
             $surat->created_by = auth()->user()->id;
             $surat->save();
@@ -163,6 +164,19 @@ class KeteranganController extends Controller
             $surat_keterangan->alamat = $request->alamat;
             $surat_keterangan->created_by = auth()->user()->id;
             $surat_keterangan->save();
+
+            // simpan dari penduduk ke rt
+            $tracking_penduduk = new SuratTracking();
+            $tracking_penduduk->surat_id = $surat->id;
+            $tracking_penduduk->keterangan = "Diserahkan";
+            $tracking_penduduk->waktu = date('Y-m-d H:i:s');
+            $tracking_penduduk->dari_nama = $surat->nama_penduduk;
+            $tracking_penduduk->dari_nip = $surat->nik_penduduk;
+            $tracking_penduduk->ke_nama = $surat->rt_nama;
+            $tracking_penduduk->ke_nip = $surat->rt_nik;
+            $tracking_penduduk->status = $SURAT_DI_RT;
+            $tracking_penduduk->save();
+
             DB::commit();
             return response()->json(['status' => true]);
         } catch (ValidationException $error) {

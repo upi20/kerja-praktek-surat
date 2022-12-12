@@ -24,13 +24,17 @@ return new class extends Migration
             $table->string('dari_nip')->nullable()->default(null);
             $table->string('ke_nama')->nullable()->default(null);
             $table->string('ke_nip')->nullable()->default(null);
-            $table->integer('status')->nullable()->default(0)->comment('0 Penduduk, 1 Rt, 2 Rw, 3 Pihak Desa, 4 Selesai');
+            $table->string('status')->nullable()->default(0)->comment('PENDUDUK, RUKUN WARGA, RUKUN TETANGGA, PIHAK DESA, SELESAI, DIBATALKAN');
 
             $table->timestamps();
             $table->bigInteger('updated_by', false, true)->nullable()->default(null);
             $table->bigInteger('created_by', false, true)->nullable()->default(null);
             $table->foreign('updated_by')->references('id')->on('users')->nullOnDelete()->cascadeOnUpdate();
             $table->foreign('created_by')->references('id')->on('users')->nullOnDelete()->cascadeOnUpdate();
+            $table->foreign('surat_id')
+                ->references('id')->on('surats')
+                ->nullOnDelete()
+                ->cascadeOnUpdate();
         });
     }
 

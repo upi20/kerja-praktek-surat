@@ -101,8 +101,7 @@ class PendudukSeeder extends Seeder
                 return $faker->randomElement([
                     'TIDAK BEKERJA',
                     'PEGAWAI SWASTA',
-                    'PELAJAR',
-                    'MAHASISWA',
+                    'PELAJAR/MAHASISWA',
                 ]);
             } else if ($hub == 'istri') {
                 return $faker->randomElement([
@@ -386,7 +385,7 @@ class PendudukSeeder extends Seeder
         $me->tanggal_lahir = '2000-08-10';
         $me->agama = "ISLAM";
         $me->pendidikan = 'SLTA / SEDERAJAT';
-        $me->pekerjaan = 'MAHASISWA';
+        $me->pekerjaan = 'PELAJAR/MAHASISWA';
         $me->status_kawin = 'BELUM KAWIN';
         $me->no_kk = '1';
         $me->hub_dgn_kk = 'ANAK';
