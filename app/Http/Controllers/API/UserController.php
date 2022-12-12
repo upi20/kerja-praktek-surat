@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Rules\Password;
+use League\Config\Exception\ValidationException;
 
 class UserController extends Controller
 {
@@ -118,5 +119,29 @@ class UserController extends Controller
         $user->update($data);
 
         return ResponseFormatter::success($user, 'Profile Updated');
+    }
+
+    public function changePassword(Request $request)
+    {
+        try {
+            $request->validate([
+                'old_password' => ['required', 'string'],
+                'password' => ['required', 'string'],
+            ]);
+
+            $user = Auth::user();
+            if (!Hash::check($request->old_password, $user->password, [])) {
+                throw new \Exception('Password lama yang anda masukan salah');
+            }
+
+            $user->password = Hash::make($request->password);
+            $user->save();
+            return ResponseFormatter::success(['user' => $user], 'Password berhasil diubah');
+        } catch (ValidationException $error) {
+            return response()->json([
+                'message' => 'Something went wrong',
+                'error' => $error,
+            ], 500);
+        }
     }
 }

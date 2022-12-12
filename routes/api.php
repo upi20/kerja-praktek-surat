@@ -16,15 +16,12 @@ use App\Http\Controllers\API\UserController;
 |
 */
 
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('user', [UserController::class, 'fetch']);
-    Route::post('user', [UserController::class, 'updateProfile']);
-    Route::post('logout', [UserController::class, 'logout']);
+Route::middleware(['auth:sanctum'])->controller(UserController::class)->group(function () {
+    Route::get('user', 'fetch');
+    Route::post('user', 'updateProfile');
+    Route::post('logout', 'logout');
+    Route::post('change_password', 'changePassword');
 });
 
 Route::post('login', [UserController::class, 'login']);
-Route::post('register', [UserController::class, 'register']);
-
-Route::group(['prefix' => 'public'], function () {
-    Route::get('/province', [ProvinceController::class, 'get'])->name('api.public.province');
-});
+// Route::post('register', [UserController::class, 'register']);
