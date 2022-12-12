@@ -9,7 +9,6 @@ use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Rules\Password;
 use League\Config\Exception\ValidationException;
 
@@ -37,7 +36,7 @@ class UserController extends Controller
     {
         try {
             $request->validate([
-                'nik' => 'required',
+                'nik' => 'required|integer',
                 'password' => 'required'
             ]);
 
@@ -59,7 +58,7 @@ class UserController extends Controller
                 'token_type' => 'Bearer',
                 'user' => $user,
             ], 'Authenticated');
-        } catch (Exception $error) {
+        } catch (ValidationException $error) {
             return ResponseFormatter::error([
                 'message' => 'Something went wrong',
                 'error' => $error,
@@ -96,7 +95,7 @@ class UserController extends Controller
                 'token_type' => 'Bearer',
                 'user' => $user
             ], 'User Registered');
-        } catch (Exception $error) {
+        } catch (ValidationException $error) {
             return ResponseFormatter::error([
                 'message' => 'Something went wrong',
                 'error' => $error,
