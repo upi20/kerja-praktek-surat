@@ -220,6 +220,10 @@
                             showConfirmButton: false,
                             timer: 1500
                         });
+
+                        setTimeout(() => {
+                            window.location.href = "{{ route('penduduk.pelacakan') }}";
+                        }, 2000);
                         view_form();
                         $('#nik').val('');
                         $('#no_kk').val('');

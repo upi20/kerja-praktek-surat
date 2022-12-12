@@ -43,7 +43,7 @@ class KeteranganController extends Controller
     {
         try {
             $request->validate([
-                'nik' => ['required', 'integer'],
+                'nik' => ['required', 'string'],
                 'nama' => ['required', 'string'],
                 'tempat_lahir' => ['required', 'string'],
                 'tanggal_lahir' => ['required', 'date'],

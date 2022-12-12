@@ -7,6 +7,7 @@ use App\Http\Controllers\App\Penduduk\PengajuanSuratController;
 
 // Surat ==============================================================================================================
 use App\Http\Controllers\App\Penduduk\Surat\KeteranganController;
+use App\Http\Controllers\App\Penduduk\Surat\TrackingController;
 
 $name = 'penduduk';
 Route::get("/", [DashboardController::class, 'index'])
@@ -23,6 +24,12 @@ Route::prefix($prefix)->group(function () use ($name, $prefix) {
         Route::get('/', 'index')->name($name)->middleware("permission:$name");
         Route::post('/simpan', 'simpan')->name("$name.simpan")->middleware("permission:$name");
     });
+});
+
+$prefix = 'pelacakan';
+Route::prefix($prefix)->controller(TrackingController::class)->group(function () use ($name, $prefix) {
+    $name = "$name.$prefix"; // penduduk.pelacakan
+    Route::get('/', 'index')->name($name)->middleware("permission:$name");
 });
 
 $prefix = 'pengajuan_surat';
