@@ -1,7 +1,7 @@
 @extends('templates.admin.master')
 
 @section('content')
-    <h3 class="h4 fw-bold">Halaman Utama</h3>
+    <h3 class="h4 fw-bold">Halaman Utama Rukun Tetangga</h3>
 @endsection
 
 @section('stylesheet')

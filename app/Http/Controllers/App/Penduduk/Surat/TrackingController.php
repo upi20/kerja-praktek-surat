@@ -135,7 +135,7 @@ class TrackingController extends Controller
             ->leftJoin("$t_user as $t_created_by", "$t_created_by.id", '=', "$table.created_by")
             ->leftJoin("$t_user as $t_updated_by", "$t_updated_by.id", '=', "$table.updated_by")
             ->leftJoin($t_penduduk, "$t_penduduk.id", '=', "$table.penduduk_id");
-
+        $model->where("$table.penduduk_id", $penduduk_id);
         // Filter =====================================================================================================
         // filter check
         $f_c = function (string $param) use ($request): mixed {

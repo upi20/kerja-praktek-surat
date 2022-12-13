@@ -19,12 +19,13 @@ return new class extends Migration
             $table->bigInteger('dari_pegawai_id', false, true)->nullable()->default(null);
             $table->bigInteger('ke_pegawai_id', false, true)->nullable()->default(null);
             $table->string('keterangan')->nullable()->default(null);
+            $table->text('catatan')->nullable()->default(null);
             $table->dateTime('waktu')->nullable()->default(null);
             $table->string('dari_nama')->nullable()->default(null);
             $table->string('dari_nip')->nullable()->default(null);
             $table->string('ke_nama')->nullable()->default(null);
             $table->string('ke_nip')->nullable()->default(null);
-            $table->string('status')->nullable()->default(0)->comment('PENDUDUK, RUKUN WARGA, RUKUN TETANGGA, PIHAK DESA, SELESAI, DIBATALKAN');
+            $table->string('status')->nullable()->default(0)->comment('PENDUDUK, RUKUN TETANGGA, RUKUN WARGA, PIHAK DESA, SELESAI, DIBATALKAN');
 
             $table->timestamps();
             $table->bigInteger('updated_by', false, true)->nullable()->default(null);

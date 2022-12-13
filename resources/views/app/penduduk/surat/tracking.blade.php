@@ -1,12 +1,6 @@
 @extends('templates.admin.master')
 
 @section('content')
-    @php
-        $can_insert = auth_can(h_prefix('insert'));
-        $can_update = auth_can(h_prefix('update'));
-        $can_delete = auth_can(h_prefix('delete'));
-    @endphp
-
     <div class="card">
         <div class="card-header d-md-flex flex-row justify-content-between">
             <h3 class="card-title">{{ $page_attr['title'] }} Table</h3>
@@ -98,8 +92,6 @@
     <script src="{{ asset('assets/templates/admin/plugins/sweet-alert/sweetalert2.all.js') }}"></script>
     <script src="{{ asset('assets/templates/admin/plugins/select2/js/select2.full.min.js') }}"></script>
     <script>
-        const can_update = {{ $can_update ? 'true' : 'false' }};
-        const can_delete = {{ $can_delete ? 'true' : 'false' }};
         const table_html = $('#tbl_main');
         let isEdit = true;
         $(document).ready(function() {
@@ -188,21 +180,21 @@
                             return `${full.tracking_waktu_format} | Diserahkan ke bpk/ibu ${full.tracking_ke_nama} dari bpk/ibu ${full.tracking_dari_nama} untuk ${full.tracking_keterangan}`;
                         },
                     },
-                    ...(can_update || can_delete ? [{
+                    {
                         data: 'id',
                         name: 'id',
                         render(data, type, full, meta) {
-                            const btn_update = can_update ? `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-primary btn-sm me-1" title="Detail Pelacakan" onClick="editFunc('${data}')">
+                            const btn_update = `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-primary btn-sm me-1" title="Detail Pelacakan" onClick="editFunc('${data}')">
                                 <i class="fas fa-eye"></i>
-                                </button>` : '';
-                            const btn_delete = can_delete ? `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-danger btn-sm me-1" title="Batalkan Surat" onClick="deleteFunc('${data}')">
+                                </button>`;
+                            const btn_delete = `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-danger btn-sm me-1" title="Batalkan Surat" onClick="deleteFunc('${data}')">
                                 <i class="fas fa-times"></i>
-                                </button>` : '';
+                                </button>`;
                             return btn_update + btn_delete;
                         },
                         className: 'text-nowrap',
                         orderable: false,
-                    }] : []),
+                    }
                 ],
                 order: [
                     [3, 'desc']

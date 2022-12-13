@@ -168,7 +168,7 @@ class KeteranganController extends Controller
             // simpan dari penduduk ke rt
             $tracking_penduduk = new SuratTracking();
             $tracking_penduduk->surat_id = $surat->id;
-            $tracking_penduduk->keterangan = "Diserahkan";
+            $tracking_penduduk->keterangan = "diperiksa dan disetujui";
             $tracking_penduduk->waktu = date('Y-m-d H:i:s');
             $tracking_penduduk->dari_nama = $surat->nama_penduduk;
             $tracking_penduduk->dari_nip = $surat->nik_penduduk;
