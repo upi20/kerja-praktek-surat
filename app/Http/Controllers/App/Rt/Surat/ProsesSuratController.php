@@ -46,10 +46,13 @@ class ProsesSuratController extends Controller
             DB::beginTransaction();
             $penduduk = auth()->user()->penduduk;
 
+            // status surat jika di setujui maka akan ke rw jika di tolak akan di kembalikan ke penduduk
+            $status = config('app.status_surats');
+            $SURAT_STATUS = $request->disetujui == 1 ? $status[2] : $status[0];
+
             // simpan surat header
-            $SURAT_DI_RW = config('app.status_surats')[2];
             $surat = Surat::findOrFail($request->id);
-            $surat->status = $SURAT_DI_RW;
+            $surat->status = $SURAT_STATUS;
             $surat->updated_by = auth()->user()->id;
             $surat->save();
 
@@ -63,10 +66,17 @@ class ProsesSuratController extends Controller
             $tracking_surat->dari_nama = $penduduk->nama;
             $tracking_surat->dari_nip = $penduduk->nik;
 
-            $tracking_surat->ke_nama = $surat->rw->ketua->penduduk->nama;
-            $tracking_surat->ke_nip = $surat->rw->ketua->penduduk->nik;
+            if ($request->disetujui == 1) {
+                // jika disetujui
+                $tracking_surat->ke_nama = $surat->rw->ketua->penduduk->nama;
+                $tracking_surat->ke_nip = $surat->rw->ketua->penduduk->nik;
+            } else {
+                // jika ditolak
+                $tracking_surat->ke_nama = $surat->penduduk->nama;
+                $tracking_surat->ke_nip = $surat->penduduk->nik;
+            }
 
-            $tracking_surat->status = $SURAT_DI_RW;
+            $tracking_surat->status = $SURAT_STATUS;
             $tracking_surat->save();
 
             DB::commit();

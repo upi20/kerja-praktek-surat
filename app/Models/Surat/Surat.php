@@ -2,6 +2,7 @@
 
 namespace App\Models\Surat;
 
+use App\Models\Penduduk\Penduduk;
 use App\Models\Penduduk\Rt;
 use App\Models\Penduduk\Rw;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -55,5 +56,10 @@ class Surat extends Model
     public function rw()
     {
         return $this->belongsTo(Rw::class, 'rw_id', 'id');
+    }
+
+    public function penduduk()
+    {
+        return $this->belongsTo(Penduduk::class, 'penduduk_id', 'id');
     }
 }

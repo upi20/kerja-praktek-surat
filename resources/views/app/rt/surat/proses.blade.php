@@ -316,5 +316,17 @@
             resetErrorAfterInput();
             return true;
         }
+
+        function tolakFunc(id) {
+            $('#MainForm').trigger("reset");
+            $('#modal-default-title').html("Tolak Surat");
+            $('#modal-default').modal('show');
+            $('#id').val(id);
+            $('#disetujui').val('0');
+            $('#keterangan').val('');
+
+            resetErrorAfterInput();
+            return true;
+        }
     </script>
 @endsection
