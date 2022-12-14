@@ -79,7 +79,7 @@ class ProsesSuratController extends Controller
 
                 // jika disetujui
                 $tracking_surat->ke_nama = $pegawai->penduduk->nama;
-                $tracking_surat->ke_nip = $pegawai->nip;
+                $tracking_surat->ke_nip = $pegawai->nip ?? $pegawai->penduduk->nik;
             } else {
                 // jika ditolak
                 $tracking_surat->ke_nama = $surat->penduduk->nama;
