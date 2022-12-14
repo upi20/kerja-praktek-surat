@@ -64,7 +64,7 @@ class PendudukController extends Controller
         $this->query = array_merge($this->query, $date_format_fun('created_at', '%W, %d %M %Y %H:%i:%s', $c_created_str));
         $this->query = array_merge($this->query, $date_format_fun('updated_at', '%d-%b-%Y', $c_updated));
         $this->query = array_merge($this->query, $date_format_fun('updated_at', '%W, %d %M %Y %H:%i:%s', $c_updated_str));
-        $this->query = array_merge($this->query, $date_format_fun('tanggal_lahir', 'W %d %M %Y', $c_tanggal_lahir_str));
+        $this->query = array_merge($this->query, $date_format_fun('tanggal_lahir', '%W %d %M %Y', $c_tanggal_lahir_str));
 
         // created_by
         $c_created_by = 'created_by_str';
