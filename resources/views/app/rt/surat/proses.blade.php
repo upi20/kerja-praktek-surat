@@ -312,6 +312,7 @@
             $('#id').val(id);
             $('#disetujui').val('1');
             $('#keterangan').val('untuk diperiksa dan disetujui');
+            $('#keterangan').attr('placeholder', 'Contoh: untuk diperiksa dan disetujui');
 
             resetErrorAfterInput();
             return true;
@@ -324,6 +325,7 @@
             $('#id').val(id);
             $('#disetujui').val('0');
             $('#keterangan').val('');
+            $('#keterangan').attr('placeholder', 'Contoh: ada huruf yang salah atau lainnya');
 
             resetErrorAfterInput();
             return true;
