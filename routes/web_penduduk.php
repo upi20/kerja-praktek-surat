@@ -30,6 +30,8 @@ $prefix = 'pelacakan';
 Route::prefix($prefix)->controller(TrackingController::class)->group(function () use ($name, $prefix) {
     $name = "$name.$prefix"; // penduduk.pelacakan
     Route::get('/', 'index')->name($name)->middleware("permission:$name");
+    Route::get('list_tracking', 'list_tracking_api')->name("$name.list_tracking_api")->middleware("permission:$name");
+    Route::get('list_tracking/{surat}', 'list_tracking')->name("$name.list_tracking")->middleware("permission:$name");
 });
 
 $prefix = 'pengajuan_surat';

@@ -62,4 +62,9 @@ class Surat extends Model
     {
         return $this->belongsTo(Penduduk::class, 'penduduk_id', 'id');
     }
+
+    public function trackings()
+    {
+        return $this->hasMany(SuratTracking::class, 'surat_id', 'id');
+    }
 }

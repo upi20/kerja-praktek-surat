@@ -72,6 +72,25 @@
             </table>
         </div>
     </div>
+
+    <div class="modal fade" id="modal-detail">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-content-demo">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="modal-detail-title">Detail Pelacakan Surat</h6><button aria-label="Close"
+                        class="btn-close" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="task-list" id="list_tracking"></ul>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-light" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i> Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('javascript')
@@ -184,13 +203,13 @@
                         data: 'id',
                         name: 'id',
                         render(data, type, full, meta) {
-                            const btn_update = `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-primary btn-sm me-1" title="Detail Pelacakan" onClick="tracking('${data}')">
-                                <i class="fas fa-eye"></i>
+                            const btn_detail_tracking = `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-primary btn-sm me-1" title="Detail Pelacakan" onClick="detailFunc('${data}')">
+                                <i class="fas fa-list"></i>
                                 </button>`;
                             const btn_delete = `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-danger btn-sm me-1" title="Batalkan Surat" onClick="deleteFunc('${data}')">
                                 <i class="fas fa-times"></i>
                                 </button>`;
-                            return btn_update + btn_delete;
+                            return btn_detail_tracking + btn_delete;
                         },
                         className: 'text-nowrap',
                         orderable: false,
@@ -221,32 +240,78 @@
             });
         });
 
-        function getStatus(status) {
+        function getStatus(status, color_only = false) {
             switch (status) {
                 case 'PENDUDUK':
-                    return '<i class="fas fa-circle text-gray me-1 ms-0"></i>';
+                    return color_only ? 'gray' : '<i class="fas fa-circle text-gray me-1 ms-0"></i>';
                     break;
                 case 'RUKUN TETANGGA':
-                    return '<i class="fas fa-circle text-secondary me-1 ms-0"></i>';
+                    return color_only ? 'secondary' : '<i class="fas fa-circle text-secondary me-1 ms-0"></i>';
                     break;
                 case 'RUKUN WARGA':
-                    return '<i class="fas fa-circle text-info me-1 ms-0"></i>';
+                    return color_only ? 'info' : '<i class="fas fa-circle text-info me-1 ms-0"></i>';
                     break;
                 case 'PIHAK DESA':
-                    return '<i class="fas fa-circle text-warning me-1 ms-0"></i>';
+                    return color_only ? 'warning' : '<i class="fas fa-circle text-warning me-1 ms-0"></i>';
                     break;
                 case 'SELESAI':
-                    return '<i class="fas fa-circle text-success me-1 ms-0"></i>';
+                    return color_only ? 'success' : '<i class="fas fa-circle text-success me-1 ms-0"></i>';
                     break;
                 case 'DIBATALKAN':
-                    return '<i class="fas fa-circle text-danger me-1 ms-0"></i>';
+                    return color_only ? 'danger' : '<i class="fas fa-circle text-danger me-1 ms-0"></i>';
                     break;
-
                 default:
                     return '';
                     break;
             }
+        }
 
+        function detailFunc(id) {
+            $.LoadingOverlay("show");
+            $.ajax({
+                type: "GET",
+                url: `{{ url(h_prefix_uri('list_tracking')) }}/${id}`,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: (trackings) => {
+                    $.LoadingOverlay("hide");
+                    $('#modal-detail').modal('show');
+                    const container = $('#list_tracking');
+                    container.html('');
+                    trackings.forEach(tracking => {
+                        const color = getStatus(tracking.status, true);
+                        let keterangan = '';
+                        if (tracking.ke_nama != tracking.dari_nama) {
+                            keterangan =
+                                `Diserahkan ke bpk/ibu ${tracking.ke_nama} dari bpk/ibu ${tracking.dari_nama} ${tracking.keterangan}`;
+                        } else {
+                            keterangan = `${tracking.dari_nama}: ${tracking.keterangan}`;
+                        }
+                        container.append(`<li class="d-sm-flex">
+                                <div>
+                                    <i class="task-icon bg-${color}"></i>
+                                    <h6 class="fw-semibold">${tracking.status}
+                                        <span class="text-muted fs-11 mx-2 fw-normal">${tracking.waktu}</span>
+                                    </h6>
+                                    <p class="text-muted fs-12"> ${keterangan} </p>
+                                </div>
+                            </li> `);
+                    });
+                },
+                error: function(data) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Something went wrong',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                },
+                complete: function() {
+                    $.LoadingOverlay("hide");
+                }
+            });
 
         }
     </script>

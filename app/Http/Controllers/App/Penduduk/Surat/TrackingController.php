@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\App\Penduduk\Surat;
 
+use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Models\Penduduk\Penduduk;
 use App\Models\Surat\Surat;
@@ -228,5 +229,41 @@ class TrackingController extends Controller
 
         // create datatable
         return $datatable->make(true);
+    }
+
+    public function list_tracking($surat_id)
+    {
+        $result = $this->get_tracking($surat_id);
+        $code = $result->count() > 0 ? 200 : 404;
+        return response()->json($result, $code);
+    }
+
+    public function list_tracking_api(Request $request)
+    {
+        $surat = Surat::find($request->surat_id);
+        $result = $this->get_tracking($request->surat_id);
+        if ($result->count() > 0) {
+            return ResponseFormatter::success([
+                'surat' => $surat,
+                'trackings' => $result
+            ]);
+        } else {
+            return ResponseFormatter::error([
+                'message' => 'Not found',
+                'error' => null,
+            ], 'Not found', 404);
+        }
+    }
+
+    public function get_tracking($surat_id)
+    {
+        $table = SuratTracking::tableName;
+        $select = <<<SQL
+            $table.*,
+            DATE_FORMAT(waktu,  '%H:%i %d %b %Y') as waktu,
+            $table.waktu as waktu_origin
+        SQL;
+        $result = SuratTracking::selectRaw($select)->where('surat_id', $surat_id)->orderBy('waktu_origin', 'desc')->get();
+        return $result;
     }
 }
