@@ -6,14 +6,6 @@
             <h3 class="card-title">{{ $page_attr['title'] }} Table</h3>
         </div>
         <div class="card-body">
-            <p>Surat Berada di :
-                <i class="fas fa-circle text-gray me-0 ms-2"></i> PENDUDUK,
-                <i class="fas fa-circle text-secondary me-0 ms-2"></i> RUKUN TETANGGA,
-                <i class="fas fa-circle text-info me-0 ms-2"></i> RUKUN WARGA,
-                <i class="fas fa-circle text-warning me-0 ms-2"></i> PIHAK DESA,
-                <i class="fas fa-circle text-success me-0 ms-2"></i> SELESAI,
-                <i class="fas fa-circle text-danger me-0 ms-2"></i> DIBATALKAN
-            </p>
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-default active mb-2">
                     <div class="panel-heading " role="tab" id="headingOne1">
@@ -60,13 +52,51 @@
                         <th class="text-nowrap">No</th>
                         <th class="text-nowrap">Penduduk</th>
                         <th class="text-nowrap">Surat</th>
-                        <th class="text-nowrap">Pelacakan</th>
+                        <th class="text-nowrap">Dari</th>
+                        <th class="text-nowrap">Keterangan</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody> </tbody>
 
             </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-default">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-content-demo">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="modal-default-title"></h6><button aria-label="Close" class="btn-close"
+                        data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form action="javascript:void(0)" id="MainForm" name="MainForm" method="POST"
+                        enctype="multipart/form-data">
+                        <input type="hidden" name="disetujui" id="disetujui">
+                        <input type="hidden" name="id" id="id">
+                        <div class="form-group">
+                            <label class="form-label" for="keterangan">Keterangan
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="keterangan" name="keterangan"
+                                placeholder="Contoh: untuk diperiksa dan diproses" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="catatan">Catatan</label>
+                            <textarea class="form-control" id="catatan" name="catatan" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="btn-save" form="MainForm">
+                        <i class="fas fa-save mr-1"></i> Kirim
+                    </button>
+                    <button class="btn btn-light" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i> Close
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
@@ -161,7 +191,7 @@
                         data: 'jenis',
                         name: 'jenis',
                         render(data, type, full, meta) {
-                            return `${getStatus(full.status)} <span class="fw-bold">${data}</span><br>
+                            return `<span class="fw-bold">${data}</span><br>
                             <small>${full.tanggal_str}</small>`;
                         },
                         className: 'text-nowrap'
@@ -170,20 +200,32 @@
                         data: 'tracking_waktu',
                         name: 'tracking_waktu',
                         render(data, type, full, meta) {
-                            return `${full.tracking_waktu_format}<br><small>Diserahkan ke bpk/ibu ${full.tracking_ke_nama} dari bpk/ibu ${full.tracking_dari_nama} ${full.tracking_keterangan}</small>`;
+                            return `${full.tracking_dari_nama}<br>
+                            <small>${full.tracking_waktu_format}</small>`;
+                        },
+                    },
+                    {
+                        data: 'tracking_keterangan',
+                        name: 'tracking_keterangan',
+                        render(data, type, full, meta) {
+                            return `${data}` + (full.tracking_catatan ?
+                                `<br><small>${full.tracking_catatan}</small>` : '');
                         },
                     },
                     {
                         data: 'id',
                         name: 'id',
                         render(data, type, full, meta) {
-                            const btn_update = `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-primary btn-sm me-1" title="Detail Pelacakan" onClick="editFunc('${data}')">
+                            const btn_lihat = `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-primary btn-sm me-1" title="Detail Pelacakan" onClick="lihatFunc('${data}')">
                                 <i class="fas fa-eye"></i>
                                 </button>`;
-                            const btn_delete = `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-danger btn-sm me-1" title="Batalkan Surat" onClick="deleteFunc('${data}')">
+                            const btn_setujui = `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-success btn-sm me-1" title="Setujui Surat" onClick="setujuiFunc('${data}')">
+                                <i class="fas fa-check"></i>
+                                </button>`;
+                            const btn_tolak = `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-danger btn-sm me-1" title="Tolak Surat" onClick="tolakFunc('${data}')">
                                 <i class="fas fa-times"></i>
                                 </button>`;
-                            return btn_update + btn_delete;
+                            return btn_lihat + btn_setujui + btn_tolak;
                         },
                         className: 'text-nowrap',
                         orderable: false,
@@ -212,35 +254,81 @@
                 var oTable = table_html.dataTable();
                 oTable.fnDraw(false);
             });
+
+            $('#MainForm').submit(function(e) {
+                e.preventDefault();
+                resetErrorAfterInput();
+                var formData = new FormData(this);
+                setBtnLoading('button[form=MainForm]', 'Kirim');
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route(h_prefix('simpan')) }}",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: (data) => {
+                        $("#modal-default").modal('hide');
+                        var oTable = table_html.dataTable();
+                        oTable.fnDraw(false);
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Data berhasil disimpan',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    },
+                    error: function(data) {
+                        const res = data.responseJSON ?? {};
+                        errorAfterInput = [];
+                        for (const property in res.errors) {
+                            errorAfterInput.push(property);
+                            setErrorAfterInput(res.errors[property], `#${property}`);
+                        }
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: res.message ?? 'Something went wrong',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    },
+                    complete: function() {
+                        setBtnLoading('button[form=MainForm]',
+                            '<i class="fas fa-save mr-1"></i> Kirim', false);
+                    }
+                });
+            });
         });
 
-        function getStatus(status) {
-            switch (status) {
-                case 'PENDUDUK':
-                    return '<i class="fas fa-circle text-gray me-1 ms-0"></i>';
-                    break;
-                case 'RUKUN TETANGGA':
-                    return '<i class="fas fa-circle text-secondary me-1 ms-0"></i>';
-                    break;
-                case 'RUKUN WARGA':
-                    return '<i class="fas fa-circle text-info me-1 ms-0"></i>';
-                    break;
-                case 'PIHAK DESA':
-                    return '<i class="fas fa-circle text-warning me-1 ms-0"></i>';
-                    break;
-                case 'SELESAI':
-                    return '<i class="fas fa-circle text-success me-1 ms-0"></i>';
-                    break;
-                case 'DIBATALKAN':
-                    return '<i class="fas fa-circle text-danger me-1 ms-0"></i>';
-                    break;
+        function setujuiFunc(id) {
+            $('#MainForm').trigger("reset");
+            $('#modal-default-title').html("Setujui Surat");
+            $('#modal-default').modal('show');
+            $('#id').val(id);
+            $('#disetujui').val('1');
+            $('#keterangan').val('untuk diperiksa dan diproses');
+            $('#keterangan').attr('placeholder', 'Contoh: untuk diperiksa dan diproses');
 
-                default:
-                    return '';
-                    break;
-            }
+            resetErrorAfterInput();
+            return true;
+        }
 
+        function tolakFunc(id) {
+            $('#MainForm').trigger("reset");
+            $('#modal-default-title').html("Tolak Surat");
+            $('#modal-default').modal('show');
+            $('#id').val(id);
+            $('#disetujui').val('0');
+            $('#keterangan').val('');
+            $('#keterangan').attr('placeholder', 'Contoh: ada huruf yang salah atau lainnya');
 
+            resetErrorAfterInput();
+            return true;
         }
     </script>
 @endsection
