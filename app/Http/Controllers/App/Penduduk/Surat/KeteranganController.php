@@ -166,16 +166,16 @@ class KeteranganController extends Controller
             $surat_keterangan->save();
 
             // simpan dari penduduk ke rt
-            $tracking_penduduk = new SuratTracking();
-            $tracking_penduduk->surat_id = $surat->id;
-            $tracking_penduduk->keterangan = "diperiksa dan disetujui";
-            $tracking_penduduk->waktu = date('Y-m-d H:i:s');
-            $tracking_penduduk->dari_nama = $surat->nama_penduduk;
-            $tracking_penduduk->dari_nip = $surat->nik_penduduk;
-            $tracking_penduduk->ke_nama = $surat->rt_nama;
-            $tracking_penduduk->ke_nip = $surat->rt_nik;
-            $tracking_penduduk->status = $SURAT_DI_RT;
-            $tracking_penduduk->save();
+            $tracking_surat = new SuratTracking();
+            $tracking_surat->surat_id = $surat->id;
+            $tracking_surat->keterangan = "untuk diperiksa dan disetujui";
+            $tracking_surat->waktu = date('Y-m-d H:i:s');
+            $tracking_surat->dari_nama = $surat->nama_penduduk;
+            $tracking_surat->dari_nip = $surat->nik_penduduk;
+            $tracking_surat->ke_nama = $surat->rt_nama;
+            $tracking_surat->ke_nip = $surat->rt_nik;
+            $tracking_surat->status = $SURAT_DI_RT;
+            $tracking_surat->save();
 
             DB::commit();
             return response()->json(['status' => true]);

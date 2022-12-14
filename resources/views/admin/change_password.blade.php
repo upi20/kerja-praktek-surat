@@ -37,7 +37,7 @@
                 </div>
                 <div class="card-footer">
                     <button type="submit" form="form_password" class="btn btn-primary mt-4 mb-0">
-                        <li class="fas fa-save mr-1"></li> Save changes
+                        <i class="fas fa-save mr-1"></i> Save changes
                     </button>
                 </div>
             </div>
@@ -112,7 +112,7 @@
                     },
                     complete: function() {
                         setBtnLoading('button[type=submit][form=form_password]',
-                            '<li class="fas fa-save mr-1"></li> Save changes',
+                            '<i class="fas fa-save mr-1"></i> Save changes',
                             false);
                     }
                 });

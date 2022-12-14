@@ -85,7 +85,7 @@
                 </div>
                 <div class="card-footer text-end">
                     <button type="submit" class="btn btn-primary" form="app-form">
-                        <li class="fas fa-save mr-1"></li> Save changes
+                        <i class="fas fa-save mr-1"></i> Save changes
                     </button>
                 </div>
             </div>
@@ -136,7 +136,7 @@
                 </div>
                 <div class="card-footer text-end">
                     <button type="submit" class="btn btn-primary" form="meta-form">
-                        <li class="fas fa-save mr-1"></li> Save changes
+                        <i class="fas fa-save mr-1"></i> Save changes
                     </button>
                 </div>
             </div>
@@ -209,7 +209,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" form="meta_list_form">
-                        <li class="fas fa-save mr-1"></li> Save changes
+                        <i class="fas fa-save mr-1"></i> Save changes
                     </button>
                     <button class="btn btn-light" data-bs-dismiss="modal">
                         <i class="fas fa-times"></i>
@@ -357,7 +357,7 @@
                     },
                     complete: function() {
                         setBtnLoading(submit_element,
-                            '<li class="fas fa-save mr-1"></li> Save changes',
+                            '<i class="fas fa-save mr-1"></i> Save changes',
                             false);
                     }
                 });

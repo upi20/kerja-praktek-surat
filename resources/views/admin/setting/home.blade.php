@@ -52,7 +52,7 @@
                 </div>
                 <div class="card-footer text-end">
                     <button type="submit" class="btn btn-primary" form="{{ $name }}-form">
-                        <li class="fas fa-save mr-1"></li> Save changes
+                        <i class="fas fa-save mr-1"></i> Save changes
                     </button>
                 </div>
             </div>
@@ -109,7 +109,7 @@
                 </div>
                 <div class="card-footer text-end">
                     <button type="submit" class="btn btn-primary" form="{{ $name }}-form">
-                        <li class="fas fa-save mr-1"></li> Save changes
+                        <i class="fas fa-save mr-1"></i> Save changes
                     </button>
                 </div>
             </div>
@@ -160,7 +160,7 @@
                 </div>
                 <div class="card-footer text-end">
                     <button type="submit" class="btn btn-primary" form="{{ $name }}-form">
-                        <li class="fas fa-save mr-1"></li> Save changes
+                        <i class="fas fa-save mr-1"></i> Save changes
                     </button>
                 </div>
             </div>

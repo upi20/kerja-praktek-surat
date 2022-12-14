@@ -2,7 +2,7 @@
 
 @section('content')
     @php
-    $can_setting = auth_can(h_prefix('setting'));
+        $can_setting = auth_can(h_prefix('setting'));
     @endphp
     <!-- Row -->
     <div class="row row-sm">
@@ -237,7 +237,7 @@
                         },
                         complete: function() {
                             setBtnLoading('#setting_btn_submit',
-                                '<li class="fas fa-save mr-1"></li> Save changes',
+                                '<i class="fas fa-save mr-1"></i> Save changes',
                                 false);
                         }
                     });
