@@ -170,7 +170,7 @@
                         data: 'tracking_waktu',
                         name: 'tracking_waktu',
                         render(data, type, full, meta) {
-                            return `${full.tracking_waktu_format} | Diserahkan ke bpk/ibu ${full.tracking_ke_nama} dari bpk/ibu ${full.tracking_dari_nama} ${full.tracking_keterangan}`;
+                            return `${full.tracking_waktu_format}<br><small>Diserahkan ke bpk/ibu ${full.tracking_ke_nama} dari bpk/ibu ${full.tracking_dari_nama} ${full.tracking_keterangan}</small>`;
                         },
                     },
                     {
