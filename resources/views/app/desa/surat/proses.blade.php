@@ -94,6 +94,10 @@
                             <label class="form-label" for="catatan">Catatan</label>
                             <textarea class="form-control" id="catatan" name="catatan" rows="3"></textarea>
                         </div>
+                        <label class="custom-control custom-checkbox-md float-start me-2">
+                            <input type="checkbox" class="custom-control-input" name="selesai" id="selesai">
+                            <span class="custom-control-label">Set Surat Selesai</span>
+                        </label>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -240,13 +244,23 @@
                         data: 'id',
                         name: 'id',
                         render(data, type, full, meta) {
+                            const selesai = full.tracking_status == 'SELESAI';
                             const btn_lihat = `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-primary btn-sm me-1" title="Detail Pelacakan" onClick="lihatFunc('${data}')">
                                 <i class="fas fa-eye"></i>
                                 </button>`;
-                            const btn_kirim = `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-success btn-sm me-1" title="Kirim Surat Ke Pegawai Lain" onClick="kirimSurat('${data}')">
+
+                            const btn_kirim = !selesai ? `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-warning btn-sm me-1" title="Kirim Surat Ke Pegawai Lain" onClick="kirimFunc('${data}')">
                                 <i class="far fa-paper-plane"></i>
-                                </button>`;
-                            return btn_lihat + btn_kirim;
+                                </button>` : '';
+
+                            const btn_selesai = !selesai ? `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-danger btn-sm me-1" title="Set Surat Selesai" onClick="selesaiFunc('${full.id}')">
+                                <i class="fas fa-check"></i>
+                                </button>` : '';
+
+                            const btn_serahkan = selesai ? `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-success btn-sm me-1" title="Serahkan Surat Kepada Penduduk" onClick="serahkanFunc('${full.id}')">
+                                <i class="fas fa-hand-holding"></i>
+                                </button>` : '';
+                            return btn_lihat + btn_kirim + btn_selesai + btn_serahkan;
                         },
                         className: 'text-nowrap',
                         orderable: false,
@@ -326,13 +340,130 @@
             });
         });
 
-        function kirimSurat(id) {
+        function kirimFunc(id) {
             $('#modal-default-title').html("Kirim Surat Ke Pegawai Lain");
             $('#modal-default').modal('show');
             $('#id').val(id);
             $('#keterangan').attr('placeholder', 'Contoh: untuk diperiksa dan diproses');
+            $('#selesai').prop('checked', false)
             resetErrorAfterInput();
             return true;
+        }
+
+        function selesaiFunc(id) {
+            swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Setelah surat selesai, data tidak bisa di ubah kembali ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes'
+            }).then(function(result) {
+                if (result.value) {
+                    $.ajax({
+                        url: `{{ route(h_prefix('selesai')) }}`,
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            id
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        beforeSend: function() {
+                            swal.fire({
+                                title: 'Please Wait..!',
+                                text: 'Is working..',
+                                onOpen: function() {
+                                    Swal.showLoading()
+                                }
+                            })
+                        },
+                        success: function(data) {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: 'Data berhasil disimpan',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            var oTable = table_html.dataTable();
+                            oTable.fnDraw(false);
+                        },
+                        complete: function() {
+                            swal.hideLoading();
+                        },
+                        error: function(err, textStatus, errorThrown) {
+                            swal.hideLoading();
+                            Swal.fire({
+                                position: 'center',
+                                icon: err.status == 400 ? 'info' : 'error',
+                                title: ((err.responseJSON) ? err.responseJSON.message :
+                                    'Something went wrong'),
+                                showConfirmButton: false,
+                                timer: 3000
+                            })
+                        }
+                    });
+                }
+            });
+        }
+
+        function serahkanFunc(id) {
+            swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Setelah surat diserahkan, data tidak bisa di ubah kembali ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes'
+            }).then(function(result) {
+                if (result.value) {
+                    $.ajax({
+                        url: `{{ route(h_prefix('serahkan')) }}`,
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            id
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        beforeSend: function() {
+                            swal.fire({
+                                title: 'Please Wait..!',
+                                text: 'Is working..',
+                                onOpen: function() {
+                                    Swal.showLoading()
+                                }
+                            })
+                        },
+                        success: function(data) {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: 'Data berhasil disimpan',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            var oTable = table_html.dataTable();
+                            oTable.fnDraw(false);
+                        },
+                        complete: function() {
+                            swal.hideLoading();
+                        },
+                        error: function(err, textStatus, errorThrown) {
+                            swal.hideLoading();
+                            Swal.fire({
+                                position: 'center',
+                                icon: err.status == 400 ? 'info' : 'error',
+                                title: ((err.responseJSON) ? err.responseJSON.message :
+                                    'Something went wrong'),
+                                showConfirmButton: false,
+                                timer: 3000
+                            })
+                        }
+                    });
+                }
+            });
         }
     </script>
 @endsection

@@ -46,19 +46,19 @@ class ProsesSuratController extends Controller
                 'pegawai_id' => ['required', 'integer'],
                 'keterangan' => ['required', 'string'],
                 'catatan' => ['nullable', 'string'],
+                'selesai' => ['nullable'],
             ]);
 
             DB::beginTransaction();
             $dari_pegawai = auth()->user()->penduduk->pegawai;
             $ke_pegawai = Pegawai::findOrFail($request->pegawai_id);
 
-
             // simpan surat header
             $surat = Surat::findOrFail($request->id);
             $surat->updated_by = auth()->user()->id;
             $surat->save();
 
-            // simpan dari penduduk ke rw
+            // simpan tracking
             $tracking_surat = new SuratTracking();
             $tracking_surat->surat_id = $surat->id;
             $tracking_surat->keterangan = $request->keterangan;
@@ -74,6 +74,102 @@ class ProsesSuratController extends Controller
             $tracking_surat->ke_pegawai_id = $ke_pegawai->id;
             $tracking_surat->ke_nama = $ke_pegawai->penduduk->nama;
             $tracking_surat->ke_nip = $ke_pegawai->nip ?? $ke_pegawai->penduduk->nik;
+
+            // set status
+            $status = config('app.status_surats');
+            // 3 pihak desa, 4 selesai
+
+            $tracking_surat->status = is_null($request->selesai) ? $status[3] : $status[4];
+            $tracking_surat->save();
+
+            DB::commit();
+            return response()->json(['status' => true]);
+        } catch (ValidationException $error) {
+            return response()->json([
+                'message' => 'Something went wrong',
+                'error' => $error,
+            ], 500);
+        }
+    }
+
+    public function selesai(Request $request)
+    {
+        try {
+            $request->validate([
+                'id' => ['required', 'integer'],
+            ]);
+
+            DB::beginTransaction();
+            $dari_pegawai = auth()->user()->penduduk->pegawai;
+
+            // simpan surat header
+            $surat = Surat::findOrFail($request->id);
+            $surat->updated_by = auth()->user()->id;
+            $surat->save();
+
+            // simpan tracking
+            $tracking_surat = new SuratTracking();
+            $tracking_surat->surat_id = $surat->id;
+            $tracking_surat->keterangan = 'surat selesai dan bisa diambil penduduk.';
+            $tracking_surat->waktu = date('Y-m-d H:i:s');
+
+            // dari
+            $tracking_surat->dari_pegawai_id = $dari_pegawai->id;
+            $tracking_surat->dari_nama = $dari_pegawai->penduduk->nama;
+            $tracking_surat->dari_nip = $dari_pegawai->nip ?? $dari_pegawai->penduduk->nik;
+
+            $tracking_surat->ke_pegawai_id = $dari_pegawai->id;
+            $tracking_surat->ke_nama = $dari_pegawai->penduduk->nama;
+            $tracking_surat->ke_nip = $dari_pegawai->nip ?? $dari_pegawai->penduduk->nik;
+
+            // set status
+            $status = config('app.status_surats');
+            $tracking_surat->status = $status[4]; // selesai
+            $tracking_surat->save();
+
+            DB::commit();
+            return response()->json(['status' => true]);
+        } catch (ValidationException $error) {
+            return response()->json([
+                'message' => 'Something went wrong',
+                'error' => $error,
+            ], 500);
+        }
+    }
+
+    public function serahkan(Request $request)
+    {
+        try {
+            $request->validate([
+                'id' => ['required', 'integer'],
+            ]);
+            // set status
+            $status = config('app.status_surats');
+
+            DB::beginTransaction();
+            $dari_pegawai = auth()->user()->penduduk->pegawai;
+
+            // simpan surat header
+            $surat = Surat::findOrFail($request->id);
+            $surat->status = $status[4]; // selesai
+            $surat->updated_by = auth()->user()->id;
+            $surat->save();
+
+            // simpan tracking
+            $tracking_surat = new SuratTracking();
+            $tracking_surat->surat_id = $surat->id;
+            $tracking_surat->keterangan = 'Penyerahan surat';
+            $tracking_surat->waktu = date('Y-m-d H:i:s');
+
+            // dari
+            $tracking_surat->dari_pegawai_id = $dari_pegawai->id;
+            $tracking_surat->dari_nama = $dari_pegawai->penduduk->nama;
+            $tracking_surat->dari_nip = $dari_pegawai->nip ?? $dari_pegawai->penduduk->nik;
+
+            $tracking_surat->ke_nama = $surat->penduduk->nama;
+            $tracking_surat->ke_nip = $surat->penduduk->nik;
+
+            $tracking_surat->status = $status[4]; // selesai
             $tracking_surat->save();
 
             DB::commit();
@@ -183,6 +279,9 @@ class ProsesSuratController extends Controller
         $c_pegawai_id = 'tracking_pegawai_id';
         $this->query = array_merge($this->query, $tracking_fun('ke_pegawai_id', $c_pegawai_id));
 
+        $c_id = 'tracking_id';
+        $this->query = array_merge($this->query, $tracking_fun('id', $c_id));
+
         // ========================================================================================================
 
 
@@ -206,7 +305,8 @@ class ProsesSuratController extends Controller
             $c_keterangan,
             $c_waktu_format,
             $c_catatan,
-            $c_pegawai_id
+            $c_pegawai_id,
+            $c_id
         ];
 
         $to_db_raw = array_map(function ($a) use ($sraa) {

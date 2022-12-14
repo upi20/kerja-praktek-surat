@@ -1259,6 +1259,14 @@ class PPermissionsTableSeeder extends Seeder
                 'created_at' => '2022-12-14 21:38:38',
                 'updated_at' => '2022-12-14 21:38:38',
             ),
+            155 => 
+            array (
+                'id' => 165,
+                'name' => 'desa.surat.proses',
+                'guard_name' => 'web',
+                'created_at' => '2022-12-14 22:21:47',
+                'updated_at' => '2022-12-14 22:21:47',
+            ),
         ));
         
         

@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('dari_nip')->nullable()->default(null);
             $table->string('ke_nama')->nullable()->default(null);
             $table->string('ke_nip')->nullable()->default(null);
-            $table->string('status')->nullable()->default(0)->comment('PENDUDUK, RUKUN TETANGGA, RUKUN WARGA, PIHAK DESA, SELESAI, DIBATALKAN');
+            $table->string('status')->nullable()->default(null)->comment('PENDUDUK, RUKUN TETANGGA, RUKUN WARGA, PIHAK DESA, SELESAI, DIBATALKAN');
 
             $table->timestamps();
             $table->bigInteger('updated_by', false, true)->nullable()->default(null);

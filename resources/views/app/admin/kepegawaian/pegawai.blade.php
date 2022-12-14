@@ -79,7 +79,7 @@
                         <th class="text-nowrap">Nama/NIK</th>
                         <th class="text-nowrap">Jabatan</th>
                         <th class="text-nowrap">Diubah</th>
-                        <th>Aksi</th>
+                        {!! $can_delete || $can_update ? '<th>Aksi</th>' : '' !!}
                     </tr>
                 </thead>
                 <tbody> </tbody>

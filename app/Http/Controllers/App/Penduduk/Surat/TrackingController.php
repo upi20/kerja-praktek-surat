@@ -98,6 +98,9 @@ class TrackingController extends Controller
         $c_keterangan = 'tracking_keterangan';
         $this->query = array_merge($this->query, $tracking_fun('keterangan', $c_keterangan));
 
+        $c_status = 'tracking_status';
+        $this->query = array_merge($this->query, $tracking_fun('status', $c_status));
+
         // ========================================================================================================
 
 

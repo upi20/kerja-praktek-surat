@@ -170,7 +170,11 @@
                         data: 'tracking_waktu',
                         name: 'tracking_waktu',
                         render(data, type, full, meta) {
-                            return `${full.tracking_waktu_format}<br><small>Diserahkan ke bpk/ibu ${full.tracking_ke_nama} dari bpk/ibu ${full.tracking_dari_nama} ${full.tracking_keterangan}</small>`;
+                            if (full.tracking_ke_nama != full.tracking_dari_nama) {
+                                return `${getStatus(full.tracking_status)}${full.tracking_waktu_format}<br><small>Diserahkan ke bpk/ibu ${full.tracking_ke_nama} dari bpk/ibu ${full.tracking_dari_nama} ${full.tracking_keterangan}</small>`;
+                            } else {
+                                return `${getStatus(full.tracking_status)}${full.tracking_waktu_format}<br><small>${full.tracking_dari_nama}: ${full.tracking_keterangan}</small>`;
+                            }
                         },
                     },
                     {

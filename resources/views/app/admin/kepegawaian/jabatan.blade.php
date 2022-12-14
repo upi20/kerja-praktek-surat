@@ -64,11 +64,10 @@
                         <th class="text-nowrap">Nama</th>
                         <th class="text-nowrap">Urutan</th>
                         <th class="text-nowrap">Diubah</th>
-                        <th>Aksi</th>
+                        {!! $can_delete || $can_update ? '<th>Aksi</th>' : '' !!}
                     </tr>
                 </thead>
                 <tbody> </tbody>
-
             </table>
         </div>
     </div>
