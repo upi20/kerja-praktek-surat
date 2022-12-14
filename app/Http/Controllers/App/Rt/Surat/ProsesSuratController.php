@@ -120,7 +120,7 @@ class ProsesSuratController extends Controller
         $this->query = array_merge($this->query, $date_format_fun('created_at', '%W, %d %M %Y %H:%i:%s', $c_created_str));
         $this->query = array_merge($this->query, $date_format_fun('updated_at', '%d-%b-%Y', $c_updated));
         $this->query = array_merge($this->query, $date_format_fun('updated_at', '%W, %d %M %Y %H:%i:%s', $c_updated_str));
-        $this->query = array_merge($this->query, $date_format_fun('tanggal', '%W, %d %M %Y', $c_tanggal_str));
+        $this->query = array_merge($this->query, $date_format_fun('tanggal', '%W, %d %b %Y', $c_tanggal_str));
 
         // created_by
         $c_created_by = 'created_by_str';
@@ -148,7 +148,7 @@ class ProsesSuratController extends Controller
         $this->query = array_merge($this->query, $tracking_fun('waktu', $c_waktu));
 
         $c_waktu_format = 'tracking_waktu_format';
-        $this->query = array_merge($this->query, $tracking_fun("DATE_FORMAT(waktu,  '%W, %d %M %Y %H:%i:%s')", $c_waktu_format));
+        $this->query = array_merge($this->query, $tracking_fun("DATE_FORMAT(waktu,  '%W, %d %b %Y %H:%i:%s')", $c_waktu_format));
 
         $c_dari_nama = 'tracking_dari_nama';
         $this->query = array_merge($this->query, $tracking_fun('dari_nama', $c_dari_nama));
