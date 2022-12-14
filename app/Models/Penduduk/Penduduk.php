@@ -2,6 +2,7 @@
 
 namespace App\Models\Penduduk;
 
+use App\Models\Desa\Pegawai;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -75,5 +76,10 @@ class Penduduk extends Model
     protected function user()
     {
         return $this->hasOne(User::class, 'penduduk_id', 'id');
+    }
+
+    protected function pegawai()
+    {
+        return $this->hasOne(Pegawai::class, 'penduduk_id', 'id');
     }
 }
