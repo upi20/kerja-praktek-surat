@@ -4,6 +4,9 @@
     <div class="card">
         <div class="card-header d-md-flex flex-row justify-content-between">
             <h3 class="card-title">{{ $page_attr['title'] }} Table</h3>
+            <a type="button" class="btn btn-rounded btn-gray btn-sm" href="{{ url()->previous() }}">
+                <i class="fe fe-arrow-left"></i> Kembali
+            </a>
         </div>
         <div class="card-body">
             <p>Surat Berada di :
@@ -181,7 +184,7 @@
                         data: 'id',
                         name: 'id',
                         render(data, type, full, meta) {
-                            const btn_update = `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-primary btn-sm me-1" title="Detail Pelacakan" onClick="editFunc('${data}')">
+                            const btn_update = `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-primary btn-sm me-1" title="Detail Pelacakan" onClick="tracking('${data}')">
                                 <i class="fas fa-eye"></i>
                                 </button>`;
                             const btn_delete = `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-danger btn-sm me-1" title="Batalkan Surat" onClick="deleteFunc('${data}')">
