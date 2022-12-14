@@ -151,7 +151,7 @@ class ProsesSuratController extends Controller
 
             // simpan surat header
             $surat = Surat::findOrFail($request->id);
-            $surat->status = $status[4]; // selesai
+            $surat->status = $status[0]; // selesai
             $surat->updated_by = auth()->user()->id;
             $surat->save();
 
