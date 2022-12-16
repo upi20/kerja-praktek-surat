@@ -160,8 +160,4 @@ class KeteranganController extends Controller
             ], 'Something went wrong', 500);
         }
     }
-
-    public function jenisSuratKeterangan(Request $request)
-    {
-    }
 }

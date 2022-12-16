@@ -263,7 +263,7 @@ class RwController extends Controller
             if ((is_null($search) || $search == '') && count($model_filter) > 0) return false;
 
             // tambah pencarian
-            $search_add = ['nomor', 'nama_ketua', 'updated_by', 'created_by'];
+            $search_add = ['nomor', 'updated_by', 'created_by'];
             $search_add = array_map(function ($v) use ($table) {
                 return "$table.$v";
             }, $search_add);

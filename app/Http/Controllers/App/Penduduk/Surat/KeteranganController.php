@@ -186,4 +186,24 @@ class KeteranganController extends Controller
             ], 500);
         }
     }
+
+
+    public function detail(Surat $surat)
+    {
+        $page_attr = [
+            'title' => 'Detail Surat Pengantar Keterangan',
+            'navigation' => 'penduduk.home',
+        ];
+
+        $trackings = $surat->trackings;
+        $data = compact('page_attr', 'surat', 'trackings');
+
+        $data['compact'] = $data;
+
+        return view('app.penduduk.surat.keterangan_detail', $data);
+    }
+
+    public function print(Surat $surat)
+    {
+    }
 }

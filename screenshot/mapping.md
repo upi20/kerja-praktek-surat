@@ -8,29 +8,29 @@
     [] Penduduk Keluar
 
   ## Menu Administrasi
-  ### Kepegawaian
-    [] Jabatan
-    [] Pegawai
-  ### RT/RW
-    [] Rukun Warga
-    [] Rukun Tetangga
-  ### Pengaturan
-    [] Aplikasi
-    [] Pegawai Penerima Surat
-    [] Notifikasi
-    [] Jenis Surat Keterangan
-  ### Laporan
-    [] Surat Menyurat
-    [] Penduduk
-    [] Penduduk Masuk
-    [] Penduduk Keluar
+    ### Kepegawaian
+      [] Jabatan
+      [] Pegawai
+    ### RT/RW
+      [] Rukun Warga
+      [] Rukun Tetangga
+    ### Pengaturan
+      [] Aplikasi
+      [] Pegawai Penerima Surat
+      [] Notifikasi
+      [] Jenis Surat Keterangan
+    ### Laporan
+      [] Surat Menyurat
+      [] Penduduk
+      [] Penduduk Masuk
+      [] Penduduk Keluar
 
   ## Peralatan
-  ### Pengguna
-  ### Akses Pengguna
-    [] Perizinan Fitur
-    [] Izin Fitur Jabatan
-  ### Manajemen Menu
+    ### Pengguna
+    ### Akses Pengguna
+      [] Perizinan Fitur
+      [] Izin Fitur Jabatan
+    ### Manajemen Menu
   
 # Pihak Desa
   ## Halaman Utama
@@ -69,3 +69,5 @@
     [] Detail Surat
 
 # Ganti Password
+
+

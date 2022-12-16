@@ -67,4 +67,9 @@ class Surat extends Model
     {
         return $this->hasMany(SuratTracking::class, 'surat_id', 'id');
     }
+
+    public function keterangan()
+    {
+        return $this->hasOne(SuratKeterangan::class, 'surat_id', 'id');
+    }
 }

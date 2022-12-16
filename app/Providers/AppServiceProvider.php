@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
+use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         setlocale(LC_ALL, 'IND');
+        Carbon::setLocale('id');
         DB::statement("SET lc_time_names = 'id_ID'");
         Paginator::useBootstrapFive();
     }

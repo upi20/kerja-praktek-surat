@@ -206,10 +206,15 @@
                             const btn_detail_tracking = `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-primary btn-sm me-1" title="Detail Pelacakan" onClick="detailFunc('${data}')">
                                 <i class="fas fa-list"></i>
                                 </button>`;
+
+                            const btn_detail = `<a href="{{ url(h_prefix_uri('surat/keterangan/detail', 1)) }}/${data}" data-toggle="tooltip" class="btn btn-rounded btn-info btn-sm me-1" title="Detail Surat">
+                                <i class="fas fa-file-alt"></i>
+                                </a>`;
+
                             const btn_delete = `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-danger btn-sm me-1" title="Batalkan Surat" onClick="deleteFunc('${data}')">
                                 <i class="fas fa-times"></i>
                                 </button>`;
-                            return btn_detail_tracking + btn_delete;
+                            return btn_detail + btn_detail_tracking + btn_delete;
                         },
                         className: 'text-nowrap',
                         orderable: false,
