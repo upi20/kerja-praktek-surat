@@ -230,3 +230,32 @@ if (!function_exists('get_sosmed')) {
         return $get ? $get->toArray() : [];
     }
 }
+
+if (!function_exists('color_status_surat')) {
+    function color_status_surat($status)
+    {
+        switch ($status) {
+            case 'PENDUDUK':
+                return 'gray';
+                break;
+            case 'RUKUN TETANGGA':
+                return 'secondary';
+                break;
+            case 'RUKUN WARGA':
+                return 'info';
+                break;
+            case 'PIHAK DESA':
+                return 'warning';
+                break;
+            case 'SELESAI':
+                return 'success';
+                break;
+            case 'DIBATALKAN':
+                return 'danger';
+                break;
+            default:
+                return '';
+                break;
+        }
+    }
+}

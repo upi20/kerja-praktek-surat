@@ -3,9 +3,14 @@
     <div class="card">
         <div class="card-header bg-info d-md-flex flex-row justify-content-between">
             <h3 class="card-title text-light">{{ $page_attr['title'] }}</h3>
-            <a type="button" class="btn btn-rounded btn-gray btn-sm" href="{{ url()->previous() }}">
-                <i class="fe fe-arrow-left"></i> Kembali
-            </a>
+            <div>
+                <a type="button" class="btn btn-rounded btn-gray btn-sm" href="{{ url()->previous() }}">
+                    <i class="fe fe-arrow-left"></i> Kembali
+                </a>
+                <a type="button" class="btn btn-rounded btn-success btn-sm" href="{{ url()->previous() }}">
+                    <i class="fas fa-print"></i> Cetak
+                </a>
+            </div>
         </div>
         <div class="card-body">
             <table class="table table-striped">
@@ -82,6 +87,43 @@
                     <td>{{ $surat->keterangan->jenis->nama }}</td>
                 </tr>
             </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-info d-md-flex flex-row justify-content-between">
+            <h3 class="card-title text-light">Tracking Surat</h3>
+            <div>
+                <a type="button" class="btn btn-rounded btn-gray btn-sm" href="{{ url()->previous() }}">
+                    <i class="fe fe-arrow-left"></i> Kembali
+                </a>
+                <a type="button" class="btn btn-rounded btn-success btn-sm" href="{{ url()->previous() }}">
+                    <i class="fas fa-print"></i> Cetak
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <ul class="task-list">
+                @foreach ($surat->trackings ?? [] as $tracking)
+                    @php
+                        $keterangan = '';
+                        if ($tracking->ke_nama != $tracking->dari_nama) {
+                            $keterangan = "Diserahkan ke bpk/ibu $tracking->ke_nama dari bpk/ibu $tracking->dari_nama $tracking->keterangan";
+                        } else {
+                            $keterangan = "$tracking->dari_nama: $tracking->keterangan";
+                        }
+                    @endphp
+                    <li class="d-sm-flex">
+                        <div>
+                            <i class="task-icon bg-{{ color_status_surat($tracking->status) }}"></i>
+                            <h6 class="fw-semibold">{{ $tracking->status }}
+                                <span class="text-muted fs-11 mx-2 fw-normal">{{ $tracking->waktu }}</span>
+                            </h6>
+                            <p class="text-muted fs-12"> {!! $keterangan !!} </p>
+                        </div>
+                    </li>
+                @endforeach
+            </ul>
         </div>
     </div>
 @endsection

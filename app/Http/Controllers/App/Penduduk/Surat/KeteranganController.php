@@ -192,7 +192,7 @@ class KeteranganController extends Controller
     {
         $page_attr = [
             'title' => 'Detail Surat Pengantar Keterangan',
-            'navigation' => 'penduduk.home',
+            'navigation' => 'penduduk.pelacakan',
         ];
 
         $trackings = $surat->trackings;
