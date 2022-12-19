@@ -7,7 +7,8 @@
                 <a type="button" class="btn btn-rounded btn-gray btn-sm" href="{{ url()->previous() }}">
                     <i class="fe fe-arrow-left"></i> Kembali
                 </a>
-                <a type="button" class="btn btn-rounded btn-success btn-sm" href="{{ url()->previous() }}">
+                <a type="button" class="btn btn-rounded btn-success btn-sm"
+                    href="{{ route(h_prefix('print', 2), $surat->id) }}">
                     <i class="fas fa-print"></i> Cetak
                 </a>
             </div>

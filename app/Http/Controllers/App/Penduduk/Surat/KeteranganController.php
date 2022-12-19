@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use League\Config\Exception\ValidationException;
+use PDF;
 
 class KeteranganController extends Controller
 {
@@ -199,11 +200,27 @@ class KeteranganController extends Controller
         $data = compact('page_attr', 'surat', 'trackings');
 
         $data['compact'] = $data;
-
         return view('app.penduduk.surat.keterangan_detail', $data);
     }
 
     public function print(Surat $surat)
     {
+        $page_attr = [
+            'title' => 'Detail Surat Pengantar Keterangan',
+            'navigation' => 'penduduk.pelacakan',
+        ];
+
+        $trackings = $surat->trackings;
+        $data = compact('page_attr', 'surat', 'trackings');
+
+        $data['compact'] = $data;
+        return view('app.penduduk.surat.keterangan_print', $data);
+        view()->share('app.penduduk.surat.keterangan_print', $data);
+        $pdf = PDF::loadView('app.penduduk.surat.keterangan_print', $data)
+            ->setPaper('a4', 'potrait');
+
+        $name = "Surat Keterangan.pdf";
+        return $pdf->stream($name);
+        exit();
     }
 }
