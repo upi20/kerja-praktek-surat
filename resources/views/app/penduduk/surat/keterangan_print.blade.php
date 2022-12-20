@@ -122,9 +122,9 @@
         </tr>
     </table>
     <p style="text-indent: 0.5in; text-align: justify">
-        Orang Tersebut diatas adalah betul sebagai warga kami dan bermaksud untuk membuat surat keterangan
+        Orang Tersebut diatas adalah betul sebagai warga kami dan bermaksud untuk membuat surat keterangan:
     </p>
-    <p style="text-indent: 0.5in; text-align: justify; font-weight: bold">
+    <p style="text-indent: 0.5in; text-align: center; font-weight: bold">
         {{ $surat->keterangan->jenis->nama }}
     </p>
     <p style="text-indent: 0.5in; text-align: justify">
