@@ -24,96 +24,159 @@
     <meta name="msapplication-TileColor" content="#fff">
     <meta name="theme-color" content="#0191D7">
     <meta name="msapplication-TileImage" content="{{ public_path('favicon/icon-144x144.png') }}">
-    <title>SURAT KETERANGAN</title>
+    <title>{{ $name }}</title>
     @include('templates.admin.pdf_style')
+    <style>
+        @page {
+            margin: .3cm;
+            /* padding: 1cm; */
+        }
+
+        body {
+            font-family: sans-serif;
+            padding: 1cm;
+            padding-top: 0cm;
+            padding-bottom: 0cm;
+
+        }
+
+        #my-table td {
+            padding-bottom: 3px;
+        }
+    </style>
 </head>
 
 <body>
     <table>
         <tr>
-            <td>
+            <td style="padding-bottom: 0">
                 <img src="{{ public_path(settings()->get(set_admin('app.foto_light_mode'))) }}" alt=""
                     style="height: 30mm;">
             </td>
-            <td>
+            <td style="padding-bottom: 0">
                 <h3 class="p-title">PENGURUS RUKUN TETANGGA (RT) {{ $surat->rt->nomor }}</h3>
-                <h3 class="p-title">PENGURUS RUKUN WARGA (Rw) {{ $surat->rw->nomor }}</h3>
-                <p class="p-title">Telp:
-                    <a href="tel:0227303759">0227303759</a> –
-                    <a href="tel:0227900502">0227900502</a> /
-                    WA: <a href="https://wa.me/081214886315">081214886315</a> –
-                    <a href="https://wa.me/081214939435">081214939435</a>
-                </p>
-                <p class="p-title">Website: <a href="http://hayatpesta.com">hayatpesta.com</a>
-                    / Email: <a href="mailto:INFO@HAYATPESTA.COM">info@hayatpesta.com</a></p>
+                <h3 class="p-title">PENGURUS RUKUN WARGA (RW) {{ $surat->rw->nomor }}</h3>
+                <h2 class="p-title">DESA WANGUNSARI</h2>
+                <h5 class="p-title">KECAMATAN LEMBANG KABUPATEN BANDUNG BARAT</h5>
             </td>
         </tr>
     </table>
-    <hr class="garis">
-    <h4 class="text-center" style="margin-bottom: 5px">SURAT KETERANGAN</h4>
+    <hr style="margin-top: 0" class="garis">
+    <h4 class="text-center" style="margin-bottom: 5px; text-decoration: underline">SURAT KETERANGAN</h4>
     <p class="text-center" style="margin-top: 5px">Nomor:
-        {{ $surat->nomr ?? '......./RT ....... /' . date('y') . '......' }}
+        {{ $surat->nomr ?? '......./RT ....... / ....... /' . date('y') . '......' }}
     </p>
-    <table>
+    <p style="text-indent: 0.5in; text-align: justify">
+        Yang bertanda tangan dibawah ini, kami ketua RT {{ $surat->rt->nomor }} RW {{ $surat->rw->nomor }}
+        Desa Wangunsari Kecamatan Lembang Kabupaten Bandung Barat, Dengan ini menerangkan bahwa :
+    </p>
+    <table id="my-table">
         <tr>
-            <td>Nama</td>
+            <td style="white-space: nowrap">Nama</td>
             <td>:</td>
             <td>{{ $surat->nama_untuk_penduduk }}</td>
         </tr>
         <tr>
-            <td>Tempat, Tgl. lahir</td>
+            <td style="white-space: nowrap">Tempat/Tgl. lahir</td>
             <td>:</td>
             <td>
-                {{ $surat->keterangan->tempat_lahir }} ,
-                {{ Carbon\Carbon::parse($surat->keterangan->tanggal_lahir)->isoFormat('dddd, D MMMM Y') }}
+                {{ $surat->keterangan->tempat_lahir }},
+                {{ Carbon\Carbon::parse($surat->keterangan->tanggal_lahir)->isoFormat('D MMMM Y') }}
             </td>
         </tr>
         <tr>
-            <td>Jenis Kelamin</td>
+            <td style="white-space: nowrap">Jenis Kelamin</td>
             <td>:</td>
             <td>{{ $surat->keterangan->jenis_kelamin }}</td>
         </tr>
         <tr>
-            <td>Agama</td>
+            <td style="white-space: nowrap">Agama</td>
             <td>:</td>
             <td>{{ $surat->keterangan->agama }}</td>
         </tr>
         <tr>
-            <td>Status Kawin</td>
+            <td style="white-space: nowrap">Status Kawin</td>
             <td>:</td>
             <td>{{ $surat->keterangan->status_kawin }}</td>
         </tr>
         <tr>
-            <td>Pendidikan Terakhir</td>
+            <td style="white-space: nowrap">Pendidikan Terakhir</td>
             <td>:</td>
             <td>{{ $surat->keterangan->pendidikan }}</td>
         </tr>
         <tr>
-            <td>No. KTP/KTP Sementara</td>
+            <td style="white-space: nowrap">No. KTP/KTP Sementara</td>
             <td>:</td>
             <td>{{ $surat->nik_untuk_penduduk }}</td>
         </tr>
         <tr>
-            <td>Pekerjaan</td>
+            <td style="white-space: nowrap">Pekerjaan</td>
             <td>:</td>
             <td>{{ $surat->keterangan->pekerjaan }}</td>
         </tr>
         <tr>
-            <td>Alamat Lengkap</td>
+            <td style="white-space: nowrap">Alamat Lengkap</td>
             <td>:</td>
-            <td>{{ $surat->rt->nomor }} {{ $surat->keterangan->alamat }}</td>
-        </tr>
-        <tr>
-            <td>RT/RW</td>
-            <td>:</td>
-            <td>/{{ $surat->rw->nomor }}</td>
-        </tr>
-        <tr>
-            <td>Jenis Surrat</td>
-            <td>:</td>
-            <td>{{ $surat->keterangan->jenis->nama }}</td>
+            <td>{{ $surat->rt->nama_daerah }} RT {{ $surat->rt->nomor }} RW {{ $surat->rw->nomor }}
+                {{ $surat->keterangan->alamat }}</td>
         </tr>
     </table>
+    <p style="text-indent: 0.5in; text-align: justify">
+        Orang Tersebut diatas adalah betul sebagai warga kami dan bermaksud untuk membuat surat keterangan
+    </p>
+    <p style="text-indent: 0.5in; text-align: justify; font-weight: bold">
+        {{ $surat->keterangan->jenis->nama }}
+    </p>
+    <p style="text-indent: 0.5in; text-align: justify">
+        Demikian Surat Pengantar Keterangan ini kami buat dengan sebenarnya agar yang berkepentingan mengetahui dan
+        dapat memberikan bantuan seperlunya
+    </p>
+    <br>
+
+    <table style="width: 100%; white-space: nowrap; text-align: center">
+        <tr>
+            <td style="padding-top: 0; padding-bottom: 3px;  white-space: nowrap;">
+                Reg No {{ $surat->reg_no ?? '.........................' }}
+            </td>
+            <td style="padding-top: 0; padding-bottom: 3px;  white-space: nowrap;">
+                Wangunsari, {{ Carbon\Carbon::parse($surat->tanggal)->isoFormat('D MMMM Y') }}
+            </td>
+        </tr>
+        <tr>
+            <td style="padding-top: 0; padding-bottom: 3px;  white-space: nowrap;">
+                Ketua RW {{ $surat->rw->nomor }}
+            </td>
+            <td style="padding-top: 0; padding-bottom: 3px;  white-space: nowrap;">
+                Ketua RT {{ $surat->rt->nomor }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <br>
+                <br>
+                <br>
+            </td>
+            <td>
+                <br>
+                <br>
+                <br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span style="text-decoration: underline; font-weight: bold">
+                    {{ $surat->rw_nama }}</span> <br>NIK. {{ $surat->rw_nik }}
+            </td>
+            <td>
+                <span style="text-decoration: underline; font-weight: bold">
+                    {{ $surat->rt_nama }}</span> <br>NIK. {{ $surat->rt_nik }}
+            </td>
+        </tr>
+    </table>
+    <p style="text-align: justify">
+        <b>Catatan :</b> Bagi Warga Masyarakat yang akan membuat surat-surat ke tingkat Desa, harus dilampiri dengan
+        tanda bukti lunas PBB, & Fotocopy Kartu Keluarga (KK).
+    </p>
 </body>
 
 </html>

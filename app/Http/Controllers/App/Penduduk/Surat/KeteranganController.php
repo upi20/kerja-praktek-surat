@@ -211,15 +211,16 @@ class KeteranganController extends Controller
         ];
 
         $trackings = $surat->trackings;
-        $data = compact('page_attr', 'surat', 'trackings');
+        $name = "Surat Keterangan {$surat->keterangan->jenis->nama} {$surat->nama_untuk_penduduk}.pdf";
+
+        $data = compact('page_attr', 'surat', 'trackings', 'name');
 
         $data['compact'] = $data;
-        return view('app.penduduk.surat.keterangan_print', $data);
+        // return view('app.penduduk.surat.keterangan_print', $data);
         view()->share('app.penduduk.surat.keterangan_print', $data);
         $pdf = PDF::loadView('app.penduduk.surat.keterangan_print', $data)
             ->setPaper('a4', 'potrait');
 
-        $name = "Surat Keterangan.pdf";
         return $pdf->stream($name);
         exit();
     }
