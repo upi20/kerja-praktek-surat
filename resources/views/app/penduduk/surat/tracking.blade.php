@@ -109,6 +109,7 @@
     <script>
         const table_html = $('#tbl_main');
         let isEdit = true;
+        const status_surat = JSON.parse(`{!! json_encode(config('app.status_surats')) !!}`);
         $(document).ready(function() {
 
             $('#created_by_filter').select2({
@@ -207,14 +208,20 @@
                                 <i class="fas fa-list"></i>
                                 </button>`;
 
-                            const btn_detail = `<a href="{{ url(h_prefix_uri('surat/keterangan/detail', 1)) }}/${data}" data-toggle="tooltip" class="btn btn-rounded btn-info btn-sm me-1" title="Detail Surat">
+                            const btn_detail = `<a href="{{ url(h_prefix_uri('surat', 1)) }}/${jenisSuratLink(full.jenis)}/detail/${data}" data-toggle="tooltip" class="btn btn-rounded btn-info btn-sm me-1" title="Detail Surat">
                                 <i class="fas fa-file-alt"></i>
                                 </a>`;
 
-                            const btn_delete = `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-danger btn-sm me-1" title="Batalkan Surat" onClick="deleteFunc('${data}')">
+                            const btn_print = `<a href="{{ url(h_prefix_uri('surat', 1)) }}/${jenisSuratLink(full.jenis)}/print/${data}" data-toggle="tooltip" class="btn btn-rounded btn-success btn-sm me-1" title="Print Surat" target="_blank">
+                                <i class="fas fa-print"></i>
+                                </a>`;
+
+                            const bisa_dibatalkan = full.status == status_surat[0] || full.status ==
+                                status_surat[1] || full.status == status_surat[2];
+                            const btn_batalkan = bisa_dibatalkan ? `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-danger btn-sm me-1" title="Batalkan Surat" onClick="deleteFunc('${data}')">
                                 <i class="fas fa-times"></i>
-                                </button>`;
-                            return btn_detail + btn_detail_tracking + btn_delete;
+                                </button>` : '';
+                            return btn_print + btn_detail + btn_detail_tracking + btn_batalkan;
                         },
                         className: 'text-nowrap',
                         orderable: false,

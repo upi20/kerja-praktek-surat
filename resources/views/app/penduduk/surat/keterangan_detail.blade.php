@@ -98,9 +98,6 @@
                 <a type="button" class="btn btn-rounded btn-gray btn-sm" href="{{ url()->previous() }}">
                     <i class="fe fe-arrow-left"></i> Kembali
                 </a>
-                <a type="button" class="btn btn-rounded btn-success btn-sm" href="{{ url()->previous() }}">
-                    <i class="fas fa-print"></i> Cetak
-                </a>
             </div>
         </div>
         <div class="card-body">

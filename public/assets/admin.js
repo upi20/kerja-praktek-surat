@@ -314,3 +314,29 @@ function parse_tanggal_waktu_str(data) {
 function tooltip_refresh() {
     $('[data-toggle="tooltip"]').tooltip();
 }
+
+function jenisSuratLink(jenis) {
+    let result = '';
+    switch (jenis) {
+        case 'SURAT KETERANGAN':
+            result = 'keterangan';
+            break;
+        case 'SURAT PENGANTAR KETERANGAN DOMISILI':
+            result = 'domisili';
+            break;
+        case 'SURAT PENGANTAR KETERANGAN NIKAH':
+            result = 'nikah';
+            break;
+        case 'SURAT PENGANTAR KETERANGAN PINDAH':
+            result = 'pindah';
+            break;
+        case 'DATA KARTU KELUARGA':
+            result = 'kk';
+            break;
+
+        default:
+            break;
+    }
+
+    return result;
+}
