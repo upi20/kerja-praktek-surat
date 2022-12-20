@@ -61,8 +61,8 @@
                 <thead>
                     <tr>
                         <th class="text-nowrap">No</th>
-                        <th class="text-nowrap">Penduduk</th>
                         <th class="text-nowrap">Surat</th>
+                        <th class="text-nowrap">Penduduk</th>
                         <th class="text-nowrap">Pelacakan</th>
                         <th>Aksi</th>
                     </tr>
@@ -154,7 +154,7 @@
                 searchDelay: 500,
                 processing: true,
                 serverSide: true,
-                // responsive: true,
+                responsive: true,
                 scrollX: true,
                 aAutoWidth: false,
                 bAutoWidth: false,
@@ -172,20 +172,20 @@
                         orderable: false,
                     },
                     {
-                        data: 'nama_untuk_penduduk',
-                        name: 'nama_untuk_penduduk',
-                        render(data, type, full, meta) {
-                            return `<span class="fw-bold">${data}</span><br>
-                            <small>${full.nik_untuk_penduduk}</small>`;
-                        },
-                        className: 'text-nowrap'
-                    },
-                    {
                         data: 'jenis',
                         name: 'jenis',
                         render(data, type, full, meta) {
                             return `${getStatus(full.status)} <span class="fw-bold">${data}</span><br>
                             <small>${full.tanggal_str}</small>`;
+                        },
+                        className: 'text-nowrap'
+                    },
+                    {
+                        data: 'nama_untuk_penduduk',
+                        name: 'nama_untuk_penduduk',
+                        render(data, type, full, meta) {
+                            return `<span class="fw-bold">${data}</span><br>
+                            <small>${full.nik_untuk_penduduk}</small>`;
                         },
                         className: 'text-nowrap'
                     },
