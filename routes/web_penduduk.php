@@ -23,8 +23,10 @@ Route::prefix($prefix)->group(function () use ($name, $prefix) {
         $name = "$name.$prefix"; // penduduk.surat.keterangan
         Route::get('/', 'index')->name($name)->middleware("permission:$name");
         Route::post('/simpan', 'simpan')->name("$name.simpan")->middleware("permission:$name");
+        Route::post('/perbaiki_simpan', 'perbaiki_simpan')->name("$name.perbaiki_simpan")->middleware("permission:$name");
         Route::get('/detail/{surat}', 'detail')->name("$name.detail")->middleware("permission:$name");
         Route::get('/print/{surat}', 'print')->name("$name.print")->middleware("permission:$name");
+        Route::get('/perbaiki/{surat}', 'perbaiki')->name("$name.perbaiki")->middleware("permission:$name");
     });
 });
 

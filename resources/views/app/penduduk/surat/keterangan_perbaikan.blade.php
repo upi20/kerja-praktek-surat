@@ -9,7 +9,8 @@
         </div>
         <div class="card-body">
             <form action="javascript:void(0)" id="MainForm" name="MainForm" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="id" id="id">
+                <input type="hidden" name="id" id="id" value="{{ $surat->id }}">
+                <input type="hidden" name="surat_detail_id" id="surat_detail_id" value="{{ $surat->keterangan->id }}">
                 <div class="row mb-3">
                     <label for="nama" class="col-sm-3 col-form-label">Nomor Induk Kependudukan
                         <span class="text-danger">*</span>
@@ -18,7 +19,7 @@
                         <span style="display: none;" id="nik_text"></span>
                         <div class="w-100">
                             <input type="number" class="form-control" placeholder="Nomor Induk Kependudukan" id="nik"
-                                name="nik" required value="{{ $penduduk->nik }}">
+                                name="nik" required value="{{ $surat->nik_untuk_penduduk }}">
                         </div>
                         <div class="ms-2" id="btn_cari_nik">
                             <button type="button" class="btn btn-primary" onclick="cek_nik()">
@@ -38,7 +39,7 @@
                     <div class="col-sm-9">
                         <span style="display: none;" id="nama_text"></span>
                         <input type="text" class="form-control" placeholder="Nama Lengkap" id="nama" name="nama"
-                            required>
+                            required value="{{ $surat->nama_untuk_penduduk }}">
                     </div>
                 </div>
 
@@ -49,12 +50,13 @@
                     <div class="col-sm-9 d-flex flex-row">
                         <span style="display: none;" id="ttl_text"></span>
                         <div class="w-100">
-                            <input type="text" class="form-control me-lg-2" placeholder="Tempat Lahir" value=""
-                                id="tempat_lahir" name="tempat_lahir"required>
+                            <input type="text" class="form-control me-lg-2" placeholder="Tempat Lahir" id="tempat_lahir"
+                                name="tempat_lahir"required value="{{ $surat->keterangan->tempat_lahir }}">
                         </div>
                         <div>
                             <input type="date" class="form-control date-input-str" placeholder="Tanggal Lahir"
-                                value="" id="tanggal_lahir" name="tanggal_lahir" required>
+                                id="tanggal_lahir" name="tanggal_lahir" required
+                                value="{{ $surat->keterangan->tanggal_lahir }}">
                         </div>
                     </div>
                 </div>
@@ -66,8 +68,14 @@
                         <span style="display: none;" id="jenis_kelamin_text"></span>
                         <select class="form-control" id="jenis_kelamin" name="jenis_kelamin">
                             <option value="">Pilih Jenis Kelamin</option>
-                            <option value="LAKI-LAKI">LAKI-LAKI</option>
-                            <option value="PEREMPUAN">PEREMPUAN</option>
+                            <option value="LAKI-LAKI"
+                                {{ $surat->keterangan->jenis_kelamin == 'LAKI-LAKI' ? 'selected' : '' }}>
+                                LAKI-LAKI
+                            </option>
+                            <option value="PEREMPUAN"
+                                {{ $surat->keterangan->jenis_kelamin == 'PEREMPUAN' ? 'selected' : '' }}>
+                                PEREMPUAN
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -80,7 +88,10 @@
                         <select class="form-control" id="agama" name="agama">
                             <option value="">Pilih Agama</option>
                             @foreach ($agamas as $agama)
-                                <option value="{{ $agama }}">{{ $agama }}</option>
+                                <option value="{{ $agama }}"
+                                    {{ $surat->keterangan->agama == $agama ? 'selected' : '' }}>
+                                    {{ $agama }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -93,8 +104,13 @@
                         <span style="display: none;" id="status_kawin_text"></span>
                         <select class="form-control" id="status_kawin" name="status_kawin" required>
                             <option value="">Pilih Status Kawin</option>
-                            <option value="KAWIN">KAWIN</option>
-                            <option value="BELUM KAWIN">BELUM KAWIN</option>
+                            <option value="KAWIN" {{ $surat->keterangan->status_kawin == 'KAWIN' ? 'selected' : '' }}>
+                                KAWIN
+                            </option>
+                            <option value="BELUM KAWIN"
+                                {{ $surat->keterangan->status_kawin == 'BELUM KAWIN' ? 'selected' : '' }}>
+                                BELUM KAWIN
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -107,7 +123,10 @@
                         <select class="form-control" id="pendidikan" name="pendidikan" required>
                             <option value="">Pilih Pendidikan</option>
                             @foreach ($pendidikans as $pendidikan)
-                                <option value="{{ $pendidikan }}">{{ $pendidikan }}</option>
+                                <option value="{{ $pendidikan }}"
+                                    {{ $surat->keterangan->pendidikan == $pendidikan ? 'selected' : '' }}>
+                                    {{ $pendidikan }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -121,7 +140,10 @@
                         <select class="form-control" id="pekerjaan" name="pekerjaan" required>
                             <option value="">Pilih Pekerjaan</option>
                             @foreach ($pekerjaans as $pekerjaan)
-                                <option value="{{ $pekerjaan }}">{{ $pekerjaan }}</option>
+                                <option value="{{ $pekerjaan }}"
+                                    {{ $surat->keterangan->pekerjaan == $pekerjaan ? 'selected' : '' }}>
+                                    {{ $pekerjaan }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -133,7 +155,7 @@
                     </label>
                     <div class="col-sm-9">
                         <span style="display: none;" id="alamat_text"></span>
-                        <textarea class="form-control" placeholder="Alamat Lengkap" id="alamat" name="alamat" required></textarea>
+                        <textarea class="form-control" placeholder="Alamat Lengkap" id="alamat" name="alamat" required>{{ $surat->keterangan->alamat }}</textarea>
                     </div>
                 </div>
 
@@ -143,10 +165,13 @@
                     </label>
                     <div class="col-sm-9 d-flex flex-row">
                         <span style="display: none;" id="rt_rw_text"></span>
-                        <div class="w-100"><input type="number" class="form-control me-lg-2"
-                                placeholder="Rukun Tetangga" value="" id="rt" name="rt"required></div>
-                        <div class="w-100"><input type="number" class="form-control me-lg-2" placeholder="Rukun Warga"
-                                value="" id="rw" name="rw"required>
+                        <div class="w-100">
+                            <input type="number" class="form-control me-lg-2" placeholder="Rukun Tetangga"
+                                value="{{ $surat->rt->nomor }}" id="rt" name="rt"required>
+                        </div>
+                        <div class="w-100">
+                            <input type="number" class="form-control me-lg-2" placeholder="Rukun Warga"
+                                value="{{ $surat->rw->nomor }}" id="rw" name="rw"required>
                         </div>
                     </div>
                 </div>
@@ -159,11 +184,14 @@
                         <select class="form-control" id="jenis_surat_id" name="jenis_surat_id" required>
                             <option value="">Pilih Jenis Surat</option>
                             @foreach ($jenis_keterangan as $jenis)
-                                <option value="{{ $jenis->id }}">{{ $jenis->nama }}</option>
+                                <option
+                                    value="{{ $jenis->id }}"{{ $surat->keterangan->jenis_surat_keterangan_id == $jenis->id ? 'selected' : '' }}>
+                                    {{ $jenis->nama }}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
+
             </form>
         </div>
         <div class="card-footer">
@@ -191,10 +219,15 @@
     <script src="{{ asset('assets/templates/admin/plugins/select2/js/select2.full.min.js') }}"></script>
 
     <script>
+        const nik_ada = {{ $nik_ada ? 'true' : 'false' }};
         $(document).ready(function() {
-            setTimeout(() => {
-                cek_nik();
-            }, 500);
+
+            if (nik_ada) {
+                setTimeout(() => {
+                    view_form('insert-nik');
+                }, 500);
+            }
+
             // simpan form ============================================================================================
             $('#MainForm').submit(function(e) {
                 e.preventDefault();
@@ -203,7 +236,7 @@
                 setBtnLoading('button[form=MainForm]', 'Simpan');
                 $.ajax({
                     type: "POST",
-                    url: "{{ route(h_prefix('simpan')) }}",
+                    url: "{{ route(h_prefix('perbaiki_simpan', 2)) }}",
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
@@ -556,7 +589,7 @@
             $.LoadingOverlay("show");
             $.ajax({
                 type: "GET",
-                url: `{{ route(h_prefix('cari_penduduk', 2)) }}`,
+                url: `{{ route(h_prefix('cari_penduduk', 4)) }}`,
                 data: {
                     nik
                 },

@@ -235,26 +235,34 @@
                         data: 'id',
                         name: 'id',
                         render(data, type, full, meta) {
-                            const btn_detail_tracking = `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-primary btn-sm me-1" title="Detail Pelacakan" onClick="detailFunc('${data}')">
+                            const btn_detail_tracking = `<button type="button" data-toggle="tooltip" class="btn  mt-1 btn-rounded btn-primary btn-sm me-1" title="Detail Pelacakan" onClick="detailFunc('${data}')">
                                 <i class="fas fa-list"></i>
                                 </button>`;
 
-                            const btn_detail = `<a href="{{ url(h_prefix_uri('surat', 1)) }}/${jenisSuratLink(full.jenis)}/detail/${data}" data-toggle="tooltip" class="btn btn-rounded btn-info btn-sm me-1" title="Detail Surat">
+                            const btn_detail = `<a href="{{ url(h_prefix_uri('surat', 1)) }}/${jenisSuratLink(full.jenis)}/detail/${data}" data-toggle="tooltip" class="btn  mt-1 btn-rounded btn-info btn-sm me-1" title="Detail Surat">
                                 <i class="fas fa-file-alt"></i>
                                 </a>`;
 
-                            const btn_print = `<a href="{{ url(h_prefix_uri('surat', 1)) }}/${jenisSuratLink(full.jenis)}/print/${data}" data-toggle="tooltip" class="btn btn-rounded btn-success btn-sm me-1" title="Print Surat" target="_blank">
+                            const btn_print = `<a href="{{ url(h_prefix_uri('surat', 1)) }}/${jenisSuratLink(full.jenis)}/print/${data}" data-toggle="tooltip" class="btn  mt-1 btn-rounded btn-success btn-sm me-1" title="Print Surat" target="_blank">
                                 <i class="fas fa-print"></i>
                                 </a>`;
 
+                            const bisa_perbaikan = full.status == status_surat[0];
+                            const btn_perbaikan = bisa_perbaikan ? `<a href="{{ url(h_prefix_uri('surat', 1)) }}/${jenisSuratLink(full.jenis)}/perbaiki/${data}" data-toggle="tooltip" class="btn  mt-1 btn-rounded btn-warning btn-sm me-1" title="Perbaiki Surat">
+                                <i class="fas fa-check"></i>
+                                </a>` : '';
+
                             const bisa_dibatalkan = full.status == status_surat[0] || full.status ==
                                 status_surat[1] || full.status == status_surat[2];
-                            const btn_batalkan = bisa_dibatalkan ? `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-danger btn-sm me-1" title="Batalkan Surat" onClick="batalkanFunc('${data}')">
+                            const btn_batalkan = bisa_dibatalkan ? `<button type="button" data-toggle="tooltip" class="btn  mt-1 btn-rounded btn-danger btn-sm me-1" title="Batalkan Surat" onClick="batalkanFunc('${data}')">
                                 <i class="fas fa-times"></i>
                                 </button>` : '';
-                            return btn_print + btn_detail + btn_detail_tracking + btn_batalkan;
+                            return btn_print +
+                                btn_detail +
+                                btn_detail_tracking +
+                                btn_perbaikan +
+                                btn_batalkan;
                         },
-                        className: 'text-nowrap',
                         orderable: false,
                     }
                 ],
