@@ -10,6 +10,7 @@ use App\Models\Surat\SuratTracking;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use League\Config\Exception\ValidationException;
 use Yajra\Datatables\Datatables;
 
 class TrackingController extends Controller
@@ -265,5 +266,53 @@ class TrackingController extends Controller
         SQL;
         $result = SuratTracking::selectRaw($select)->where('surat_id', $surat_id)->orderBy('waktu_origin', 'desc')->get();
         return $result;
+    }
+
+    public function batalkan_surat(Request $request)
+    {
+        try {
+            $request->validate([
+                'id' => ['required', 'integer'],
+                'alasan_dibatalkan' => ['required', 'string'],
+            ]);
+
+            DB::beginTransaction();
+            $SURAT_DI_BATALKAN = config('app.status_surats')[5];
+
+            // get surat
+            $surat = Surat::findOrFail($request->id);
+            $surat->dibatalkan = 1;
+            $surat->alasan_dibatalkan = $request->alasan_dibatalkan;
+            $surat->tanggal_dibatalkan = date("Y-m-d H:i:s");
+            $surat->status = $SURAT_DI_BATALKAN;
+            $surat->save();
+
+            // get order terakhir
+            $tracking = SuratTracking::where('surat_id', $surat->id)
+                ->orderBy('waktu', 'desc')
+                ->first();
+
+            // simpan dari penduduk ke rt
+            $tracking_surat = new SuratTracking();
+            $tracking_surat->surat_id = $surat->id;
+            $tracking_surat->keterangan = "Dibatalkan";
+            $tracking_surat->waktu = date('Y-m-d H:i:s');
+            $tracking_surat->dari_nama = $tracking->ke_nama;
+            $tracking_surat->dari_nip = $tracking->ke_nik;
+
+            $tracking_surat->ke_nama = $surat->nama_penduduk;
+            $tracking_surat->ke_nip = $surat->nik_penduduk;
+
+            $tracking_surat->status = $SURAT_DI_BATALKAN;
+            $tracking_surat->save();
+
+            DB::commit();
+            return response()->json(['status' => true]);
+        } catch (ValidationException $error) {
+            return response()->json([
+                'message' => 'Something went wrong',
+                'error' => $error,
+            ], 500);
+        }
     }
 }

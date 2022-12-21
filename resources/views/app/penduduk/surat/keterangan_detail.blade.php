@@ -87,6 +87,23 @@
                     <td>:</td>
                     <td>{{ $surat->keterangan->jenis->nama }}</td>
                 </tr>
+                @if ($surat->dibatalkan)
+                    <tr>
+                        <td>Dibatalkan</td>
+                        <td>:</td>
+                        <td>
+                            {{ $surat->alasan_dibatalkan }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tanggal Dibatalkan</td>
+                        <td>:</td>
+                        <td>
+                            {{ Carbon\Carbon::parse($surat->tanggal_dibatalkan)->isoFormat('dddd, D MMMM Y') }}
+                            {{ date('H:i:s', strtotime($surat->tanggal_dibatalkan)) }}
+                        </td>
+                    </tr>
+                @endif
             </table>
         </div>
     </div>
@@ -102,7 +119,7 @@
         </div>
         <div class="card-body">
             <ul class="task-list">
-                @foreach ($surat->trackings ?? [] as $tracking)
+                @foreach ($trackings ?? [] as $tracking)
                     @php
                         $keterangan = '';
                         if ($tracking->ke_nama != $tracking->dari_nama) {

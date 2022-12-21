@@ -34,6 +34,7 @@ Route::prefix($prefix)->controller(TrackingController::class)->group(function ()
     Route::get('/', 'index')->name($name)->middleware("permission:$name");
     Route::get('list_tracking', 'list_tracking_api')->name("$name.list_tracking_api")->middleware("permission:$name");
     Route::get('list_tracking/{surat}', 'list_tracking')->name("$name.list_tracking")->middleware("permission:$name");
+    Route::post('batalkan_surat', 'batalkan_surat')->name("$name.batalkan_surat")->middleware("permission:$name");
 });
 
 

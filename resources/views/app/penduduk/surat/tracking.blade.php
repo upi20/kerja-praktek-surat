@@ -91,6 +91,37 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modal-batalkan">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-content-demo">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="modal-batalkan-title"></h6><button aria-label="Close" class="btn-close"
+                        data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form action="javascript:void(0)" id="MainForm" name="MainForm" method="POST"
+                        enctype="multipart/form-data">
+                        <input type="hidden" name="id" id="id">
+                        <div class="form-group">
+                            <label class="form-label" for="alasan_dibatalkan">Alasan Dibatalkan
+                                <span class="text-danger">*</span>
+                            </label>
+                            <textarea class="form-control" id="alasan_dibatalkan" name="alasan_dibatalkan" rows="3" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="btn-save" form="MainForm">
+                        <i class="fas fa-save mr-1"></i> Kirim
+                    </button>
+                    <button class="btn btn-light" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i> Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('javascript')
@@ -218,7 +249,7 @@
 
                             const bisa_dibatalkan = full.status == status_surat[0] || full.status ==
                                 status_surat[1] || full.status == status_surat[2];
-                            const btn_batalkan = bisa_dibatalkan ? `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-danger btn-sm me-1" title="Batalkan Surat" onClick="deleteFunc('${data}')">
+                            const btn_batalkan = bisa_dibatalkan ? `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-danger btn-sm me-1" title="Batalkan Surat" onClick="batalkanFunc('${data}')">
                                 <i class="fas fa-times"></i>
                                 </button>` : '';
                             return btn_print + btn_detail + btn_detail_tracking + btn_batalkan;
@@ -249,6 +280,56 @@
                 e.preventDefault();
                 var oTable = table_html.dataTable();
                 oTable.fnDraw(false);
+            });
+
+            // batalkan
+            $('#MainForm').submit(function(e) {
+                e.preventDefault();
+                resetErrorAfterInput();
+                var formData = new FormData(this);
+                setBtnLoading('button[form=MainForm]', 'Kirim');
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route(h_prefix('batalkan_surat')) }}",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: (data) => {
+                        $("#modal-default").modal('hide');
+                        var oTable = table_html.dataTable();
+                        oTable.fnDraw(false);
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Surat Berhasil Dikirim',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    },
+                    error: function(data) {
+                        const res = data.responseJSON ?? {};
+                        errorAfterInput = [];
+                        for (const property in res.errors) {
+                            errorAfterInput.push(property);
+                            setErrorAfterInput(res.errors[property], `#${property}`);
+                        }
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: res.message ?? 'Something went wrong',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    },
+                    complete: function() {
+                        setBtnLoading('button[form=MainForm]',
+                            '<i class="fas fa-save mr-1"></i> Kirim', false);
+                    }
+                });
             });
         });
 
@@ -324,7 +405,15 @@
                     $.LoadingOverlay("hide");
                 }
             });
+        }
 
+        function batalkanFunc(id) {
+            $('#modal-batalkan-title').html("Batalkan Pengajuan Surat");
+            $('#modal-batalkan').modal('show');
+            $('#id').val(id);
+            $('#keterangan').attr('placeholder', '');
+            resetErrorAfterInput();
+            return true;
         }
     </script>
 @endsection

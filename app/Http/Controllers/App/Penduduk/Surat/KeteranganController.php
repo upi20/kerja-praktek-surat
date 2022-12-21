@@ -196,7 +196,7 @@ class KeteranganController extends Controller
             'navigation' => 'penduduk.pelacakan',
         ];
 
-        $trackings = $surat->trackings;
+        $trackings = $surat->trackings()->orderBy('waktu', 'desc')->get();
         $data = compact('page_attr', 'surat', 'trackings');
 
         $data['compact'] = $data;
