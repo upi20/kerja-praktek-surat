@@ -80,6 +80,35 @@
                     </div>
                 </div>
 
+
+                <div class="row mb-3">
+                    <label for="warga_negara" class="col-sm-3 col-form-label">Kewarganegaraan
+                        <span class="text-danger">*</span></label>
+                    <div class="col-sm-9">
+                        <span style="display: none;" id="warga_negara_text"></span>
+                        <select class="form-control" id="warga_negara" name="warga_negara" required>
+                            <option value="">Pilih Kewarganegaraan</option>
+                            <option value="WNI"{{ $surat->keterangan->warga_negara == 'WNI' ? 'selected' : '' }}>
+                                Warga Negara Indonesia
+                            </option>
+                            <option value="WNA"{{ $surat->keterangan->warga_negara == 'WNA' ? 'selected' : '' }}>
+                                Warga Negara Asing
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="negara_nama" class="col-sm-3 col-form-label">Nama Negara
+                        <span class="text-danger">*</span>
+                    </label>
+                    <div class="col-sm-9">
+                        <span style="display: none;" id="negara_nama_text"></span>
+                        <input type="text" class="form-control" placeholder="Negara Asal Penduduk" id="negara_nama"
+                            name="negara_nama" value="{{ $surat->keterangan->negara_nama }}" required>
+                    </div>
+                </div>
+
                 <div class="row mb-3">
                     <label for="agama" class="col-sm-3 col-form-label">Agama
                         <span class="text-danger">*</span></label>
@@ -221,6 +250,23 @@
     <script>
         const nik_ada = {{ $nik_ada ? 'true' : 'false' }};
         $(document).ready(function() {
+            $('#warga_negara').change(function() {
+                if (this.value == "WNI") {
+                    $('#negara_nama').val('INDONESIA');
+                } else {
+                    $('#negara_nama').val('');
+                }
+            })
+
+            $('#negara_nama').keyup(function() {
+                if (String(this.value).toLocaleLowerCase() == 'indonesia') {
+                    $('#warga_negara').val('WNI');
+                } else if (String(this.value).toLocaleLowerCase() == '') {
+                    $('#warga_negara').val('');
+                } else {
+                    $('#warga_negara').val('WNA');
+                }
+            })
 
             if (nik_ada) {
                 setTimeout(() => {
@@ -298,6 +344,8 @@
         });
 
         function input_form_data(data) {
+            $('#warga_negara').val(data.penduduk.warga_negara);
+            $('#negara_nama').val(data.penduduk.negara_nama);
             $('#nik').val(data.penduduk.nik);
             $('#no_kk').val(data.penduduk.no_kk);
             $('#hub_dgn_kk').val(data.penduduk.hub_dgn_kk);
@@ -331,6 +379,8 @@
             const rt_rw_text = $('#rt_rw_text');
             const alamat_text = $('#alamat_text');
             const jenis_kelamin_text = $('#jenis_kelamin_text');
+            const warga_negara_text = $('#warga_negara_text');
+            const negara_nama_text = $('#negara_nama_text');
 
             const nik = $('#nik');
             const no_kk = $('#no_kk');
@@ -346,6 +396,8 @@
             const rw = $('#rw');
             const alamat = $('#alamat');
             const jenis_kelamin = $('#jenis_kelamin');
+            const warga_negara = $('#warga_negara');
+            const negara_nama = $('#negara_nama');
 
             switch (view) {
                 case 'insert-nik': // insert dengan nik yang sudah terdaftar yang bisa di ubah cuman status tombol reset ada
@@ -398,6 +450,14 @@
                     agama_text.html(agama.val());
                     agama_text.hide();
                     agama.show();
+
+                    warga_negara_text.html(warga_negara.val());
+                    warga_negara_text.hide();
+                    warga_negara.show();
+
+                    negara_nama_text.html(negara_nama.val());
+                    negara_nama_text.hide();
+                    negara_nama.show();
 
                     // nik
                     btn_cari_nik.hide();
@@ -455,6 +515,14 @@
                     agama_text.html(agama.val());
                     agama_text.hide();
                     agama.show();
+
+                    warga_negara_text.html(warga_negara.val());
+                    warga_negara_text.hide();
+                    warga_negara.show();
+
+                    negara_nama_text.html(negara_nama.val());
+                    negara_nama_text.hide();
+                    negara_nama.show();
 
                     // nik
                     btn_cari_nik.hide();
@@ -517,6 +585,14 @@
                     agama_text.show();
                     agama.hide();
 
+                    warga_negara_text.html(warga_negara.val());
+                    warga_negara_text.show();
+                    warga_negara.hide();
+
+                    negara_nama_text.html(negara_nama.val());
+                    negara_nama_text.show();
+                    negara_nama.hide();
+
                     // nik
                     btn_cari_nik.hide();
                     btn_reset_nik.hide();
@@ -576,6 +652,14 @@
                     agama_text.hide();
                     agama.show();
 
+                    warga_negara_text.html(warga_negara.val());
+                    warga_negara_text.hide();
+                    warga_negara.show();
+
+                    negara_nama_text.html(negara_nama.val());
+                    negara_nama_text.hide();
+                    negara_nama.show();
+
                     // nik
                     btn_cari_nik.show();
                     btn_reset_nik.hide();
@@ -615,6 +699,8 @@
                     $('#rw').val(penduduk.rt.rw.nomor);
                     $('#alamat').val(penduduk.alamat);
                     $('#jenis_kelamin').val(penduduk.jenis_kelamin);
+                    $('#warga_negara').val(penduduk.warga_negara);
+                    $('#negara_nama').val(penduduk.negara_nama);
                     view_form('insert-nik');
                     render_tanggal('#tanggal_lahir');
                 },
@@ -639,6 +725,8 @@
             $('#MainForm').trigger("reset");
             $('#id').val('');
             $('#tanggal').val("{{ date('Y-m-d') }}");
+            $('#warga_negara').val('WNI');
+            $('#negara_nama').val('INDONESIA');
             view_form();
             render_tanggal('#tanggal');
         }

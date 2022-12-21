@@ -53,6 +53,11 @@
                     <td>{{ $surat->keterangan->jenis_kelamin }}</td>
                 </tr>
                 <tr>
+                    <td>Warganegara</td>
+                    <td>:</td>
+                    <td>{{ $surat->keterangan->warga_negara == 'WNI' ? 'INDONESIA' : $surat->keterangan->negara_nama }}</td>
+                </tr>
+                <tr>
                     <td>Agama</td>
                     <td>:</td>
                     <td>{{ $surat->keterangan->agama }}</td>

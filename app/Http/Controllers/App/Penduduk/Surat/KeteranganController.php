@@ -37,7 +37,7 @@ class KeteranganController extends Controller
         $penduduk = auth()->user()->penduduk;
         $data =  compact('page_attr', 'jenis_keterangan',  'hub_dgn_kks', 'pendidikans', 'pekerjaans', 'agamas', 'penduduk');
         $data['compact'] = $data;
-        return view('app.penduduk.surat.keterangan', $data);
+        return view('app.penduduk.surat.keterangan.form', $data);
     }
 
     public function simpan(Request $request)
@@ -54,6 +54,8 @@ class KeteranganController extends Controller
                 'pendidikan' => ['required', 'string'],
                 'pekerjaan' => ['required', 'string'],
                 'alamat' => ['required', 'string'],
+                'warga_negara' => ['required', 'string'],
+                'negara_nama' => ['required', 'string'],
                 'rt' => ['required', 'integer'],
                 'rw' => ['required', 'integer'],
                 'jenis_surat_id' => ['required', 'integer'],
@@ -162,6 +164,8 @@ class KeteranganController extends Controller
             $surat_keterangan->pendidikan = $request->pendidikan;
             $surat_keterangan->nik = $request->nik;
             $surat_keterangan->pekerjaan = $request->pekerjaan;
+            $surat_keterangan->warga_negara = $request->warga_negara;
+            $surat_keterangan->negara_nama = $request->negara_nama;
             $surat_keterangan->alamat = $request->alamat;
             $surat_keterangan->created_by = auth()->user()->id;
             $surat_keterangan->save();
@@ -207,6 +211,8 @@ class KeteranganController extends Controller
                 'rt' => ['required', 'integer'],
                 'rw' => ['required', 'integer'],
                 'jenis_surat_id' => ['required', 'integer'],
+                'warga_negara' => ['required', 'string'],
+                'negara_nama' => ['required', 'string'],
             ]);
 
             DB::beginTransaction();
@@ -312,6 +318,8 @@ class KeteranganController extends Controller
             $surat_keterangan->pendidikan = $request->pendidikan;
             $surat_keterangan->nik = $request->nik;
             $surat_keterangan->pekerjaan = $request->pekerjaan;
+            $surat_keterangan->warga_negara = $request->warga_negara;
+            $surat_keterangan->negara_nama = $request->negara_nama;
             $surat_keterangan->alamat = $request->alamat;
             $surat_keterangan->created_by = auth()->user()->id;
             $surat_keterangan->save();
@@ -350,7 +358,7 @@ class KeteranganController extends Controller
         $data = compact('page_attr', 'surat', 'trackings');
 
         $data['compact'] = $data;
-        return view('app.penduduk.surat.keterangan_detail', $data);
+        return view('app.penduduk.surat.keterangan.detail', $data);
     }
 
     public function print(Surat $surat)
@@ -366,9 +374,9 @@ class KeteranganController extends Controller
         $data = compact('page_attr', 'surat', 'trackings', 'name');
 
         $data['compact'] = $data;
-        // return view('app.penduduk.surat.keterangan_print', $data);
-        view()->share('app.penduduk.surat.keterangan_print', $data);
-        $pdf = PDF::loadView('app.penduduk.surat.keterangan_print', $data)
+        // return view('app.penduduk.surat.keterangan.print', $data);
+        view()->share('app.penduduk.surat.keterangan.print', $data);
+        $pdf = PDF::loadView('app.penduduk.surat.keterangan.print', $data)
             ->setPaper('a4', 'potrait');
 
         return $pdf->stream($name);
@@ -396,6 +404,6 @@ class KeteranganController extends Controller
         $penduduk = auth()->user()->penduduk;
         $data =  compact('page_attr', 'jenis_keterangan',  'hub_dgn_kks', 'pendidikans', 'pekerjaans', 'agamas', 'penduduk', 'surat', 'nik_ada');
         $data['compact'] = $data;
-        return view('app.penduduk.surat.keterangan_perbaikan', $data);
+        return view('app.penduduk.surat.keterangan.perbaikan', $data);
     }
 }
