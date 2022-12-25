@@ -111,6 +111,26 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade" id="modal-detail">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-content-demo">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="modal-detail-title">Detail Pelacakan Surat</h6><button aria-label="Close"
+                        class="btn-close" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="task-list" id="list_tracking"></ul>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-light" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i> Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('javascript')
@@ -188,7 +208,7 @@
                 searchDelay: 500,
                 processing: true,
                 serverSide: true,
-                // responsive: true,
+                responsive: true,
                 scrollX: true,
                 aAutoWidth: false,
                 bAutoWidth: false,
@@ -244,25 +264,34 @@
                         data: 'id',
                         name: 'id',
                         render(data, type, full, meta) {
-                            const selesai = full.tracking_status == 'SELESAI';
-                            const btn_lihat = `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-primary btn-sm me-1" title="Detail Pelacakan" onClick="lihatFunc('${data}')">
-                                <i class="fas fa-eye"></i>
+                            const btn_detail_tracking = `<button type="button" data-toggle="tooltip" class="btn  mt-1 btn-rounded btn-primary btn-sm me-1" title="Detail Pelacakan" onClick="detailFunc('${data}')">
+                                <i class="fas fa-list"></i>
                                 </button>`;
 
-                            const btn_kirim = !selesai ? `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-warning btn-sm me-1" title="Kirim Surat Ke Pegawai Lain" onClick="kirimFunc('${data}')">
+                            const btn_detail = `<a href="{{ url(h_prefix_uri('penduduk/surat', 3)) }}/${jenisSuratLink(full.jenis)}/detail/${data}" data-toggle="tooltip" class="btn  mt-1 btn-rounded btn-info btn-sm me-1" title="Detail Surat">
+                                <i class="fas fa-file-alt"></i>
+                                </a>`;
+
+                            const btn_print = `<a href="{{ url(h_prefix_uri('penduduk/surat', 3)) }}/${jenisSuratLink(full.jenis)}/print/${data}" data-toggle="tooltip" class="btn  mt-1 btn-rounded btn-success btn-sm me-1" title="Print Surat" target="_blank">
+                                <i class="fas fa-print"></i>
+                                </a>`;
+
+                            const selesai = full.tracking_status == 'SELESAI';
+
+                            const btn_kirim = !selesai ? `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-warning btn-sm me-1  mt-1" title="Kirim Surat Ke Pegawai Lain" onClick="kirimFunc('${data}')">
                                 <i class="far fa-paper-plane"></i>
                                 </button>` : '';
 
-                            const btn_selesai = !selesai ? `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-danger btn-sm me-1" title="Set Surat Selesai" onClick="selesaiFunc('${full.id}')">
+                            const btn_selesai = !selesai ? `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-danger btn-sm me-1  mt-1" title="Set Surat Selesai" onClick="selesaiFunc('${full.id}')">
                                 <i class="fas fa-check"></i>
                                 </button>` : '';
 
-                            const btn_serahkan = selesai ? `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-success btn-sm me-1" title="Serahkan Surat Kepada Penduduk" onClick="serahkanFunc('${full.id}')">
+                            const btn_serahkan = selesai ? `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-success btn-sm me-1  mt-1" title="Serahkan Surat Kepada Penduduk" onClick="serahkanFunc('${full.id}')">
                                 <i class="fas fa-hand-holding"></i>
                                 </button>` : '';
-                            return btn_lihat + btn_kirim + btn_selesai + btn_serahkan;
+                            return btn_kirim + btn_selesai + btn_serahkan +
+                                btn_print + btn_detail + btn_detail_tracking;
                         },
-                        className: 'text-nowrap',
                         orderable: false,
                     }
                 ],
@@ -462,6 +491,55 @@
                             })
                         }
                     });
+                }
+            });
+        }
+
+
+        function detailFunc(id) {
+            $.LoadingOverlay("show");
+            $.ajax({
+                type: "GET",
+                url: `{{ url(h_prefix_uri('penduduk/pelacakan/list_tracking', 3)) }}/${id}`,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: (trackings) => {
+                    $.LoadingOverlay("hide");
+                    $('#modal-detail').modal('show');
+                    const container = $('#list_tracking');
+                    container.html('');
+                    trackings.forEach(tracking => {
+                        const color = getStatus(tracking.status, true);
+                        let keterangan = '';
+                        if (tracking.ke_nama != tracking.dari_nama) {
+                            keterangan =
+                                `Diserahkan ke bpk/ibu ${tracking.ke_nama} dari bpk/ibu ${tracking.dari_nama} ${tracking.keterangan}`;
+                        } else {
+                            keterangan = `${tracking.dari_nama}: ${tracking.keterangan}`;
+                        }
+                        container.append(`<li class="d-sm-flex">
+                                <div>
+                                    <i class="task-icon bg-${color}"></i>
+                                    <h6 class="fw-semibold">${tracking.status}
+                                        <span class="text-muted fs-11 mx-2 fw-normal">${tracking.waktu}</span>
+                                    </h6>
+                                    <p class="text-muted fs-12"> ${keterangan} </p>
+                                </div>
+                            </li> `);
+                    });
+                },
+                error: function(data) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Something went wrong',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                },
+                complete: function() {
+                    $.LoadingOverlay("hide");
                 }
             });
         }

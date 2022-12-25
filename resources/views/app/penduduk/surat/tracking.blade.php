@@ -341,32 +341,6 @@
             });
         });
 
-        function getStatus(status, color_only = false) {
-            switch (status) {
-                case 'PENDUDUK':
-                    return color_only ? 'gray' : '<i class="fas fa-circle text-gray me-1 ms-0"></i>';
-                    break;
-                case 'RUKUN TETANGGA':
-                    return color_only ? 'secondary' : '<i class="fas fa-circle text-secondary me-1 ms-0"></i>';
-                    break;
-                case 'RUKUN WARGA':
-                    return color_only ? 'info' : '<i class="fas fa-circle text-info me-1 ms-0"></i>';
-                    break;
-                case 'PIHAK DESA':
-                    return color_only ? 'warning' : '<i class="fas fa-circle text-warning me-1 ms-0"></i>';
-                    break;
-                case 'SELESAI':
-                    return color_only ? 'success' : '<i class="fas fa-circle text-success me-1 ms-0"></i>';
-                    break;
-                case 'DIBATALKAN':
-                    return color_only ? 'danger' : '<i class="fas fa-circle text-danger me-1 ms-0"></i>';
-                    break;
-                default:
-                    return '';
-                    break;
-            }
-        }
-
         function detailFunc(id) {
             $.LoadingOverlay("show");
             $.ajax({
