@@ -39,27 +39,18 @@ Route::prefix($prefix)->controller(TrackingController::class)->group(function ()
     Route::post('batalkan_surat', 'batalkan_surat')->name("$name.batalkan_surat")->middleware("permission:$name");
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // tidak di pakai jika sudah selesai maka hapus saja
-$prefix = 'pengajuan_surat';
+$prefix = 'pengajuan';
 Route::prefix($prefix)->controller(PengajuanSuratController::class)->group(function () use ($name, $prefix) {
     $name = "$name.$prefix"; // penduduk.pengajuan
+    Route::get('/', 'index')->name("$name");
+
+
+
+
+
+
+
     Route::get('keterangan', 'keterangan')->name("$name.keterangan");
     Route::get('kelahiran', 'kelahiran')->name("$name.kelahiran");
     Route::get('domisili', 'domisili')->name("$name.domisili");

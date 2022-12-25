@@ -10,6 +10,18 @@ use Illuminate\Http\Request;
 class PengajuanSuratController extends Controller
 {
 
+    public function index(Request $request)
+    {
+        $page_attr = ['title' => 'Halaman Utama'];
+
+        $data = compact(
+            'page_attr',
+        );
+        $data['compact'] = $data;
+
+        return view('app.penduduk.pengajuan_surat');
+    }
+
     public function keterangan(Request $request)
     {
         $page_attr = [
