@@ -40,6 +40,7 @@ class ProsesSuratController extends Controller
             $request->validate([
                 'id' => ['required', 'integer'],
                 'disetujui' => ['required', 'integer'],
+                'reg_no' => ['required', 'string'],
                 'keterangan' => ['required', 'string'],
                 'catatan' => ['nullable', 'string'],
             ]);
@@ -54,6 +55,7 @@ class ProsesSuratController extends Controller
             // simpan surat header
             $surat = Surat::findOrFail($request->id);
             $surat->status = $SURAT_STATUS;
+            $surat->reg_no = $request->reg_no;
             $surat->updated_by = auth()->user()->id;
             $surat->save();
 

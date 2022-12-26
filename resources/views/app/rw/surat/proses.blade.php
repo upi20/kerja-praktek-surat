@@ -83,6 +83,13 @@
                                 placeholder="Contoh: untuk diperiksa dan diproses" required />
                         </div>
                         <div class="form-group">
+                            <label class="form-label" for="reg_no">Reg No
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="reg_no" name="reg_no" placeholder=""
+                                required />
+                        </div>
+                        <div class="form-group">
                             <label class="form-label" for="catatan">Catatan</label>
                             <textarea class="form-control" id="catatan" name="catatan" rows="3"></textarea>
                         </div>
