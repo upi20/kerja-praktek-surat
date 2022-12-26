@@ -92,6 +92,57 @@ class ProsesSuratController extends Controller
         }
     }
 
+    public function simpan_no_surat(Request $request)
+    {
+        try {
+            $request->validate([
+                'id' => ['required', 'integer'],
+                'no_surat' => ['required', 'string'],
+            ]);
+
+            DB::beginTransaction();
+            $dari_pegawai = auth()->user()->penduduk->pegawai;
+
+            // simpan surat header
+            $surat = Surat::findOrFail($request->id);
+            $surat->no_surat = $request->no_surat;
+            $surat->updated_by = auth()->user()->id;
+            $surat->save();
+
+            // simpan tracking
+            $tracking_surat = new SuratTracking();
+            $tracking_surat->surat_id = $surat->id;
+            $tracking_surat->keterangan = 'Input Nomor Surat';
+            $tracking_surat->catatan = $request->catatan;
+            $tracking_surat->waktu = date('Y-m-d H:i:s');
+
+            // dari
+            $tracking_surat->dari_pegawai_id = $dari_pegawai->id;
+            $tracking_surat->dari_nama = $dari_pegawai->penduduk->nama;
+            $tracking_surat->dari_nip = $dari_pegawai->nip ?? $dari_pegawai->penduduk->nik;
+
+            // ke
+            $tracking_surat->ke_pegawai_id = $dari_pegawai->id;
+            $tracking_surat->ke_nama = $dari_pegawai->penduduk->nama;
+            $tracking_surat->ke_nip = $dari_pegawai->nip ?? $dari_pegawai->penduduk->nik;
+
+            // set status
+            $status = config('app.status_surats');
+            $pihak_desa = 3;
+
+            $tracking_surat->status = $status[$pihak_desa];
+            $tracking_surat->save();
+
+            DB::commit();
+            return response()->json(['status' => true]);
+        } catch (ValidationException $error) {
+            return response()->json([
+                'message' => 'Something went wrong',
+                'error' => $error,
+            ], 500);
+        }
+    }
+
     public function selesai(Request $request)
     {
         try {

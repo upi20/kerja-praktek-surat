@@ -131,6 +131,38 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modal-no-surat">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-content-demo">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="modal-no-surat-title">Set Nomor Surat</h6><button aria-label="Close"
+                        class="btn-close" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form action="javascript:void(0)" id="NoSuratForm" name="NoSuratForm" method="POST"
+                        enctype="multipart/form-data">
+                        <input type="hidden" name="id" id="no-surat-id">
+                        <div class="form-group">
+                            <label class="form-label" for="no_surat">Nomor Surat
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="no_surat" name="no_surat"
+                                placeholder="Contoh: ......./RT ....... / ....... /22......" required />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" form="NoSuratForm">
+                        <i class="fas fa-save mr-1"></i> Simpan
+                    </button>
+                    <button class="btn btn-light" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i> Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('javascript')
@@ -286,10 +318,14 @@
                                 <i class="fas fa-check"></i>
                                 </button>` : '';
 
+                            const btn_set_no_surat = !selesai ? `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-gray btn-sm me-1  mt-1" title="Set Nomor Surat" onClick="setNoSuratFunc('${full.id}', '${full.no_surat??''}')">
+                                <i class="fas fa-edit"></i>
+                                </button>` : '';
+
                             const btn_serahkan = selesai ? `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-success btn-sm me-1  mt-1" title="Serahkan Surat Kepada Penduduk" onClick="serahkanFunc('${full.id}')">
                                 <i class="fas fa-hand-holding"></i>
                                 </button>` : '';
-                            return btn_kirim + btn_selesai + btn_serahkan +
+                            return btn_kirim + btn_selesai + btn_serahkan + btn_set_no_surat +
                                 btn_print + btn_detail + btn_detail_tracking;
                         },
                         orderable: false,
@@ -367,6 +403,55 @@
                     }
                 });
             });
+
+            $('#NoSuratForm').submit(function(e) {
+                e.preventDefault();
+                resetErrorAfterInput();
+                var formData = new FormData(this);
+                setBtnLoading('button[form=NoSuratForm]', 'Kirim');
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route(h_prefix('simpan_no_surat')) }}",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: (data) => {
+                        $("#modal-no-surat").modal('hide');
+                        var oTable = table_html.dataTable();
+                        oTable.fnDraw(false);
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Nomor Surat Berhasil Disimpan',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    },
+                    error: function(data) {
+                        const res = data.responseJSON ?? {};
+                        errorAfterInput = [];
+                        for (const property in res.errors) {
+                            errorAfterInput.push(property);
+                            setErrorAfterInput(res.errors[property], `#${property}`);
+                        }
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: res.message ?? 'Something went wrong',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    },
+                    complete: function() {
+                        setBtnLoading('button[form=NoSuratForm]',
+                            '<i class="fas fa-save mr-1"></i> Simpan', false);
+                    }
+                });
+            });
         });
 
         function kirimFunc(id) {
@@ -375,6 +460,14 @@
             $('#id').val(id);
             $('#keterangan').attr('placeholder', 'Contoh: untuk diperiksa dan diproses');
             $('#selesai').prop('checked', false)
+            resetErrorAfterInput();
+            return true;
+        }
+
+        function setNoSuratFunc(id, no_surat) {
+            $('#modal-no-surat').modal('show');
+            $('#no-surat-id').val(id);
+            $('#no_surat').val(no_surat);
             resetErrorAfterInput();
             return true;
         }

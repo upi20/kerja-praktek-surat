@@ -64,7 +64,7 @@
     <hr style="margin-top: 0" class="garis">
     <h4 class="text-center" style="margin-bottom: 5px; text-decoration: underline">SURAT KETERANGAN</h4>
     <p class="text-center" style="margin-top: 5px">Nomor:
-        {{ $surat->nomr ?? '......./RT ....... / ....... /' . date('y') . '......' }}
+        {{ $surat->no_surat ?? '......./RT ....... / ....... /' . date('y') . '......' }}
     </p>
     <p style="text-indent: 0.5in; text-align: justify">
         Yang bertanda tangan dibawah ini, kami ketua RT {{ $surat->rt->nomor }} RW {{ $surat->rw->nomor }}
