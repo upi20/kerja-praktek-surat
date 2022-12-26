@@ -112,7 +112,7 @@ class ProsesSuratController extends Controller
             // simpan tracking
             $tracking_surat = new SuratTracking();
             $tracking_surat->surat_id = $surat->id;
-            $tracking_surat->keterangan = 'Input Nomor Surat';
+            $tracking_surat->keterangan = "Input Nomor Surat : $request->no_surat";
             $tracking_surat->catatan = $request->catatan;
             $tracking_surat->waktu = date('Y-m-d H:i:s');
 
