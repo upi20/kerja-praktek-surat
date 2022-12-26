@@ -255,9 +255,8 @@
                                 <i class="fas fa-times"></i>
                                 </button>`;
 
-                            return btn_setujui + btn_tolak + btn_print +
-                                btn_detail +
-                                btn_detail_tracking;
+                            return btn_setujui + btn_tolak +
+                                btn_print + btn_detail + btn_detail_tracking;
                         },
                         orderable: false,
                     }
