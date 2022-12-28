@@ -148,27 +148,27 @@ class KeteranganController extends Controller
             $surat->save();
 
             // body
-            $surat_keterangan = new SuratKeterangan();
-            $surat_keterangan->surat_id = $surat->id;
-            $surat_keterangan->jenis_surat_keterangan_id = $request->jenis_surat_id;
+            $surat_body = new SuratKeterangan();
+            $surat_body->surat_id = $surat->id;
+            $surat_body->jenis_surat_keterangan_id = $request->jenis_surat_id;
 
             // di dalam surat
-            $surat_keterangan->nama = $request->nama;
-            $surat_keterangan->tempat_lahir = $request->tempat_lahir;
-            $surat_keterangan->tanggal_lahir = $request->tanggal_lahir;
-            $surat_keterangan->jenis_kelamin = $request->jenis_kelamin;
-            $surat_keterangan->warga_negara = $request->warga_negara;
-            $surat_keterangan->negara_nama = $request->negara_nama;
-            $surat_keterangan->agama = $request->agama;
-            $surat_keterangan->status_kawin = $request->status_kawin;
-            $surat_keterangan->pendidikan = $request->pendidikan;
-            $surat_keterangan->nik = $request->nik;
-            $surat_keterangan->pekerjaan = $request->pekerjaan;
-            $surat_keterangan->warga_negara = $request->warga_negara;
-            $surat_keterangan->negara_nama = $request->negara_nama;
-            $surat_keterangan->alamat = $request->alamat;
-            $surat_keterangan->created_by = auth()->user()->id;
-            $surat_keterangan->save();
+            $surat_body->nama = $request->nama;
+            $surat_body->tempat_lahir = $request->tempat_lahir;
+            $surat_body->tanggal_lahir = $request->tanggal_lahir;
+            $surat_body->jenis_kelamin = $request->jenis_kelamin;
+            $surat_body->warga_negara = $request->warga_negara;
+            $surat_body->negara_nama = $request->negara_nama;
+            $surat_body->agama = $request->agama;
+            $surat_body->status_kawin = $request->status_kawin;
+            $surat_body->pendidikan = $request->pendidikan;
+            $surat_body->nik = $request->nik;
+            $surat_body->pekerjaan = $request->pekerjaan;
+            $surat_body->warga_negara = $request->warga_negara;
+            $surat_body->negara_nama = $request->negara_nama;
+            $surat_body->alamat = $request->alamat;
+            $surat_body->created_by = auth()->user()->id;
+            $surat_body->save();
 
             // simpan dari penduduk ke rt
             $tracking_surat = new SuratTracking();
@@ -302,27 +302,27 @@ class KeteranganController extends Controller
             $surat->save();
 
             // body
-            $surat_keterangan = SuratKeterangan::findOrFail($request->surat_detail_id);
-            $surat_keterangan->surat_id = $surat->id;
-            $surat_keterangan->jenis_surat_keterangan_id = $request->jenis_surat_id;
+            $surat_body = SuratKeterangan::findOrFail($request->surat_detail_id);
+            $surat_body->surat_id = $surat->id;
+            $surat_body->jenis_surat_keterangan_id = $request->jenis_surat_id;
 
             // di dalam surat
-            $surat_keterangan->nama = $request->nama;
-            $surat_keterangan->tempat_lahir = $request->tempat_lahir;
-            $surat_keterangan->tanggal_lahir = $request->tanggal_lahir;
-            $surat_keterangan->jenis_kelamin = $request->jenis_kelamin;
-            $surat_keterangan->warga_negara = $request->warga_negara;
-            $surat_keterangan->negara_nama = $request->negara_nama;
-            $surat_keterangan->agama = $request->agama;
-            $surat_keterangan->status_kawin = $request->status_kawin;
-            $surat_keterangan->pendidikan = $request->pendidikan;
-            $surat_keterangan->nik = $request->nik;
-            $surat_keterangan->pekerjaan = $request->pekerjaan;
-            $surat_keterangan->warga_negara = $request->warga_negara;
-            $surat_keterangan->negara_nama = $request->negara_nama;
-            $surat_keterangan->alamat = $request->alamat;
-            $surat_keterangan->created_by = auth()->user()->id;
-            $surat_keterangan->save();
+            $surat_body->nama = $request->nama;
+            $surat_body->tempat_lahir = $request->tempat_lahir;
+            $surat_body->tanggal_lahir = $request->tanggal_lahir;
+            $surat_body->jenis_kelamin = $request->jenis_kelamin;
+            $surat_body->warga_negara = $request->warga_negara;
+            $surat_body->negara_nama = $request->negara_nama;
+            $surat_body->agama = $request->agama;
+            $surat_body->status_kawin = $request->status_kawin;
+            $surat_body->pendidikan = $request->pendidikan;
+            $surat_body->nik = $request->nik;
+            $surat_body->pekerjaan = $request->pekerjaan;
+            $surat_body->warga_negara = $request->warga_negara;
+            $surat_body->negara_nama = $request->negara_nama;
+            $surat_body->alamat = $request->alamat;
+            $surat_body->created_by = auth()->user()->id;
+            $surat_body->save();
 
             // simpan dari penduduk ke rt
             $tracking_surat = new SuratTracking();
