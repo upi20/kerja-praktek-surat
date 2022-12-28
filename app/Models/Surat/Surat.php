@@ -29,6 +29,7 @@ class Surat extends Model
         'rw_nama',
         'kades_nik',
         'kades_nama',
+        'kades_jabatan',
         'no_surat',
         'no_resi',
         'foto_pbb',

@@ -110,7 +110,6 @@ class KeteranganController extends Controller
             $t_pegawai = Pegawai::tableName;
             $kades = Pegawai::join($t_jabatan, "$t_jabatan.id", '=', "$t_pegawai.jabatan_id")
                 ->orderBy("$t_jabatan.urutan")
-                ->orderBy("$t_jabatan.urutan")
                 ->first();
             $kades_penduduk = Penduduk::find($kades->penduduk_id);
 
@@ -136,6 +135,7 @@ class KeteranganController extends Controller
             $surat->kades_pend_id = $kades_penduduk->id;
             $surat->kades_nik = $kades_penduduk->nik;
             $surat->kades_nama = $kades_penduduk->nama;
+            $surat->kades_jabatan = $kades->jabatan->nama;
 
             $surat->untuk_penduduk_id = is_null($untuk_penduduk) ? null : $untuk_penduduk->id;
             $surat->nama_untuk_penduduk = $request->nama;
@@ -264,7 +264,6 @@ class KeteranganController extends Controller
             $t_pegawai = Pegawai::tableName;
             $kades = Pegawai::join($t_jabatan, "$t_jabatan.id", '=', "$t_pegawai.jabatan_id")
                 ->orderBy("$t_jabatan.urutan")
-                ->orderBy("$t_jabatan.urutan")
                 ->first();
             $kades_penduduk = Penduduk::find($kades->penduduk_id);
 
@@ -290,6 +289,7 @@ class KeteranganController extends Controller
             $surat->kades_pend_id = $kades_penduduk->id;
             $surat->kades_nik = $kades_penduduk->nik;
             $surat->kades_nama = $kades_penduduk->nama;
+            $surat->kades_jabatan = $kades->jabatan->nama;
 
             $surat->untuk_penduduk_id = is_null($untuk_penduduk) ? null : $untuk_penduduk->id;
             $surat->nama_untuk_penduduk = $request->nama;
