@@ -12,7 +12,7 @@ class PengajuanSuratController extends Controller
 
     public function index(Request $request)
     {
-        $page_attr = ['title' => 'Halaman Utama'];
+        $page_attr = ['title' => 'Pengajuan Surat'];
 
         $data = compact(
             'page_attr',
