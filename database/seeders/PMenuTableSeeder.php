@@ -792,12 +792,12 @@ class PMenuTableSeeder extends Seeder
                 'parent_id' => NULL,
                 'title' => 'Pengajuan Surat',
                 'icon' => 'fas fa-edit',
-                'route' => 'penduduk.pengajuan',
+                'route' => 'penduduk.surat',
                 'sequence' => 14,
                 'active' => 1,
                 'type' => 1,
                 'created_at' => '2022-12-25 23:24:17',
-                'updated_at' => '2022-12-25 23:31:05',
+                'updated_at' => '2022-12-28 17:13:35',
             ),
         ));
         

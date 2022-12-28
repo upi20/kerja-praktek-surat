@@ -19,7 +19,7 @@ class PengajuanSuratController extends Controller
         );
         $data['compact'] = $data;
 
-        return view('app.penduduk.pengajuan_surat');
+        return view('app.penduduk.pengajuan_surat', $data);
     }
 
     public function keterangan(Request $request)

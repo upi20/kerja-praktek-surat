@@ -24,7 +24,7 @@ class KeteranganController extends Controller
     {
         $page_attr = [
             'title' => 'Form Surat Pengantar Keterangan',
-            'navigation' => 'penduduk.home',
+            'navigation' => 'penduduk.surat',
         ];
         $hub_dgn_kks = config('app.hub_dgn_kks');
         $pendidikans = config('app.pendidikans');
@@ -390,7 +390,7 @@ class KeteranganController extends Controller
         }
         $page_attr = [
             'title' => 'Perbaikan Surat Pengantar Keterangan',
-            'navigation' => 'penduduk.home',
+            'navigation' => 'penduduk.surat',
         ];
         $hub_dgn_kks = config('app.hub_dgn_kks');
         $pendidikans = config('app.pendidikans');

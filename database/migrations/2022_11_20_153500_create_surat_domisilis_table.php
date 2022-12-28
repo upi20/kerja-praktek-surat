@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('surat_domisilis', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('surat_id', false, true)->nullable()->default(null);
+            $table->text('alamat')->nullable()->default(null);
             $table->text('alamat_asal')->nullable()->default(null);
             $table->date('tinggal_sejak')->nullable()->default(null);
 

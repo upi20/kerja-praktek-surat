@@ -16,6 +16,6 @@ class DashboardController extends Controller
         );
         $data['compact'] = $data;
 
-        return view('app.penduduk.dashboard');
+        return view('app.penduduk.dashboard', $data);
     }
 }
