@@ -134,7 +134,7 @@
     </p>
     <p style="text-indent: 0.5in; text-align: justify">
         Demikian Surat Pengantar Keterangan ini kami buat dengan sebenarnya agar yang berkepentingan mengetahui dan
-        dapat memberikan bantuan seperlunya
+        dapat memberikan bantuan seperlunya.
     </p>
     <br>
 
