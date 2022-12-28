@@ -368,10 +368,9 @@ class KeteranganController extends Controller
             'navigation' => 'penduduk.pelacakan',
         ];
 
-        $trackings = $surat->trackings;
         $name = "Surat Keterangan {$surat->keterangan->jenis->nama} {$surat->nama_untuk_penduduk}.pdf";
 
-        $data = compact('page_attr', 'surat', 'trackings', 'name');
+        $data = compact('page_attr', 'surat', 'name');
 
         $data['compact'] = $data;
         // return view('app.penduduk.surat.keterangan.print', $data);
