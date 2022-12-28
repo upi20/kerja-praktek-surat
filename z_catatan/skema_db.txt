@@ -60,7 +60,7 @@ Table surat{
   rt_nama varchar
   rw_nik varchar
   rw_nama varchar
-  kades_nik varchar
+  kades_nip varchar
   kades_nama varchar
   no_surat varchar
   no_resi varchar

@@ -10,6 +10,7 @@ class SuratDomisili extends Model
     use HasFactory;
     protected $fillable = [
         'surat_id',
+        'alamat',
         'alamat_asal',
         'tinggal_sejak',
         'nik',

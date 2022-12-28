@@ -111,7 +111,7 @@ class KeteranganController extends Controller
 
             // kades
             $surat->kades_pend_id = $kades_penduduk->id;
-            $surat->kades_nik = $kades_penduduk->nik;
+            $surat->kades_nip = $kades->nip;
             $surat->kades_nama = $kades_penduduk->nama;
 
             $surat->untuk_penduduk_id = is_null($untuk_penduduk) ? null : $untuk_penduduk->id;

@@ -195,7 +195,7 @@ class TrackingController extends Controller
                 'rt_nama',
                 'rw_nik',
                 'rw_nama',
-                'kades_nik',
+                'kades_nip',
                 'kades_nama',
                 'no_surat',
                 'no_resi',

@@ -9,8 +9,7 @@ use App\Models\Penduduk\Penduduk;
 use App\Models\Penduduk\Rt;
 use App\Models\Penduduk\Rw;
 use App\Models\Surat\Surat;
-use App\Models\Surat\SuratKeterangan;
-use App\Models\Surat\SuratKeteranganJenis;
+use App\Models\Surat\SuratDomisili;
 use App\Models\Surat\SuratTracking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,12 +17,12 @@ use Illuminate\Support\Str;
 use League\Config\Exception\ValidationException;
 use PDF;
 
-class KeteranganController extends Controller
+class DomisiliController extends Controller
 {
     public function index(Request $request)
     {
         $page_attr = [
-            'title' => 'Form Surat Pengantar Keterangan',
+            'title' => 'Form Surat Pengantar Keterangan Domisili Domisili',
             'navigation' => 'penduduk.surat',
         ];
         $hub_dgn_kks = config('app.hub_dgn_kks');
@@ -31,13 +30,11 @@ class KeteranganController extends Controller
         $pekerjaans = config('app.pekerjaans');
         $agamas = config('app.agamas');
 
-        $jenis_keterangan = SuratKeteranganJenis::orderBy('nama')->get();
-
         // get surat current
         $penduduk = auth()->user()->penduduk;
-        $data =  compact('page_attr', 'jenis_keterangan',  'hub_dgn_kks', 'pendidikans', 'pekerjaans', 'agamas', 'penduduk');
+        $data =  compact('page_attr', 'hub_dgn_kks', 'pendidikans', 'pekerjaans', 'agamas', 'penduduk');
         $data['compact'] = $data;
-        return view('app.penduduk.surat.keterangan.form', $data);
+        return view('app.penduduk.surat.domisili.form', $data);
     }
 
     public function simpan(Request $request)
@@ -48,17 +45,18 @@ class KeteranganController extends Controller
                 'nama' => ['required', 'string'],
                 'tempat_lahir' => ['required', 'string'],
                 'tanggal_lahir' => ['required', 'date'],
+                'tinggal_sejak' => ['required', 'date'],
                 'jenis_kelamin' => ['required', 'string'],
                 'agama' => ['required', 'string'],
                 'status_kawin' => ['required', 'string'],
                 'pendidikan' => ['required', 'string'],
                 'pekerjaan' => ['required', 'string'],
                 'alamat' => ['required', 'string'],
+                'alamat_asal' => ['required', 'string'],
                 'warga_negara' => ['required', 'string'],
                 'negara_nama' => ['required', 'string'],
                 'rt' => ['required', 'integer'],
                 'rw' => ['required', 'integer'],
-                'jenis_surat_id' => ['required', 'integer'],
             ]);
 
             DB::beginTransaction();
@@ -91,17 +89,6 @@ class KeteranganController extends Controller
                         'rt' => ['Nomor RT Tidak Terdaftar']
                     ],
                     'message' => 'Something went wrong',
-                ], 422);
-            }
-
-            // cek jenis surat
-            $jenis_surat = SuratKeteranganJenis::find($request->jenis_surat_id);
-            if (is_null($jenis_surat)) {
-                return response()->json([
-                    'errors' => [
-                        'jenis_surat_id' => ['Jenis Surat Tidak Terdaftar']
-                    ],
-                    'message' => 'Silahkan hubungi administrator',
                 ], 422);
             }
 
@@ -143,16 +130,13 @@ class KeteranganController extends Controller
             $surat->no_resi = date('Ymdhis') . Str::upper(Str::random(4));;
             $surat->tanggal = date('Y-m-d');
             $surat->status = $SURAT_DI_RT;
-            $surat->jenis = SuratKeterangan::jenis;
+            $surat->jenis = SuratDomisili::jenis;
             $surat->created_by = auth()->user()->id;
             $surat->save();
 
             // body
-            $surat_body = new SuratKeterangan();
+            $surat_body = new SuratDomisili();
             $surat_body->surat_id = $surat->id;
-            $surat_body->jenis_surat_keterangan_id = $request->jenis_surat_id;
-
-            // di dalam surat
             $surat_body->nama = $request->nama;
             $surat_body->tempat_lahir = $request->tempat_lahir;
             $surat_body->tanggal_lahir = $request->tanggal_lahir;
@@ -167,6 +151,8 @@ class KeteranganController extends Controller
             $surat_body->warga_negara = $request->warga_negara;
             $surat_body->negara_nama = $request->negara_nama;
             $surat_body->alamat = $request->alamat;
+            $surat_body->alamat_asal = $request->alamat_asal;
+            $surat_body->tinggal_sejak = $request->tinggal_sejak;
             $surat_body->created_by = auth()->user()->id;
             $surat_body->save();
 
@@ -202,17 +188,18 @@ class KeteranganController extends Controller
                 'nama' => ['required', 'string'],
                 'tempat_lahir' => ['required', 'string'],
                 'tanggal_lahir' => ['required', 'date'],
+                'tinggal_sejak' => ['required', 'date'],
                 'jenis_kelamin' => ['required', 'string'],
                 'agama' => ['required', 'string'],
                 'status_kawin' => ['required', 'string'],
                 'pendidikan' => ['required', 'string'],
                 'pekerjaan' => ['required', 'string'],
                 'alamat' => ['required', 'string'],
-                'rt' => ['required', 'integer'],
-                'rw' => ['required', 'integer'],
-                'jenis_surat_id' => ['required', 'integer'],
+                'alamat_asal' => ['required', 'string'],
                 'warga_negara' => ['required', 'string'],
                 'negara_nama' => ['required', 'string'],
+                'rt' => ['required', 'integer'],
+                'rw' => ['required', 'integer'],
             ]);
 
             DB::beginTransaction();
@@ -245,17 +232,6 @@ class KeteranganController extends Controller
                         'rt' => ['Nomor RT Tidak Terdaftar']
                     ],
                     'message' => 'Something went wrong',
-                ], 422);
-            }
-
-            // cek jenis surat
-            $jenis_surat = SuratKeteranganJenis::find($request->jenis_surat_id);
-            if (is_null($jenis_surat)) {
-                return response()->json([
-                    'errors' => [
-                        'jenis_surat_id' => ['Jenis Surat Tidak Terdaftar']
-                    ],
-                    'message' => 'Silahkan hubungi administrator',
                 ], 422);
             }
 
@@ -297,16 +273,13 @@ class KeteranganController extends Controller
             $surat->no_resi = date('Ymdhis') . Str::upper(Str::random(4));;
             $surat->tanggal = date('Y-m-d');
             $surat->status = $SURAT_DI_RT;
-            $surat->jenis = SuratKeterangan::jenis;
+            $surat->jenis = SuratDomisili::jenis;
             $surat->created_by = auth()->user()->id;
             $surat->save();
 
             // body
-            $surat_body = SuratKeterangan::findOrFail($request->surat_detail_id);
+            $surat_body = SuratDomisili::findOrFail($request->surat_detail_id);
             $surat_body->surat_id = $surat->id;
-            $surat_body->jenis_surat_keterangan_id = $request->jenis_surat_id;
-
-            // di dalam surat
             $surat_body->nama = $request->nama;
             $surat_body->tempat_lahir = $request->tempat_lahir;
             $surat_body->tanggal_lahir = $request->tanggal_lahir;
@@ -321,6 +294,8 @@ class KeteranganController extends Controller
             $surat_body->warga_negara = $request->warga_negara;
             $surat_body->negara_nama = $request->negara_nama;
             $surat_body->alamat = $request->alamat;
+            $surat_body->alamat_asal = $request->alamat_asal;
+            $surat_body->tinggal_sejak = $request->tinggal_sejak;
             $surat_body->created_by = auth()->user()->id;
             $surat_body->save();
 
@@ -350,7 +325,7 @@ class KeteranganController extends Controller
     public function detail(Surat $surat)
     {
         $page_attr = [
-            'title' => 'Detail Surat Pengantar Keterangan',
+            'title' => 'Detail Surat Pengantar Keterangan Domisili',
             'navigation' => 'penduduk.pelacakan',
         ];
 
@@ -358,24 +333,29 @@ class KeteranganController extends Controller
         $data = compact('page_attr', 'surat', 'trackings');
 
         $data['compact'] = $data;
-        return view('app.penduduk.surat.keterangan.detail', $data);
+        return view('app.penduduk.surat.domisili.detail', $data);
     }
 
     public function print(Surat $surat)
     {
         $page_attr = [
-            'title' => 'Detail Surat Pengantar Keterangan',
+            'title' => 'Detail Surat Pengantar Keterangan Domisili',
             'navigation' => 'penduduk.pelacakan',
         ];
 
-        $name = "Surat Keterangan {$surat->keterangan->jenis->nama} {$surat->nama_untuk_penduduk}.pdf";
+        $name = "Surat Keterangan Domisili {$surat->nama_untuk_penduduk}.pdf";
 
-        $data = compact('page_attr', 'surat', 'name');
+        $t_pegawai = Pegawai::tableName;
+        $t_jabatan = PegawaiJabatan::tableName;
+        $pegawai = Pegawai::join($t_jabatan, "$t_pegawai.jabatan_id", '=', "$t_jabatan.id")->orderBy("$t_jabatan.urutan", 'asc')->first();
+        $data = compact('page_attr', 'surat', 'name', 'pegawai');
 
         $data['compact'] = $data;
-        // return view('app.penduduk.surat.keterangan.print', $data);
-        view()->share('app.penduduk.surat.keterangan.print', $data);
-        $pdf = PDF::loadView('app.penduduk.surat.keterangan.print', $data)
+
+
+        // return view('app.penduduk.surat.domisili.print', $data);
+        view()->share('app.penduduk.surat.domisili.print', $data);
+        $pdf = PDF::loadView('app.penduduk.surat.domisili.print', $data)
             ->setPaper('a4', 'potrait');
 
         return $pdf->stream($name);
@@ -388,7 +368,7 @@ class KeteranganController extends Controller
             return abort(404);
         }
         $page_attr = [
-            'title' => 'Perbaikan Surat Pengantar Keterangan',
+            'title' => 'Perbaikan Surat Pengantar Keterangan Domisili',
             'navigation' => 'penduduk.surat',
         ];
         $hub_dgn_kks = config('app.hub_dgn_kks');
@@ -397,12 +377,11 @@ class KeteranganController extends Controller
         $agamas = config('app.agamas');
 
         $nik_ada = Penduduk::where('nik', $surat->nik_untuk_penduduk)->count() > 0;
-        $jenis_keterangan = SuratKeteranganJenis::orderBy('nama')->get();
 
         // get surat current
         $penduduk = auth()->user()->penduduk;
-        $data =  compact('page_attr', 'jenis_keterangan',  'hub_dgn_kks', 'pendidikans', 'pekerjaans', 'agamas', 'penduduk', 'surat', 'nik_ada');
+        $data =  compact('page_attr',  'hub_dgn_kks', 'pendidikans', 'pekerjaans', 'agamas', 'penduduk', 'surat', 'nik_ada');
         $data['compact'] = $data;
-        return view('app.penduduk.surat.keterangan.perbaikan', $data);
+        return view('app.penduduk.surat.domisili.perbaikan', $data);
     }
 }

@@ -431,7 +431,7 @@ class ProsesSuratController extends Controller
                 'rw_nama',
                 'rw_nik',
                 'rw_nama',
-                'kades_nik',
+                'kades_nip',
                 'kades_nama',
                 'no_surat',
                 'no_resi',

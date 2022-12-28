@@ -36,7 +36,7 @@ return new class extends Migration
             $table->string('rt_nama')->nullable()->default(null);
             $table->string('rw_nik')->nullable()->default(null);
             $table->string('rw_nama')->nullable()->default(null);
-            $table->string('kades_nik')->nullable()->default(null);
+            $table->string('kades_nip')->nullable()->default(null);
             $table->string('kades_nama')->nullable()->default(null);
             $table->string('kades_jabatan')->nullable()->default(null);
             $table->string('no_surat')->nullable()->default(null);
