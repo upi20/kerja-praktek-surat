@@ -321,17 +321,20 @@ function jenisSuratLink(jenis) {
         case 'SURAT KETERANGAN':
             result = 'keterangan';
             break;
-        case 'SURAT PENGANTAR KETERANGAN DOMISILI':
+        case 'SURAT DOMISILI':
             result = 'domisili';
             break;
-        case 'SURAT PENGANTAR KETERANGAN NIKAH':
+        case 'SURAT KELAHIRAN':
+            result = 'kelahiran';
+            break;
+        case 'SURAT KARTU KELUARGA':
+            result = 'kk';
+            break;
+        case 'SURAT NIKAH':
             result = 'nikah';
             break;
-        case 'SURAT PENGANTAR KETERANGAN PINDAH':
+        case 'SURAT PINDAH':
             result = 'pindah';
-            break;
-        case 'DATA KARTU KELUARGA':
-            result = 'kk';
             break;
 
         default:
