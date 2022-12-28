@@ -134,6 +134,7 @@ class PendudukMasukController extends Controller
             $masuk->tanggal = $request->tanggal;
             $masuk->nama = $request->masuk_nama;
             $masuk->keterangan = $request->masuk_keterangan;
+            $masuk->alamat = $request->alamat_asal;
             $masuk->created_by = auth()->user()->id;
             $masuk->save();
 
@@ -190,6 +191,7 @@ class PendudukMasukController extends Controller
             $masuk->tanggal = $request->tanggal;
             $masuk->nama = $request->masuk_nama;
             $masuk->keterangan = $request->masuk_keterangan;
+            $masuk->alamat = $request->alamat_asal;
             $masuk->updated_by = auth()->user()->id;
             $masuk->save();
 

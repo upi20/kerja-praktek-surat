@@ -63,6 +63,7 @@
                         <th class="text-nowrap">No</th>
                         <th class="text-nowrap">Penduduk</th>
                         <th class="text-nowrap">Keterangan</th>
+                        <th class="text-nowrap">Alamat</th>
                         <th class="text-nowrap">Tanggal</th>
                         <th class="text-nowrap">Diubah</th>
                         <th>Aksi</th>
@@ -306,6 +307,13 @@
                                 <textarea class="form-control" placeholder="Catatan Penduduk Masuk" id="masuk_keterangan" name="masuk_keterangan"></textarea>
                             </div>
                         </div>
+                        <div class="row mb-1">
+                            <label for="alamat_asal" class="col-sm-3 col-form-label">Alamat Asal</label>
+                            <div class="col-sm-9">
+                                <span style="display: none;" id="alamat_asal_text"></span>
+                                <textarea class="form-control" placeholder="Alamat Asal Penduduk" id="alamat_asal" name="alamat_asal"></textarea>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -436,6 +444,10 @@
                             return `<span class="fw-bold">${data}</span><br>
                             <small>${full.keterangan??''}</small>`;
                         },
+                    },
+                    {
+                        data: 'alamat',
+                        name: 'alamat',
                     },
                     {
                         data: 'tanggal_str',
@@ -701,6 +713,7 @@
             $('#tanggal').val(data.tanggal);
             $('#masuk_nama').val(data.nama);
             $('#masuk_keterangan').val(data.keterangan);
+            $('#alamat_asal').val(data.alamat);
         }
 
         function view_form(view = null) {
@@ -725,6 +738,7 @@
             const tanggal_text = $('#tanggal_text');
             const masuk_nama_text = $('#masuk_nama_text');
             const masuk_keterangan_text = $('#masuk_keterangan_text');
+            const alamat_asal_text = $('#alamat_asal_text');
 
             const nik = $('#nik');
             const no_kk = $('#no_kk');
@@ -745,6 +759,7 @@
             const tanggal = $('#tanggal');
             const masuk_nama = $('#masuk_nama');
             const masuk_keterangan = $('#masuk_keterangan');
+            const alamat_asal = $('#alamat_asal');
 
             switch (view) {
                 case 'insert-nik': // insert dengan nik yang sudah terdaftar yang bisa di ubah cuman status tombol reset ada
@@ -817,6 +832,10 @@
                     masuk_keterangan_text.html(masuk_keterangan.val());
                     masuk_keterangan_text.hide();
                     masuk_keterangan.show();
+
+                    alamat_asal_text.html(alamat_asal.val());
+                    alamat_asal_text.hide();
+                    alamat_asal.show();
 
                     // nik
                     btn_cari_nik.hide();
@@ -894,6 +913,11 @@
                     masuk_keterangan_text.html(masuk_keterangan.val());
                     masuk_keterangan_text.hide();
                     masuk_keterangan.show();
+
+                    alamat_asal_text.html(alamat_asal.val());
+                    alamat_asal_text.hide();
+                    alamat_asal.show();
+
                     // nik
                     btn_cari_nik.hide();
                     btn_reset_nik.hide();
@@ -975,6 +999,10 @@
                     masuk_keterangan_text.show();
                     masuk_keterangan.hide();
 
+                    alamat_asal_text.html(alamat_asal.val());
+                    alamat_asal_text.show();
+                    alamat_asal.hide();
+
                     // nik
                     btn_cari_nik.hide();
                     btn_reset_nik.hide();
@@ -1053,6 +1081,10 @@
                     masuk_keterangan_text.html(masuk_keterangan.val());
                     masuk_keterangan_text.hide();
                     masuk_keterangan.show();
+
+                    alamat_asal_text.html('');
+                    alamat_asal_text.hide();
+                    alamat_asal.show();
 
                     // nik
                     btn_cari_nik.show();

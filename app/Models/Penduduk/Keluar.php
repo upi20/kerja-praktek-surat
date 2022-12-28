@@ -9,7 +9,7 @@ class Keluar extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'penduduk_id', 'nama', 'keterangan', 'tanggal',
+        'penduduk_id', 'nama', 'keterangan', 'alamat', 'tanggal',
         'updated_by',
         'created_by'
     ];

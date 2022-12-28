@@ -74,6 +74,7 @@ class PendudukKeluarController extends Controller
             $keluar->tanggal = $request->tanggal;
             $keluar->nama = $request->keluar_nama;
             $keluar->keterangan = $request->keluar_keterangan;
+            $keluar->alamat = $request->alamat_asal;
             $keluar->created_by = auth()->user()->id;
             $keluar->save();
 
@@ -96,6 +97,7 @@ class PendudukKeluarController extends Controller
             $keluar->tanggal = $request->tanggal;
             $keluar->nama = $request->keluar_nama;
             $keluar->keterangan = $request->keluar_keterangan;
+            $keluar->alamat = $request->alamat_asal;
             $keluar->save();
 
             DB::commit();

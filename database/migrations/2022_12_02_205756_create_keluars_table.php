@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('nama');
             $table->text('keterangan')->nullable()->default(null);
             $table->date('tanggal');
+            $table->date('alamat');
             $table->timestamps();
 
             $table->foreign('penduduk_id')
