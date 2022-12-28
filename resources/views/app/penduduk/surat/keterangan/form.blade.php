@@ -327,39 +327,9 @@
         function view_form(view = null) {
             const btn_cari_nik = $('#btn_cari_nik');
             const btn_reset_nik = $('#btn_reset_nik');
-            const btn_submit = $('#modal-default').find('button[type=submit]');
 
             const nik_text = $('#nik_text');
-            const no_kk_text = $('#no_kk_text');
-            const hub_dgn_kk_text = $('#hub_dgn_kk_text');
-            const nama_text = $('#nama_text');
-            const ttl_text = $('#ttl_text');
-            const agama_text = $('#agama_text');
-            const pendidikan_text = $('#pendidikan_text');
-            const pekerjaan_text = $('#pekerjaan_text');
-            const status_kawin_text = $('#status_kawin_text');
-            const rt_rw_text = $('#rt_rw_text');
-            const alamat_text = $('#alamat_text');
-            const jenis_kelamin_text = $('#jenis_kelamin_text');
-            const warga_negara_text = $('#warga_negara_text');
-            const negara_nama_text = $('#negara_nama_text');
-
             const nik = $('#nik');
-            const no_kk = $('#no_kk');
-            const hub_dgn_kk = $('#hub_dgn_kk');
-            const nama = $('#nama');
-            const tempat_lahir = $('#tempat_lahir');
-            const tanggal_lahir = $('#tanggal_lahir');
-            const agama = $('#agama');
-            const pendidikan = $('#pendidikan');
-            const pekerjaan = $('#pekerjaan');
-            const status_kawin = $('#status_kawin');
-            const rt = $('#rt');
-            const rw = $('#rw');
-            const alamat = $('#alamat');
-            const jenis_kelamin = $('#jenis_kelamin');
-            const warga_negara = $('#warga_negara');
-            const negara_nama = $('#negara_nama');
 
             switch (view) {
                 case 'insert-nik': // insert dengan nik yang sudah terdaftar yang bisa di ubah cuman status tombol reset ada
@@ -367,64 +337,9 @@
                     nik_text.show();
                     nik.hide();
 
-                    no_kk_text.html(no_kk.val());
-                    no_kk_text.hide();
-                    no_kk.show();
-
-                    hub_dgn_kk_text.html(hub_dgn_kk.val());
-                    hub_dgn_kk_text.hide();
-                    hub_dgn_kk.show();
-
-                    nama_text.html(nama.val());
-                    nama_text.hide();
-                    nama.show();
-
-                    ttl_text.html(`${tempat_lahir.val()}, ${format_tanggal(tanggal_lahir.val()).tanggal}`);
-                    ttl_text.hide();
-                    tempat_lahir.parent().show();
-                    tanggal_lahir.parent().show();
-
-                    pendidikan_text.html(pendidikan.val());
-                    pendidikan_text.hide();
-                    pendidikan.show();
-
-                    pekerjaan_text.html(pekerjaan.val());
-                    pekerjaan_text.hide();
-                    pekerjaan.show();
-
-                    status_kawin_text.html(status_kawin.val());
-                    status_kawin_text.hide();
-                    status_kawin.show();
-
-                    rt_rw_text.html(`${rt.val()}/${rw.val()}`);
-                    rt_rw_text.hide();
-                    rt.parent().show();
-                    rw.parent().show();
-
-                    alamat_text.html(alamat.val());
-                    alamat_text.hide();
-                    alamat.show();
-
-                    jenis_kelamin_text.html(jenis_kelamin.val());
-                    jenis_kelamin_text.hide();
-                    jenis_kelamin.show();
-
-                    agama_text.html(agama.val());
-                    agama_text.hide();
-                    agama.show();
-
-                    warga_negara_text.html(warga_negara.val());
-                    warga_negara_text.hide();
-                    warga_negara.show();
-
-                    negara_nama_text.html(negara_nama.val());
-                    negara_nama_text.hide();
-                    negara_nama.show();
-
                     // nik
                     btn_cari_nik.hide();
                     btn_reset_nik.show();
-                    btn_submit.show();
                     break;
 
                 case 'update': // update data yang bisa diubah cuman status, tombol reset tidak ada
@@ -432,64 +347,9 @@
                     nik_text.show();
                     nik.hide();
 
-                    no_kk_text.html(no_kk.val());
-                    no_kk_text.hide();
-                    no_kk.show();
-
-                    hub_dgn_kk_text.html(hub_dgn_kk.val());
-                    hub_dgn_kk_text.hide();
-                    hub_dgn_kk.show();
-
-                    nama_text.html(nama.val());
-                    nama_text.hide();
-                    nama.show();
-
-                    ttl_text.html(`${tempat_lahir.val()}, ${format_tanggal(tanggal_lahir.val()).tanggal}`);
-                    ttl_text.hide();
-                    tempat_lahir.parent().show();
-                    tanggal_lahir.parent().show();
-
-                    pendidikan_text.html(pendidikan.val());
-                    pendidikan_text.hide();
-                    pendidikan.show();
-
-                    pekerjaan_text.html(pekerjaan.val());
-                    pekerjaan_text.hide();
-                    pekerjaan.show();
-
-                    status_kawin_text.html(status_kawin.val());
-                    status_kawin_text.hide();
-                    status_kawin.show();
-
-                    rt_rw_text.html(`${rt.val()}/${rw.val()}`);
-                    rt_rw_text.hide();
-                    rt.parent().show();
-                    rw.parent().show();
-
-                    alamat_text.html(alamat.val());
-                    alamat_text.hide();
-                    alamat.show();
-
-                    jenis_kelamin_text.html(jenis_kelamin.val());
-                    jenis_kelamin_text.hide();
-                    jenis_kelamin.show();
-
-                    agama_text.html(agama.val());
-                    agama_text.hide();
-                    agama.show();
-
-                    warga_negara_text.html(warga_negara.val());
-                    warga_negara_text.hide();
-                    warga_negara.show();
-
-                    negara_nama_text.html(negara_nama.val());
-                    negara_nama_text.hide();
-                    negara_nama.show();
-
                     // nik
                     btn_cari_nik.hide();
                     btn_reset_nik.hide();
-                    btn_submit.show();
                     break;
 
 
@@ -497,135 +357,20 @@
                     nik_text.html(nik.val());
                     nik_text.show();
                     nik.hide();
-                    nik_text.html(nik.val());
-                    nik_text.show();
-                    nik.hide();
-
-                    no_kk_text.html(no_kk.val());
-                    no_kk_text.show();
-                    no_kk.hide();
-
-                    hub_dgn_kk_text.html(hub_dgn_kk.val());
-                    hub_dgn_kk_text.show();
-                    hub_dgn_kk.hide();
-
-                    nama_text.html(nama.val());
-                    nama_text.show();
-                    nama.hide();
-
-                    ttl_text.html(`${tempat_lahir.val()}, ${format_tanggal(tanggal_lahir.val()).tanggal}`);
-                    ttl_text.show();
-                    tempat_lahir.parent().hide();
-                    tanggal_lahir.parent().hide();
-
-                    pendidikan_text.html(pendidikan.val());
-                    pendidikan_text.show();
-                    pendidikan.hide();
-
-                    pekerjaan_text.html(pekerjaan.val());
-                    pekerjaan_text.show();
-                    pekerjaan.hide();
-
-                    status_kawin_text.html(status_kawin.val());
-                    status_kawin_text.show();
-                    status_kawin.hide();
-
-                    rt_rw_text.html(`${rt.val()}/${rw.val()}`);
-                    rt_rw_text.show();
-                    rt.parent().hide();
-                    rw.parent().hide();
-
-                    alamat_text.html(alamat.val());
-                    alamat_text.show();
-                    alamat.hide();
-
-                    jenis_kelamin_text.html(jenis_kelamin.val());
-                    jenis_kelamin_text.show();
-                    jenis_kelamin.hide();
-
-                    agama_text.html(agama.val());
-                    agama_text.show();
-                    agama.hide();
-
-                    warga_negara_text.html(warga_negara.val());
-                    warga_negara_text.show();
-                    warga_negara.hide();
-
-                    negara_nama_text.html(negara_nama.val());
-                    negara_nama_text.show();
-                    negara_nama.hide();
 
                     // nik
                     btn_cari_nik.hide();
                     btn_reset_nik.hide();
-                    btn_submit.hide();
                     break;
-
-
 
                 default: // insert dengan nik yang belum terdaftar semua bisa di ubah tombol reset tidak ada
                     nik_text.html(nik.val());
                     nik_text.hide();
                     nik.show();
 
-                    no_kk_text.html(no_kk.val());
-                    no_kk_text.hide();
-                    no_kk.show();
-
-                    hub_dgn_kk_text.html(hub_dgn_kk.val());
-                    hub_dgn_kk_text.hide();
-                    hub_dgn_kk.show();
-
-                    nama_text.html(nama.val());
-                    nama_text.hide();
-                    nama.show();
-
-                    ttl_text.html(`${tempat_lahir.val()}, ${format_tanggal(tanggal_lahir.val()).tanggal}`);
-                    ttl_text.hide();
-                    tempat_lahir.parent().show();
-                    tanggal_lahir.parent().show();
-
-                    pendidikan_text.html(pendidikan.val());
-                    pendidikan_text.hide();
-                    pendidikan.show();
-
-                    pekerjaan_text.html(pekerjaan.val());
-                    pekerjaan_text.hide();
-                    pekerjaan.show();
-
-                    status_kawin_text.html(status_kawin.val());
-                    status_kawin_text.hide();
-                    status_kawin.show();
-
-                    rt_rw_text.html(`${rt.val()}/${rw.val()}`);
-                    rt_rw_text.hide();
-                    rt.parent().show();
-                    rw.parent().show();
-
-                    alamat_text.html(alamat.val());
-                    alamat_text.hide();
-                    alamat.show();
-
-                    jenis_kelamin_text.html(jenis_kelamin.val());
-                    jenis_kelamin_text.hide();
-                    jenis_kelamin.show();
-
-                    agama_text.html(agama.val());
-                    agama_text.hide();
-                    agama.show();
-
-                    warga_negara_text.html(warga_negara.val());
-                    warga_negara_text.hide();
-                    warga_negara.show();
-
-                    negara_nama_text.html(negara_nama.val());
-                    negara_nama_text.hide();
-                    negara_nama.show();
-
                     // nik
                     btn_cari_nik.show();
                     btn_reset_nik.hide();
-                    btn_submit.show();
                     break;
             }
         }
