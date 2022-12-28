@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\App\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Penduduk\Masuk;
 use App\Models\Penduduk\Penduduk;
 use App\Models\Penduduk\Rt;
 use App\Models\Penduduk\Rw;
@@ -208,6 +209,8 @@ class PendudukController extends Controller
         }
 
         $penduduk->rt->rw;
+        $masuk = Masuk::where('penduduk_id', $penduduk->id)->orderBy('tanggal', 'desc')->first();
+        $penduduk->masuk = $masuk;
         return $penduduk;
     }
 }
