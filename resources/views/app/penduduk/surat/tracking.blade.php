@@ -4,7 +4,7 @@
     <div class="card">
         <div class="card-header d-md-flex flex-row justify-content-between">
             <h3 class="card-title">{{ $page_attr['title'] }} Table</h3>
-            <a type="button" class="btn btn-rounded btn-success btn-sm" href="{{ route(h_prefix('pengajuan', 1)) }}">
+            <a type="button" class="btn btn-rounded btn-success btn-sm" href="{{ route(h_prefix('surat', 1)) }}">
                 <i class="fas fa-edit"></i> Pengajuan Surat
             </a>
         </div>

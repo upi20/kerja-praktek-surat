@@ -4,6 +4,7 @@ use App\Models\Utility\NotifAdminAtas;
 use App\Models\Utility\NotifDepanAtas;
 use Illuminate\Support\Facades\Blade;
 use MatthiasMullie\Minify\JS;
+use Illuminate\Support\Str;
 
 if (!function_exists('h_prefix_uri')) {
     function h_prefix_uri(?string $param = null, int $min = 0)
@@ -257,5 +258,39 @@ if (!function_exists('color_status_surat')) {
                 return '';
                 break;
         }
+    }
+}
+
+if (!function_exists('age')) {
+    /**
+     * Display age in format:
+     * '%y years, %m months and %d days old'
+     * '%y years and %m months old'
+     * '%m years and %d days old'
+     * 
+     * @param  \DateTime $born
+     * @param  \DateTime $reference
+     * @return string
+     *
+     * @throws \InvalidArgumentException
+     */
+    function age(DateTime $born, DateTime $reference = null, bool $year_only = true)
+    {
+        $reference = $reference ?: new DateTime;
+
+        if ($born > $reference)
+            throw new \InvalidArgumentException('Provided birthday cannot be in future compared to the reference date.');
+
+        $diff = $reference->diff($born);
+
+        // Not very readable, but all it does is joining age
+        // parts using either ',' or 'and' appropriately
+        $age = ($d = $diff->d) ? ' and ' . $d . ' ' . Str::plural('day', $d) : '';
+        $age = ($m = $diff->m) ? ($age ? ', ' : ' and ') . $m . ' ' . Str::plural('month', $m) . $age : $age;
+        $age = ($y = $diff->y) ? $y . ' ' . Str::plural('year', $y) . $age  : $age;
+
+        // trim redundant ',' or 'and' parts
+        $full = ($s = trim(trim($age, ', '), ' and ')) ? $s . ' old' : 'newborn';
+        return $year_only ? $diff->y : $full;
     }
 }

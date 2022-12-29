@@ -55,7 +55,8 @@
                 <tr>
                     <td>Warganegara</td>
                     <td>:</td>
-                    <td>{{ $surat->keterangan->warga_negara == 'WNI' ? 'INDONESIA' : $surat->keterangan->negara_nama }}</td>
+                    <td>{{ $surat->keterangan->warga_negara == 'WNI' ? 'INDONESIA' : $surat->keterangan->negara_nama }}
+                    </td>
                 </tr>
                 <tr>
                     <td>Agama</td>
@@ -63,7 +64,7 @@
                     <td>{{ $surat->keterangan->agama }}</td>
                 </tr>
                 <tr>
-                    <td>Status Kawin</td>
+                    <td>Status Perkawinan</td>
                     <td>:</td>
                     <td>{{ $surat->keterangan->status_kawin }}</td>
                 </tr>

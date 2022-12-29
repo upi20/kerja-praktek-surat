@@ -9,7 +9,22 @@
         </div>
         <div class="card-body">
             <form action="javascript:void(0)" id="MainForm" name="MainForm" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="id" id="id">
+                <div class="row mb-3">
+                    <label for="rw" class="col-sm-3 col-form-label">RT/RW
+                        <span class="text-danger">*</span>
+                    </label>
+                    <div class="col-sm-9 d-flex flex-row">
+                        <div class="w-100">
+                            <input type="number" class="form-control me-lg-2" placeholder="Rukun Tetangga" value=""
+                                id="rt" name="rt"required>
+                        </div>
+                        <div class="w-100">
+                            <input type="number" class="form-control me-lg-2" placeholder="Rukun Warga" value=""
+                                id="rw" name="rw"required>
+                        </div>
+                    </div>
+                </div>
+                <hr>
                 <div class="row mb-3">
                     <label for="nama" class="col-sm-3 col-form-label">Nomor Induk Kependudukan
                         <span class="text-danger">*</span>
@@ -111,12 +126,12 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="status_kawin" class="col-sm-3 col-form-label">Status Kawin
+                    <label for="status_kawin" class="col-sm-3 col-form-label">Status Perkawinan
                         <span class="text-danger">*</span></label>
                     <div class="col-sm-9">
                         <span style="display: none;" id="status_kawin_text"></span>
                         <select class="form-control" id="status_kawin" name="status_kawin" required>
-                            <option value="">Pilih Status Kawin</option>
+                            <option value="">Pilih Status Perkawinan</option>
                             <option value="KAWIN">KAWIN</option>
                             <option value="BELUM KAWIN">BELUM KAWIN</option>
                         </select>
@@ -158,20 +173,6 @@
                     <div class="col-sm-9">
                         <span style="display: none;" id="alamat_text"></span>
                         <textarea class="form-control" placeholder="Alamat Lengkap" id="alamat" name="alamat" required></textarea>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label for="rw" class="col-sm-3 col-form-label">RT/RW
-                        <span class="text-danger">*</span>
-                    </label>
-                    <div class="col-sm-9 d-flex flex-row">
-                        <span style="display: none;" id="rt_rw_text"></span>
-                        <div class="w-100"><input type="number" class="form-control me-lg-2"
-                                placeholder="Rukun Tetangga" value="" id="rt" name="rt"required></div>
-                        <div class="w-100"><input type="number" class="form-control me-lg-2" placeholder="Rukun Warga"
-                                value="" id="rw" name="rw"required>
-                        </div>
                     </div>
                 </div>
 

@@ -9,6 +9,22 @@
         </div>
         <div class="card-body">
             <form action="javascript:void(0)" id="MainForm" name="MainForm" method="POST" enctype="multipart/form-data">
+                <div class="row mb-3">
+                    <label for="rw" class="col-sm-3 col-form-label">RT/RW
+                        <span class="text-danger">*</span>
+                    </label>
+                    <div class="col-sm-9 d-flex flex-row">
+                        <span style="display: none;" id="rt_rw_text"></span>
+                        <div class="w-100">
+                            <input type="number" class="form-control me-lg-2" placeholder="Rukun Tetangga"
+                                value="{{ $surat->rt->nomor }}" id="rt" name="rt"required>
+                        </div>
+                        <div class="w-100">
+                            <input type="number" class="form-control me-lg-2" placeholder="Rukun Warga"
+                                value="{{ $surat->rw->nomor }}" id="rw" name="rw"required>
+                        </div>
+                    </div>
+                </div>
                 <input type="hidden" name="id" id="id" value="{{ $surat->id }}">
                 <input type="hidden" name="surat_detail_id" id="surat_detail_id" value="{{ $surat->domisili->id }}">
                 <div class="row mb-3">
@@ -127,12 +143,12 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="status_kawin" class="col-sm-3 col-form-label">Status Kawin
+                    <label for="status_kawin" class="col-sm-3 col-form-label">Status Perkawinan
                         <span class="text-danger">*</span></label>
                     <div class="col-sm-9">
                         <span style="display: none;" id="status_kawin_text"></span>
                         <select class="form-control" id="status_kawin" name="status_kawin" required>
-                            <option value="">Pilih Status Kawin</option>
+                            <option value="">Pilih Status Perkawinan</option>
                             <option value="KAWIN" {{ $surat->domisili->status_kawin == 'KAWIN' ? 'selected' : '' }}>
                                 KAWIN
                             </option>
@@ -195,24 +211,6 @@
                     <div class="col-sm-9">
                         <span style="display: none;" id="alamat_asal_text"></span>
                         <textarea class="form-control" placeholder="Alamat Asal" id="alamat_asal" name="alamat_asal" required>{{ $surat->domisili->alamat_asal }}</textarea>
-                    </div>
-                </div>
-
-
-                <div class="row mb-3">
-                    <label for="rw" class="col-sm-3 col-form-label">RT/RW
-                        <span class="text-danger">*</span>
-                    </label>
-                    <div class="col-sm-9 d-flex flex-row">
-                        <span style="display: none;" id="rt_rw_text"></span>
-                        <div class="w-100">
-                            <input type="number" class="form-control me-lg-2" placeholder="Rukun Tetangga"
-                                value="{{ $surat->rt->nomor }}" id="rt" name="rt"required>
-                        </div>
-                        <div class="w-100">
-                            <input type="number" class="form-control me-lg-2" placeholder="Rukun Warga"
-                                value="{{ $surat->rw->nomor }}" id="rw" name="rw"required>
-                        </div>
                     </div>
                 </div>
 

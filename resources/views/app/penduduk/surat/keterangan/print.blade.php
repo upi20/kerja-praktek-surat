@@ -100,7 +100,7 @@
             <td>{{ $surat->keterangan->agama }}</td>
         </tr>
         <tr>
-            <td style="white-space: nowrap">Status Kawin</td>
+            <td style="white-space: nowrap">Status Perkawinan</td>
             <td>:</td>
             <td>{{ $surat->keterangan->status_kawin }}</td>
         </tr>

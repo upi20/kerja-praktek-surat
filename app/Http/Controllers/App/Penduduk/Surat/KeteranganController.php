@@ -384,7 +384,7 @@ class KeteranganController extends Controller
 
     public function perbaiki(Surat $surat)
     {
-        if ($surat->status != config('app.status_surats')[0]) {
+        if ($surat->status != config('app.status_surats')[0] && !auth()->user()->hasRole(config('app.role_super_admin'))) {
             return abort(404);
         }
         $page_attr = [
