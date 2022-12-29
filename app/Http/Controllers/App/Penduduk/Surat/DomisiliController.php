@@ -22,7 +22,7 @@ class DomisiliController extends Controller
     public function index(Request $request)
     {
         $page_attr = [
-            'title' => 'Form Surat Pengantar Keterangan Domisili Domisili',
+            'title' => 'Form Surat Pengantar Keterangan Domisili',
             'navigation' => 'penduduk.surat',
         ];
         $hub_dgn_kks = config('app.hub_dgn_kks');
