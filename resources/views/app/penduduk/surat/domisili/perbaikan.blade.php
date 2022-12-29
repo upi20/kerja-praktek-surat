@@ -28,7 +28,7 @@
                 <input type="hidden" name="id" id="id" value="{{ $surat->id }}">
                 <input type="hidden" name="surat_detail_id" id="surat_detail_id" value="{{ $surat->domisili->id }}">
                 <div class="row mb-3">
-                    <label for="nama" class="col-sm-3 col-form-label">Nomor Induk Kependudukan
+                    <label for="nik" class="col-sm-3 col-form-label">Nomor Induk Kependudukan
                         <span class="text-danger">*</span>
                     </label>
                     <div class="col-sm-9 d-flex flex-row justify-content-between">
