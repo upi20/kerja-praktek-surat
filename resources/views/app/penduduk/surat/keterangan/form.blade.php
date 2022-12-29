@@ -58,7 +58,7 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="nama" class="col-sm-3 col-form-label">Tempat, Tanggal lahir
+                    <label for="tempat_lahir" class="col-sm-3 col-form-label">Tempat, Tanggal lahir
                         <span class="text-danger">*</span>
                     </label>
                     <div class="col-sm-9 d-flex flex-row">
