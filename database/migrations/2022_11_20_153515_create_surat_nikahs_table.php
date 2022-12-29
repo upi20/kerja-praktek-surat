@@ -25,6 +25,8 @@ return new class extends Migration
             $table->time('waktu')->nullable()->default(null);
             $table->text('tempat')->nullable()->default(null);
             $table->string('dengan_seorang')->nullable()->default(null);
+            $table->string('calon_a')->nullable()->default(null);
+            $table->string('calon_b')->nullable()->default(null);
 
             $table->string("ibu_nik")->nullable()->default(null);
             $table->string("ibu_nama")->nullable()->default(null);
@@ -42,6 +44,7 @@ return new class extends Migration
             $table->string("ibu_no_passport")->nullable()->default(null);
             $table->string("ibu_kitas_kitap")->nullable()->default(null);
             $table->string("ibu_foto_ktp")->nullable()->default(null);
+            $table->text("ibu_alamat")->nullable()->default(null);
 
             $table->string("ayah_nik")->nullable()->default(null);
             $table->string("ayah_nama")->nullable()->default(null);
@@ -59,6 +62,7 @@ return new class extends Migration
             $table->string("ayah_no_passport")->nullable()->default(null);
             $table->string("ayah_kitas_kitap")->nullable()->default(null);
             $table->string("ayah_foto_ktp")->nullable()->default(null);
+            $table->text("ayah_alamat")->nullable()->default(null);
 
             $table->string("anak_nik")->nullable()->default(null);
             $table->string("anak_nama")->nullable()->default(null);
@@ -76,6 +80,7 @@ return new class extends Migration
             $table->string("anak_no_passport")->nullable()->default(null);
             $table->string("anak_kitas_kitap")->nullable()->default(null);
             $table->string("anak_foto_ktp")->nullable()->default(null);
+            $table->text("anak_alamat")->nullable()->default(null);
 
             $table->string("calon_nik")->nullable()->default(null);
             $table->string("calon_nama")->nullable()->default(null);
@@ -93,6 +98,7 @@ return new class extends Migration
             $table->string("calon_no_passport")->nullable()->default(null);
             $table->string("calon_kitas_kitap")->nullable()->default(null);
             $table->string("calon_foto_ktp")->nullable()->default(null);
+            $table->text("calon_alamat")->nullable()->default(null);
 
             $table->timestamps();
             $table->foreign('surat_id')

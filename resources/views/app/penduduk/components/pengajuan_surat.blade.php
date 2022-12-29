@@ -52,7 +52,7 @@
     </div>
 
     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-        <a href="{{ route('penduduk.pengajuan.kartu_keluarga') }}">
+        <a href="{{ route('penduduk.surat.domisili') }}">
             <div class="card bg-warning img-card card-main">
                 <div class="card-body">
                     <div class="d-flex">
@@ -69,7 +69,7 @@
     </div>
 
     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-        <a href="{{ route('penduduk.pengajuan.pindah') }}">
+        <a href="{{ route('penduduk.surat.domisili') }}">
             <div class="card bg-danger img-card card-main">
                 <div class="card-body">
                     <div class="d-flex">
@@ -86,7 +86,7 @@
     </div>
 
     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-        <a href="{{ route('penduduk.pengajuan.nikah') }}">
+        <a href="{{ route('penduduk.surat.nikah') }}">
             <div class="card bg-success img-card card-main">
                 <div class="card-body">
                     <div class="d-flex">
@@ -103,7 +103,7 @@
     </div>
 
     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-        <a href="{{ route('penduduk.pengajuan.kematian') }}">
+        <a href="{{ route('penduduk.surat.domisili') }}">
             <div class="card bg-purple img-card card-main">
                 <div class="card-body">
                     <div class="d-flex">
