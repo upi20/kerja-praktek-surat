@@ -306,25 +306,6 @@
             });
         });
 
-        function input_form_data(data) {
-            $('#warga_negara').val(data.penduduk.warga_negara);
-            $('#negara_nama').val(data.penduduk.negara_nama);
-            $('#nik').val(data.penduduk.nik);
-            $('#no_kk').val(data.penduduk.no_kk);
-            $('#hub_dgn_kk').val(data.penduduk.hub_dgn_kk);
-            $('#nama').val(data.penduduk.nama);
-            $('#tempat_lahir').val(data.penduduk.tempat_lahir);
-            $('#tanggal_lahir').val(data.penduduk.tanggal_lahir);
-            $('#agama').val(data.penduduk.agama);
-            $('#pendidikan').val(data.penduduk.pendidikan);
-            $('#pekerjaan').val(data.penduduk.pekerjaan);
-            $('#status_kawin').val(data.penduduk.status_kawin);
-            $('#rt').val(data.penduduk.rt.nomor);
-            $('#rw').val(data.penduduk.rt.rw.nomor);
-            $('#alamat').val(data.penduduk.alamat);
-            $('#jenis_kelamin').val(data.penduduk.jenis_kelamin);
-        }
-
         function view_form(view = null) {
             const btn_cari_nik = $('#btn_cari_nik');
             const btn_reset_nik = $('#btn_reset_nik');
