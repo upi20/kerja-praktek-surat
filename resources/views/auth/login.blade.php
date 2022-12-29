@@ -89,6 +89,19 @@ $page_attr_title = ($page_attr->title == '' ? '' : $page_attr->title . ' | ') . 
         <!-- custom {{ $meta->name }} -->
         {!! $meta->value !!}
     @endforeach
+    <style>
+        html {
+            -ms-overflow-style: scrollbar;
+        }
+
+        body {
+            scrollbar-width: none !important;
+        }
+
+        body::-webkit-scrollbar {
+            display: none !important;
+        }
+    </style>
 </head>
 
 <body class="app sidebar-mini ltr dark-mode">

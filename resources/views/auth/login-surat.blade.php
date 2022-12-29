@@ -90,10 +90,18 @@ $page_attr_title = ($page_attr->title == '' ? '' : $page_attr->title . ' | ') . 
         {!! $meta->value !!}
     @endforeach
 
-    <!-- custom -->
     <style>
+        html {
+            -ms-overflow-style: scrollbar;
+        }
+
         body {
+            scrollbar-width: none !important;
             background-color: #F0F0F5;
+        }
+
+        body::-webkit-scrollbar {
+            display: none !important;
         }
     </style>
 </head>

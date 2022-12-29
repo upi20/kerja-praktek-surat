@@ -58,7 +58,7 @@ html {
     line-height: 1.15;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
-    -ms-overflow-style: scrollbar;
+    /* -ms-overflow-style: scrollbar; */
     -webkit-tap-highlight-color: transparent
 }
 
@@ -87,13 +87,13 @@ body {
     background-color: #f0f0f5;
     -ms-overflow-style: none;
     /* IE and Edge */
-    scrollbar-width: none;
+    /* scrollbar-width: none; */
     /* Firefox */
 }
 
-body::-webkit-scrollbar {
+/* body::-webkit-scrollbar {
     display: none;
-}
+} */
 
 .number-font {
     font-weight: 600 !important
@@ -643,17 +643,17 @@ body {
     position: relative
 }
 
-body ::-webkit-scrollbar {
-    width: 2px;
+body::-webkit-scrollbar {
+    width: 10px;
     height: 6px;
     transition: .3s background
 }
 
-body ::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb {
     background: #f6f6fb
 }
 
-body :hover::-webkit-scrollbar-thumb {
+body:hover::-webkit-scrollbar-thumb {
     background: #f6f6fb
 }
 
