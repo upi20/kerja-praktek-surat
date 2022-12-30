@@ -16,6 +16,11 @@
         <div class="card-body">
             <table class="table table-striped">
                 <tr>
+                    <td>RT/RW</td>
+                    <td>:</td>
+                    <td>{{ $surat->rt->nomor }}/{{ $surat->rw->nomor }}</td>
+                </tr>
+                <tr>
                     <td>Penduduk Yang Mengajukan</td>
                     <td>:</td>
                     <td>{{ $surat->nama_penduduk }}<br>
@@ -69,7 +74,7 @@
                     <td>{{ $surat->keterangan->status_kawin }}</td>
                 </tr>
                 <tr>
-                    <td>Pendidikan</td>
+                    <td>Pendidikan Terakhir</td>
                     <td>:</td>
                     <td>{{ $surat->keterangan->pendidikan }}</td>
                 </tr>
@@ -82,11 +87,6 @@
                     <td>Alamat Lengkap</td>
                     <td>:</td>
                     <td>{{ $surat->keterangan->alamat }}</td>
-                </tr>
-                <tr>
-                    <td>RT/RW</td>
-                    <td>:</td>
-                    <td>{{ $surat->rt->nomor }}/{{ $surat->rw->nomor }}</td>
                 </tr>
                 <tr>
                     <td>Jenis Surrat</td>

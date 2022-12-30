@@ -11,6 +11,7 @@ use App\Models\Penduduk\Rw;
 use App\Models\Surat\Surat;
 use App\Models\Surat\SuratNikah;
 use App\Models\Surat\SuratTracking;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -398,7 +399,6 @@ class NikahController extends Controller
         }
     }
 
-
     public function detail(Surat $surat)
     {
         $page_attr = [
@@ -407,7 +407,10 @@ class NikahController extends Controller
         ];
 
         $trackings = $surat->trackings()->orderBy('waktu', 'desc')->get();
-        $data = compact('page_attr', 'surat', 'trackings');
+        $ayah_umur = age(new DateTime($surat->nikah->ayah_tanggal_lahir), new DateTime($surat->tanggal));
+        $ibu_umur = age(new DateTime($surat->nikah->ibu_tanggal_lahir), new DateTime($surat->tanggal));
+
+        $data = compact('page_attr', 'surat', 'trackings', 'ayah_umur', 'ibu_umur');
 
         $data['compact'] = $data;
         return view('app.penduduk.surat.nikah.detail', $data);
