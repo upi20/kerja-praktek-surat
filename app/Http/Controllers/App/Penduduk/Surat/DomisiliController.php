@@ -356,7 +356,7 @@ class DomisiliController extends Controller
         // return view('app.penduduk.surat.domisili.print', $data);
         view()->share('app.penduduk.surat.domisili.print', $data);
         $pdf = PDF::loadView('app.penduduk.surat.domisili.print', $data)
-            ->setPaper('a4', 'potrait');
+            ->setPaper(config('app.paper_size.f4'), 'potrait');
 
         return $pdf->stream($name);
         exit();

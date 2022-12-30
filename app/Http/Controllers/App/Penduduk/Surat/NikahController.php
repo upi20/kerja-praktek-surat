@@ -425,18 +425,18 @@ class NikahController extends Controller
 
         $name = "Surat Keterangan Nikah {$surat->nama_untuk_penduduk}.pdf";
 
-        $t_pegawai = Pegawai::tableName;
-        $t_jabatan = PegawaiJabatan::tableName;
-        $pegawai = Pegawai::join($t_jabatan, "$t_pegawai.jabatan_id", '=', "$t_jabatan.id")->orderBy("$t_jabatan.urutan", 'asc')->first();
-        $data = compact('page_attr', 'surat', 'name', 'pegawai');
+        $ayah_umur = age(new DateTime($surat->nikah->ayah_tanggal_lahir), new DateTime($surat->tanggal));
+        $ibu_umur = age(new DateTime($surat->nikah->ibu_tanggal_lahir), new DateTime($surat->tanggal));
+
+        $data = compact('page_attr', 'surat', 'name',  'ayah_umur', 'ibu_umur');
 
         $data['compact'] = $data;
 
 
-        // return view('app.penduduk.surat.nikah.print', $data);
+        return view('app.penduduk.surat.nikah.print', $data);
         view()->share('app.penduduk.surat.nikah.print', $data);
         $pdf = PDF::loadView('app.penduduk.surat.nikah.print', $data)
-            ->setPaper('a4', 'potrait');
+            ->setPaper(config('app.paper_size.f4'), 'potrait');
 
         return $pdf->stream($name);
         exit();

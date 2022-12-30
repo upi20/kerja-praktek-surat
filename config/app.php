@@ -270,4 +270,8 @@ return [
         'SELESAI',
         'DIBATALKAN',
     ],
+
+    'paper_size' => [
+        'f4' => [0, 0, 595.276, 935.433]
+    ]
 ];

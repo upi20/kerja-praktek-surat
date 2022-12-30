@@ -376,7 +376,7 @@ class KeteranganController extends Controller
         // return view('app.penduduk.surat.keterangan.print', $data);
         view()->share('app.penduduk.surat.keterangan.print', $data);
         $pdf = PDF::loadView('app.penduduk.surat.keterangan.print', $data)
-            ->setPaper('a4', 'potrait');
+            ->setPaper(config('app.paper_size.f4'), 'potrait');
 
         return $pdf->stream($name);
         exit();
