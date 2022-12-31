@@ -274,7 +274,7 @@ class DomisiliController extends Controller
             $surat->tanggal = date('Y-m-d');
             $surat->status = $SURAT_DI_RT;
             $surat->jenis = SuratDomisili::jenis;
-            $surat->created_by = auth()->user()->id;
+            $surat->updated_by = auth()->user()->id;
             $surat->save();
 
             // body
@@ -296,7 +296,7 @@ class DomisiliController extends Controller
             $surat_body->alamat = $request->alamat;
             $surat_body->alamat_asal = $request->alamat_asal;
             $surat_body->tinggal_sejak = $request->tinggal_sejak;
-            $surat_body->created_by = auth()->user()->id;
+            $surat_body->updated_by = auth()->user()->id;
             $surat_body->save();
 
             // simpan dari penduduk ke rt
