@@ -416,7 +416,7 @@ class NikahController extends Controller
         return view('app.penduduk.surat.nikah.detail', $data);
     }
 
-    public function print(Surat $surat)
+    public function print(Surat $surat, Request $request)
     {
         $page_attr = [
             'title' => 'Detail Surat Pengantar Keterangan Nikah',
@@ -433,13 +433,16 @@ class NikahController extends Controller
         $data['compact'] = $data;
 
 
-        return view('app.penduduk.surat.nikah.print', $data);
-        view()->share('app.penduduk.surat.nikah.print', $data);
-        $pdf = PDF::loadView('app.penduduk.surat.nikah.print', $data)
-            ->setPaper(config('app.paper_size.f4'), 'potrait');
+        if (is_null($request->html)) {
+            view()->share('app.penduduk.surat.nikah.print', $data);
+            $pdf = PDF::loadView('app.penduduk.surat.nikah.print', $data)
+                ->setPaper(config('app.paper_size.f4'), 'potrait');
 
-        return $pdf->stream($name);
-        exit();
+            return $pdf->stream($name);
+            exit();
+        } else {
+            return view('app.penduduk.surat.nikah.print', $data);
+        }
     }
 
     public function perbaiki(Surat $surat)
