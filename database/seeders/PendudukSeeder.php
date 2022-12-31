@@ -225,7 +225,7 @@ class PendudukSeeder extends Seeder
 
                         $rw->created_by = 1;
                         $rw->save();
-                        $user->assignRole('Rukun Warga');
+                        $user->assignRole(config('app.role_rw'));
                     }
 
                     // ketua rt
@@ -238,7 +238,7 @@ class PendudukSeeder extends Seeder
 
                         $rt->created_by = 1;
                         $rt->save();
-                        $user->assignRole('Rukun Tetangga');
+                        $user->assignRole(config('app.role_rt'));
                     }
 
                     if ($kk > 2) {
