@@ -336,7 +336,7 @@ class DomisiliController extends Controller
         return view('app.penduduk.surat.domisili.detail', $data);
     }
 
-    public function print(Surat $surat)
+    public function print(Surat $surat, Request $request)
     {
         $page_attr = [
             'title' => 'Detail Surat Pengantar Keterangan Domisili',
@@ -352,14 +352,18 @@ class DomisiliController extends Controller
 
         $data['compact'] = $data;
 
-
-        // return view('app.penduduk.surat.domisili.print', $data);
-        view()->share('app.penduduk.surat.domisili.print', $data);
-        $pdf = PDF::loadView('app.penduduk.surat.domisili.print', $data)
-            ->setPaper(config('app.paper_size.f4'), 'potrait');
-
-        return $pdf->stream($name);
-        exit();
+        if (is_null($request->html)) {
+            $pdf = PDF::loadView('app.penduduk.surat.domisili.print', $data)
+                ->setPaper(config('app.paper_size.f4'), 'potrait');
+            if ($request->download == 1) {
+                return $pdf->download($name);
+            } else {
+                return $pdf->stream($name);
+            }
+            exit();
+        } else {
+            return view('app.penduduk.surat.domisili.print', $data);
+        }
     }
 
     public function perbaiki(Surat $surat)

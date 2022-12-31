@@ -361,7 +361,7 @@ class KeteranganController extends Controller
         return view('app.penduduk.surat.keterangan.detail', $data);
     }
 
-    public function print(Surat $surat)
+    public function print(Surat $surat, Request $request)
     {
         $page_attr = [
             'title' => 'Detail Surat Pengantar Keterangan',
@@ -373,13 +373,19 @@ class KeteranganController extends Controller
         $data = compact('page_attr', 'surat', 'name');
 
         $data['compact'] = $data;
-        // return view('app.penduduk.surat.keterangan.print', $data);
-        view()->share('app.penduduk.surat.keterangan.print', $data);
-        $pdf = PDF::loadView('app.penduduk.surat.keterangan.print', $data)
-            ->setPaper(config('app.paper_size.f4'), 'potrait');
 
-        return $pdf->stream($name);
-        exit();
+        if (is_null($request->html)) {
+            $pdf = PDF::loadView('app.penduduk.surat.keterangan.print', $data)
+                ->setPaper(config('app.paper_size.f4'), 'potrait');
+            if ($request->download == 1) {
+                return $pdf->download($name);
+            } else {
+                return $pdf->stream($name);
+            }
+            exit();
+        } else {
+            return view('app.penduduk.surat.keterangan.print', $data);
+        }
     }
 
     public function perbaiki(Surat $surat)
