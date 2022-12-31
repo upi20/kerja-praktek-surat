@@ -434,11 +434,13 @@ class NikahController extends Controller
 
 
         if (is_null($request->html)) {
-            view()->share('app.penduduk.surat.nikah.print', $data);
             $pdf = PDF::loadView('app.penduduk.surat.nikah.print', $data)
                 ->setPaper(config('app.paper_size.f4'), 'potrait');
-
-            return $pdf->stream($name);
+            if ($request->download == 1) {
+                return $pdf->download($name);
+            } else {
+                return $pdf->stream($name);
+            }
             exit();
         } else {
             return view('app.penduduk.surat.nikah.print', $data);
