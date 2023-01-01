@@ -47,7 +47,7 @@ class KelahiranController extends Controller
                 'nama_anak' => ['required', 'string'],
                 'tempat_lahir' => ['required', 'string'],
                 'tanggal_lahir' => ['required', 'date'],
-                'waktu_lahir' => ['required', 'date_format:H:i'],
+                'waktu_lahir' => ['required', 'string'],
                 'jenis_kelamin' => ['required', 'string'],
                 'anak_ke' => ['required', 'integer', 'min:1'],
                 'berat' => ['required', 'integer', 'min:1'],
