@@ -433,10 +433,8 @@ class KelahiranController extends Controller
         ];
 
         $trackings = $surat->trackings()->orderBy('waktu', 'desc')->get();
-        $ayah_umur = age(new DateTime($surat->kelahiran->ayah_tanggal_lahir), new DateTime($surat->tanggal));
-        $ibu_umur = age(new DateTime($surat->kelahiran->ibu_tanggal_lahir), new DateTime($surat->tanggal));
 
-        $data = compact('page_attr', 'surat', 'trackings', 'ayah_umur', 'ibu_umur');
+        $data = compact('page_attr', 'surat', 'trackings');
 
         $data['compact'] = $data;
         return view('app.penduduk.surat.kelahiran.detail', $data);
@@ -451,10 +449,7 @@ class KelahiranController extends Controller
 
         $name = "Surat Keterangan Kelahiran {$surat->nama_untuk_penduduk}.pdf";
 
-        $ayah_umur = age(new DateTime($surat->kelahiran->ayah_tanggal_lahir), new DateTime($surat->tanggal));
-        $ibu_umur = age(new DateTime($surat->kelahiran->ibu_tanggal_lahir), new DateTime($surat->tanggal));
-
-        $data = compact('page_attr', 'surat', 'name',  'ayah_umur', 'ibu_umur');
+        $data = compact('page_attr', 'surat', 'name');
 
         $data['compact'] = $data;
 
