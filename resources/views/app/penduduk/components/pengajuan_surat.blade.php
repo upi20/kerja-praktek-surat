@@ -69,7 +69,7 @@
     </div>
 
     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-        <a href="{{ route('penduduk.surat.domisili') }}">
+        <a href="{{ route('penduduk.surat.pindah') }}">
             <div class="card bg-danger img-card card-main">
                 <div class="card-body">
                     <div class="d-flex">
@@ -102,7 +102,7 @@
         </a>
     </div>
 
-    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+    {{-- <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
         <a href="{{ route('penduduk.surat.domisili') }}">
             <div class="card bg-purple img-card card-main">
                 <div class="card-body">
@@ -117,5 +117,5 @@
                 </div>
             </div>
         </a>
-    </div>
+    </div> --}}
 </div>

@@ -1267,6 +1267,46 @@ class PPermissionsTableSeeder extends Seeder
                 'created_at' => '2022-12-14 22:21:47',
                 'updated_at' => '2022-12-14 22:21:47',
             ),
+            156 => 
+            array (
+                'id' => 166,
+                'name' => 'penduduk.surat.domisili',
+                'guard_name' => 'web',
+                'created_at' => '2023-01-01 20:28:32',
+                'updated_at' => '2023-01-01 20:28:32',
+            ),
+            157 => 
+            array (
+                'id' => 167,
+                'name' => 'penduduk.surat.nikah',
+                'guard_name' => 'web',
+                'created_at' => '2023-01-01 20:28:40',
+                'updated_at' => '2023-01-01 20:28:40',
+            ),
+            158 => 
+            array (
+                'id' => 168,
+                'name' => 'penduduk.surat.kelahiran',
+                'guard_name' => 'web',
+                'created_at' => '2023-01-01 20:28:46',
+                'updated_at' => '2023-01-01 20:28:46',
+            ),
+            159 => 
+            array (
+                'id' => 169,
+                'name' => 'penduduk.surat.pindah',
+                'guard_name' => 'web',
+                'created_at' => '2023-01-01 20:28:52',
+                'updated_at' => '2023-01-01 20:28:52',
+            ),
+            160 => 
+            array (
+                'id' => 170,
+                'name' => 'penduduk.surat.kk',
+                'guard_name' => 'web',
+                'created_at' => '2023-01-01 20:28:57',
+                'updated_at' => '2023-01-01 20:28:57',
+            ),
         ));
         
         

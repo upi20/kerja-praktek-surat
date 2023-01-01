@@ -30,7 +30,8 @@ class SuratPindah extends Model
         'ke_kab_kota',
         'ke_kecamatan',
         'ke_desa_kel',
-        'ke_rt_rw',
+        'ke_rt',
+        'ke_rw',
         'ke_alamat_lengkap',
         'alasan_pindah',
         'jml_pengikut',
@@ -41,6 +42,7 @@ class SuratPindah extends Model
     protected $table = 'surat_pindahs';
     const tableName = 'surat_pindahs';
     const jenis = 'SURAT PINDAH';
+    const statusSuratBuat = "SURAT DIBUAT";
 
     public function surat()
     {

@@ -33,12 +33,14 @@ return new class extends Migration
             $table->string('no_passport')->nullable()->default(null);
             $table->string('kitas_kitap')->nullable()->default(null);
             $table->string('foto_ktp')->nullable()->default(null);
+            $table->text('alamat')->nullable()->default(null);
 
             $table->string('ke_provinsi')->nullable()->default(null);
             $table->string('ke_kab_kota')->nullable()->default(null);
             $table->string('ke_kecamatan')->nullable()->default(null);
             $table->string('ke_desa_kel')->nullable()->default(null);
-            $table->string('ke_rt_rw')->nullable()->default(null);
+            $table->string('ke_rt')->nullable()->default(null);
+            $table->string('ke_rw')->nullable()->default(null);
             $table->text('ke_alamat_lengkap')->nullable()->default(null);
             $table->text('alasan_pindah')->nullable()->default(null);
             $table->integer('jml_pengikut')->nullable()->default(1);

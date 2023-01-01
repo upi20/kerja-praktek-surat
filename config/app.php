@@ -269,6 +269,7 @@ return [
         'PIHAK DESA',
         'SELESAI',
         'DIBATALKAN',
+        'SURAT DIBUAT'
     ],
 
     'paper_size' => [

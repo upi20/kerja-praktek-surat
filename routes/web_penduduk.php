@@ -11,6 +11,7 @@ use App\Http\Controllers\App\Penduduk\Surat\DomisiliController;
 use App\Http\Controllers\App\Penduduk\Surat\KeteranganController;
 use App\Http\Controllers\App\Penduduk\Surat\NikahController;
 use App\Http\Controllers\App\Penduduk\Surat\KelahiranController;
+use App\Http\Controllers\App\Penduduk\Surat\PindahController;
 
 $name = 'penduduk';
 Route::get("/", [DashboardController::class, 'index'])
@@ -58,6 +59,17 @@ Route::prefix($prefix)->group(function () use ($name, $prefix) {
     $prefix = 'kelahiran';
     Route::prefix($prefix)->controller(KelahiranController::class)->group(function () use ($name, $prefix) {
         $name = "$name.$prefix"; // penduduk.surat.kelahiran
+        Route::get('/', 'index')->name($name)->middleware("permission:$name");
+        Route::post('/simpan', 'simpan')->name("$name.simpan")->middleware("permission:$name");
+        Route::post('/perbaiki_simpan', 'perbaiki_simpan')->name("$name.perbaiki_simpan")->middleware("permission:$name");
+        Route::get('/detail/{surat}', 'detail')->name("$name.detail")->middleware("permission:$name");
+        Route::get('/print/{surat}', 'print')->name("$name.print")->middleware("permission:$name");
+        Route::get('/perbaiki/{surat}', 'perbaiki')->name("$name.perbaiki")->middleware("permission:$name");
+    });
+
+    $prefix = 'pindah';
+    Route::prefix($prefix)->controller(PindahController::class)->group(function () use ($name, $prefix) {
+        $name = "$name.$prefix"; // penduduk.surat.pindah
         Route::get('/', 'index')->name($name)->middleware("permission:$name");
         Route::post('/simpan', 'simpan')->name("$name.simpan")->middleware("permission:$name");
         Route::post('/perbaiki_simpan', 'perbaiki_simpan')->name("$name.perbaiki_simpan")->middleware("permission:$name");

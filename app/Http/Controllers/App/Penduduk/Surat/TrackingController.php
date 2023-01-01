@@ -41,6 +41,7 @@ class TrackingController extends Controller
         $t_penduduk = Penduduk::tableName;
         $t_user = User::tableName;
         $t_tracking = SuratTracking::tableName;
+        $STATUS_SURAT_BARU_DIBUAT = config('app.status_surats')[6];
 
         // cusotm query
         // ========================================================================================================
@@ -140,7 +141,7 @@ class TrackingController extends Controller
             ->leftJoin("$t_user as $t_created_by", "$t_created_by.id", '=', "$table.created_by")
             ->leftJoin("$t_user as $t_updated_by", "$t_updated_by.id", '=', "$table.updated_by")
             ->leftJoin($t_penduduk, "$t_penduduk.id", '=', "$table.penduduk_id");
-        $model->whereRaw("($table.penduduk_id = '$penduduk_id' or $table.untuk_penduduk_id = '$penduduk_id')");
+        $model->whereRaw("($table.penduduk_id = '$penduduk_id' or $table.untuk_penduduk_id = '$penduduk_id') and ($table.status != '$STATUS_SURAT_BARU_DIBUAT')");
         // Filter =====================================================================================================
         // filter check
         $f_c = function (string $param) use ($request): mixed {
