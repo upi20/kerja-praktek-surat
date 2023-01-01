@@ -52,78 +52,58 @@
                     </tr>
                 @endif
 
-                {{-- calon a --}}
+                {{-- Anak --}}
                 <tr>
                     <td colspan="3"></td>
                 </tr>
                 <tr>
                     <td>
-                        <h4 class="card-title mb-1">Calon A </h4>
+                        <h4 class="card-title mb-1">Nama Anak</h4>
                     </td>
                     <td>:</td>
                     <td>
-                        {{ $surat->nikah->calon_a }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Nomor Induk Kependudukan</td>
-                    <td>:</td>
-                    <td>
-                        {{ $surat->nikah->anak_nik }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>No. Kartu Keluarga</td>
-                    <td>:</td>
-                    <td>
-                        {{ $surat->nikah->anak_no_kk }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Nama</td>
-                    <td>:</td>
-                    <td>
-                        {{ $surat->nikah->anak_nama }}
+                        {{ $surat->kelahiran->nama_anak }}
                     </td>
                 </tr>
                 <tr>
                     <td>Tempat, Tanggal lahir</td>
                     <td>:</td>
                     <td>
-                        {{ $surat->nikah->anak_tempat_lahir }} ,
-                        {{ Carbon\Carbon::parse($surat->nikah->anak_tanggal_lahir)->isoFormat('dddd, D MMMM Y') }}
+                        {{ $surat->kelahiran->tempat_lahir }} ,
+                        {{ Carbon\Carbon::parse($surat->kelahiran->tanggal_lahir)->isoFormat('D MMMM Y') }}
                     </td>
                 </tr>
                 <tr>
-                    <td>Warganegara</td>
+                    <td>Hari</td>
                     <td>:</td>
-                    <td>{{ $surat->nikah->anak_warga_negara == 'WNI' ? 'INDONESIA' : $surat->nikah->anak_negara_nama }}
+                    <td>
+                        {{ Carbon\Carbon::parse($surat->kelahiran->tanggal_lahir)->isoFormat('dddd') }}
                     </td>
                 </tr>
                 <tr>
-                    <td>Agama</td>
+                    <td>Pukul</td>
                     <td>:</td>
-                    <td>{{ $surat->nikah->anak_agama }}</td>
+                    <td>{{ date('H:i', strtotime($surat->kelahiran->waktu)) }}</td>
                 </tr>
                 <tr>
-                    <td>Status Perkawinan</td>
+                    <td>Jenis Kelamin</td>
                     <td>:</td>
-                    <td>{{ $surat->nikah->anak_status_kawin }}</td>
+                    <td>{{ $surat->kelahiran->jenis_kelamin }}</td>
                 </tr>
                 <tr>
-                    <td>Pendidikan Terakhir</td>
+                    <td>Anak Ke</td>
                     <td>:</td>
-                    <td>{{ $surat->nikah->anak_pendidikan }}</td>
+                    <td>{{ $surat->kelahiran->anak_ke }}</td>
                 </tr>
                 <tr>
-                    <td>Pekerjaan</td>
+                    <td>Berat</td>
                     <td>:</td>
-                    <td>{{ $surat->nikah->anak_pekerjaan }}</td>
+                    <td>{{ $surat->kelahiran->berat }} <b>GRAM</b></td>
                 </tr>
                 <tr>
-                    <td>Alamat</td>
+                    <td>Panjang</td>
                     <td>:</td>
-                    <td>{{ $surat->nikah->anak_alamat }}</td>
+                    <td>{{ $surat->kelahiran->panjang }} <b>CM</b></td>
                 </tr>
 
                 {{-- orang tua --}}
@@ -133,7 +113,6 @@
                 <tr>
                     <td colspan="3">
                         <h4 class="card-title mb-1">Orang Tua</h4>
-                        Data diatas adalah betul anak kandung dari seorang <b>Ayah</b> dan <b>Ibu</b>
                     </td>
                 </tr>
 
@@ -147,44 +126,38 @@
                     <td>Nomor Induk Kependudukan</td>
                     <td>:</td>
                     <td>
-                        {{ $surat->nikah->ayah_nik }}
+                        {{ $surat->kelahiran->ayah_nik }}
                     </td>
                 </tr>
                 <tr>
                     <td>Nama <b>Ayah</b></td>
                     <td>:</td>
                     <td>
-                        {{ $surat->nikah->ayah_nama }}
+                        {{ $surat->kelahiran->ayah_nama }}
                     </td>
                 </tr>
                 <tr>
-                    <td>Tanggal lahir/Umur</td>
+                    <td>Tempat, Tanggal lahir</td>
                     <td>:</td>
                     <td>
-                        {{ Carbon\Carbon::parse($surat->nikah->ayah_tanggal_lahir)->isoFormat('dddd, D MMMM Y') }} /
-                        {{ $ayah_umur }} Tahun
-                    </td>
-                </tr>
-                <tr>
-                    <td>Warganegara</td>
-                    <td>:</td>
-                    <td>{{ $surat->nikah->ayah_warga_negara == 'WNI' ? 'INDONESIA' : $surat->nikah->ayah_negara_nama }}
+                        {{ $surat->kelahiran->ayah_tempat_lahir }} ,
+                        {{ Carbon\Carbon::parse($surat->kelahiran->ayah_tanggal_lahir)->isoFormat('dddd, D MMMM Y') }}
                     </td>
                 </tr>
                 <tr>
                     <td>Agama</td>
                     <td>:</td>
-                    <td>{{ $surat->nikah->ayah_agama }}</td>
+                    <td>{{ $surat->kelahiran->ayah_agama }}</td>
                 </tr>
                 <tr>
                     <td>Pekerjaan</td>
                     <td>:</td>
-                    <td>{{ $surat->nikah->ayah_pekerjaan }}</td>
+                    <td>{{ $surat->kelahiran->ayah_pekerjaan }}</td>
                 </tr>
                 <tr>
                     <td>Alamat</td>
                     <td>:</td>
-                    <td>{{ $surat->nikah->ayah_alamat }}</td>
+                    <td>{{ $surat->kelahiran->ayah_alamat }}</td>
                 </tr>
 
 
@@ -199,135 +172,38 @@
                     <td>Nomor Induk Kependudukan</td>
                     <td>:</td>
                     <td>
-                        {{ $surat->nikah->ibu_nik }}
+                        {{ $surat->kelahiran->ibu_nik }}
                     </td>
                 </tr>
                 <tr>
-                    <td>Nama <b>Ayah</b></td>
+                    <td>Nama <b>Ibu</b></td>
                     <td>:</td>
                     <td>
-                        {{ $surat->nikah->ibu_nama }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Tanggal lahir/Umur</td>
-                    <td>:</td>
-                    <td>
-                        {{ Carbon\Carbon::parse($surat->nikah->ibu_tanggal_lahir)->isoFormat('dddd, D MMMM Y') }} /
-                        {{ $ibu_umur }} Tahun
-                    </td>
-                </tr>
-                <tr>
-                    <td>Warganegara</td>
-                    <td>:</td>
-                    <td>{{ $surat->nikah->ibu_warga_negara == 'WNI' ? 'INDONESIA' : $surat->nikah->ibu_negara_nama }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Agama</td>
-                    <td>:</td>
-                    <td>{{ $surat->nikah->ibu_agama }}</td>
-                </tr>
-                <tr>
-                    <td>Pekerjaan</td>
-                    <td>:</td>
-                    <td>{{ $surat->nikah->ibu_pekerjaan }}</td>
-                </tr>
-                <tr>
-                    <td>Alamat</td>
-                    <td>:</td>
-                    <td>{{ $surat->nikah->ibu_alamat }}</td>
-                </tr>
-
-                {{-- Keterangan --}}
-                <tr>
-                    <td colspan="3"></td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        <h4 class="card-title mb-1">Keterangan </h4>
-                        Orang tersebut diatas akan melangsungkan pernikahan pada
-                        Hari: <b>{{ Carbon\Carbon::parse($surat->nikah->tanggal)->isoFormat('dddd') }}</b>
-                        Tanggal: <b>{{ Carbon\Carbon::parse($surat->nikah->tanggal)->isoFormat('D MMMM Y') }}</b>
-                        Pukul: <b>{{ date('H:i', strtotime($surat->nikah->waktu)) }}</b>
-                        Dengan Seorang <b>{{ $surat->nikah->dengan_seorang }}</b>
-
-                    </td>
-                </tr>
-
-
-                {{-- calon b --}}
-                <tr>
-                    <td colspan="3"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <h4 class="card-title mb-1">Calon B </h4>
-                    </td>
-                    <td>:</td>
-                    <td>
-                        {{ $surat->nikah->calon_b }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Nomor Induk Kependudukan</td>
-                    <td>:</td>
-                    <td>
-                        {{ $surat->nikah->calon_nik }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>No. Kartu Keluarga</td>
-                    <td>:</td>
-                    <td>
-                        {{ $surat->nikah->calon_no_kk }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Nama</td>
-                    <td>:</td>
-                    <td>
-                        {{ $surat->nikah->calon_nama }}
+                        {{ $surat->kelahiran->ibu_nama }}
                     </td>
                 </tr>
                 <tr>
                     <td>Tempat, Tanggal lahir</td>
                     <td>:</td>
                     <td>
-                        {{ $surat->nikah->calon_tempat_lahir }} ,
-                        {{ Carbon\Carbon::parse($surat->nikah->calon_tanggal_lahir)->isoFormat('dddd, D MMMM Y') }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Warganegara</td>
-                    <td>:</td>
-                    <td>{{ $surat->nikah->calon_warga_negara == 'WNI' ? 'INDONESIA' : $surat->nikah->calon_negara_nama }}
+                        {{ $surat->kelahiran->ibu_tempat_lahir }} ,
+                        {{ Carbon\Carbon::parse($surat->kelahiran->ibu_tanggal_lahir)->isoFormat('dddd, D MMMM Y') }}
                     </td>
                 </tr>
                 <tr>
                     <td>Agama</td>
                     <td>:</td>
-                    <td>{{ $surat->nikah->calon_agama }}</td>
-                </tr>
-                <tr>
-                    <td>Status Perkawinan</td>
-                    <td>:</td>
-                    <td>{{ $surat->nikah->calon_status_kawin }}</td>
-                </tr>
-                <tr>
-                    <td>Pendidikan Terakhir</td>
-                    <td>:</td>
-                    <td>{{ $surat->nikah->calon_pendidikan }}</td>
+                    <td>{{ $surat->kelahiran->ibu_agama }}</td>
                 </tr>
                 <tr>
                     <td>Pekerjaan</td>
                     <td>:</td>
-                    <td>{{ $surat->nikah->calon_pekerjaan }}</td>
+                    <td>{{ $surat->kelahiran->ibu_pekerjaan }}</td>
                 </tr>
                 <tr>
                     <td>Alamat</td>
                     <td>:</td>
-                    <td>{{ $surat->nikah->calon_alamat }}</td>
+                    <td>{{ $surat->kelahiran->ibu_alamat }}</td>
                 </tr>
             </table>
         </div>

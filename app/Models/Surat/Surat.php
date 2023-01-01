@@ -83,4 +83,9 @@ class Surat extends Model
     {
         return $this->hasOne(SuratNikah::class, 'surat_id', 'id');
     }
+
+    public function kelahiran()
+    {
+        return $this->hasOne(SuratKelahiran::class, 'surat_id', 'id');
+    }
 }
