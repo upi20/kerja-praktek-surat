@@ -17,12 +17,12 @@
                     </label>
                     <div class="col-sm-9 d-flex flex-row">
                         <span style="display: none;" id="rt_rw_text"></span>
-                        <div class="w-100">
-                            <input type="number" class="form-control me-lg-2" placeholder="Rukun Tetangga"
+                        <div class="w-100 me-2">
+                            <input type="number" class="form-control" placeholder="Rukun Tetangga"
                                 value="{{ $surat->rt->nomor }}" id="rt" name="rt"required>
                         </div>
                         <div class="w-100">
-                            <input type="number" class="form-control me-lg-2" placeholder="Rukun Warga"
+                            <input type="number" class="form-control" placeholder="Rukun Warga"
                                 value="{{ $surat->rw->nomor }}" id="rw" name="rw"required>
                         </div>
                     </div>
@@ -88,8 +88,8 @@
                             <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9 d-flex flex-row">
-                            <div class="w-100">
-                                <input type="text" class="form-control me-lg-2" placeholder="Tempat Lahir"
+                            <div class="w-100  me-2">
+                                <input type="text" class="form-control" placeholder="Tempat Lahir"
                                     id="anak_tempat_lahir" value="{{ $surat->nikah->anak_tempat_lahir }}"
                                     name="anak_tempat_lahir"required>
                             </div>
@@ -449,7 +449,7 @@
                         <span class="text-danger">*</span>
                     </label>
                     <div class="col-sm-9 d-flex flex-row">
-                        <div class="w-100">
+                        <div class="w-100 me-2">
                             <input class="form-control date-input-str" type="date" id="tanggal" name="tanggal"
                                 value="{{ $surat->nikah->tanggal }}" required>
                         </div>
@@ -498,7 +498,7 @@
                         </label>
                         <div class="col-sm-9 d-flex flex-row justify-content-between">
                             <span style="display: none;" id="calon_nik_text">{{ $surat->nikah->calon_nik_text }}</span>
-                            <div class="w-100">
+                            <div class="w-100 me-2">
                                 <input type="number" class="form-control" placeholder="Nomor Induk Kependudukan"
                                     id="calon_nik" value="{{ $surat->nikah->calon_nik }}" name="calon_nik" required>
                             </div>
@@ -538,8 +538,8 @@
                             <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9 d-flex flex-row">
-                            <div class="w-100">
-                                <input type="text" class="form-control me-lg-2" placeholder="Tempat Lahir"
+                            <div class="w-100 me-2">
+                                <input type="text" class="form-control" placeholder="Tempat Lahir"
                                     id="calon_tempat_lahir" value="{{ $surat->nikah->calon_tempat_lahir }}"
                                     name="calon_tempat_lahir"required>
                             </div>

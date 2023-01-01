@@ -15,12 +15,12 @@
                     </label>
                     <div class="col-sm-9 d-flex flex-row">
                         <span style="display: none;" id="rt_rw_text"></span>
-                        <div class="w-100">
-                            <input type="number" class="form-control me-lg-2" placeholder="Rukun Tetangga"
+                        <div class="w-100 me-2">
+                            <input type="number" class="form-control" placeholder="Rukun Tetangga"
                                 value="{{ $surat->rt->nomor }}" id="rt" name="rt"required>
                         </div>
                         <div class="w-100">
-                            <input type="number" class="form-control me-lg-2" placeholder="Rukun Warga"
+                            <input type="number" class="form-control" placeholder="Rukun Warga"
                                 value="{{ $surat->rw->nomor }}" id="rw" name="rw"required>
                         </div>
                     </div>
@@ -65,8 +65,8 @@
                     </label>
                     <div class="col-sm-9 d-flex flex-row">
                         <span style="display: none;" id="ttl_text"></span>
-                        <div class="w-100">
-                            <input type="text" class="form-control me-lg-2" placeholder="Tempat Lahir" id="tempat_lahir"
+                        <div class="w-100 me-2">
+                            <input type="text" class="form-control" placeholder="Tempat Lahir" id="tempat_lahir"
                                 name="tempat_lahir"required value="{{ $surat->domisili->tempat_lahir }}">
                         </div>
                         <div>

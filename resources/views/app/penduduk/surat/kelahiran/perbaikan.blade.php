@@ -17,12 +17,12 @@
                     </label>
                     <div class="col-sm-9 d-flex flex-row">
                         <span style="display: none;" id="rt_rw_text"></span>
-                        <div class="w-100">
-                            <input type="number" class="form-control me-lg-2" placeholder="Rukun Tetangga"
+                        <div class="w-100 me-2">
+                            <input type="number" class="form-control" placeholder="Rukun Tetangga"
                                 value="{{ $surat->rt->nomor }}" id="rt" name="rt"required>
                         </div>
                         <div class="w-100">
-                            <input type="number" class="form-control me-lg-2" placeholder="Rukun Warga"
+                            <input type="number" class="form-control" placeholder="Rukun Warga"
                                 value="{{ $surat->rw->nomor }}" id="rw" name="rw"required>
                         </div>
                     </div>
@@ -46,10 +46,9 @@
                             <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9 d-flex flex-row">
-                            <div class="w-100">
-                                <input type="text" class="form-control me-lg-2" placeholder="Tempat Lahir"
-                                    id="tempat_lahir" value="{{ $surat->kelahiran->tempat_lahir }}"
-                                    name="tempat_lahir"required>
+                            <div class="w-100 me-2">
+                                <input type="text" class="form-control" placeholder="Tempat Lahir" id="tempat_lahir"
+                                    value="{{ $surat->kelahiran->tempat_lahir }}" name="tempat_lahir"required>
                             </div>
                             <div>
                                 <input type="date" class="form-control date-input-str" placeholder="Tanggal Lahir"
@@ -94,24 +93,6 @@
                         <div class="col-sm-9 d-flex flex-row">
                             <input class="form-control" placeholder="Anak ke" type="number" min="1"
                                 id="anak_ke" name="anak_ke" value="{{ $surat->kelahiran->anak_ke }}" required>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="dengan_seorang" class="col-sm-3 col-form-label">Jenis Kelamin
-                            <span class="text-danger">*</span></label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="dengan_seorang" name="dengan_seorang">
-                                <option value="">Pilih Jenis Kelamin</option>
-                                <option value="LAKI-LAKI"
-                                    {{ $surat->kelahiran->dengan_seorang == 'LAKI-LAKI' ? 'selected' : '' }}>
-                                    LAKI-LAKI
-                                </option>
-                                <option value="PEREMPUAN"
-                                    {{ $surat->kelahiran->dengan_seorang == 'PEREMPUAN' ? 'selected' : '' }}>
-                                    PEREMPUAN
-                                </option>
-                            </select>
                         </div>
                     </div>
 
@@ -180,8 +161,8 @@
                             <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9 d-flex flex-row">
-                            <div class="w-100">
-                                <input type="text" class="form-control me-lg-2" placeholder="Tempat Lahir"
+                            <div class="w-100 me-2">
+                                <input type="text" class="form-control" placeholder="Tempat Lahir"
                                     id="ayah_tempat_lahir" value="{{ $surat->kelahiran->ayah_tempat_lahir }}"
                                     name="ayah_tempat_lahir"required>
                             </div>
@@ -275,8 +256,8 @@
                             <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9 d-flex flex-row">
-                            <div class="w-100">
-                                <input type="text" class="form-control me-lg-2" placeholder="Tempat Lahir"
+                            <div class="w-100 me-2">
+                                <input type="text" class="form-control" placeholder="Tempat Lahir"
                                     id="ibu_tempat_lahir" value="{{ $surat->kelahiran->ibu_tempat_lahir }}"
                                     name="ibu_tempat_lahir"required>
                             </div>

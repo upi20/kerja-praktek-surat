@@ -14,7 +14,7 @@
                         <span class="text-danger">*</span>
                     </label>
                     <div class="col-sm-9 d-flex flex-row">
-                        <div class="w-100 me-1">
+                        <div class="w-100 me-2">
                             <input type="number" class="form-control me-lg-2" placeholder="Rukun Tetangga" value=""
                                 id="rt" name="rt"required>
                         </div>
@@ -43,7 +43,7 @@
                             <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9 d-flex flex-row">
-                            <div class="w-100 me-1">
+                            <div class="w-100 me-2">
                                 <input type="text" class="form-control me-lg-2" placeholder="Tempat Lahir" value=""
                                     id="tempat_lahir" name="tempat_lahir"required>
                             </div>
@@ -91,7 +91,7 @@
                             <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9 d-flex flex-row">
-                            <div class="w-100 me-1">
+                            <div class="w-100 me-2">
                                 <div class="input-group">
                                     <input type="number" min="1" class="form-control" placeholder="Berat"
                                         id="berat" name="berat" required="">
@@ -152,7 +152,7 @@
                             <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9 d-flex flex-row">
-                            <div class="w-100 me-1">
+                            <div class="w-100 me-2">
                                 <input type="text" class="form-control me-lg-2" placeholder="Tempat Lahir"
                                     value="" id="ayah_tempat_lahir" name="ayah_tempat_lahir"required>
                             </div>
@@ -239,7 +239,7 @@
                             <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9 d-flex flex-row">
-                            <div class="w-100 me-1">
+                            <div class="w-100 me-2">
                                 <input type="text" class="form-control me-lg-2" placeholder="Tempat Lahir"
                                     value="" id="ibu_tempat_lahir" name="ibu_tempat_lahir"required>
                             </div>

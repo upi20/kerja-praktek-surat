@@ -15,9 +15,9 @@
                     </label>
                     <div class="col-sm-9 d-flex flex-row">
                         <span style="display: none;" id="rt_rw_text"></span>
-                        <div class="w-100"><input type="number" class="form-control me-lg-2" placeholder="Rukun Tetangga"
+                        <div class="w-100 me-2"><input type="number" class="form-control" placeholder="Rukun Tetangga"
                                 value="" id="rt" name="rt"required></div>
-                        <div class="w-100"><input type="number" class="form-control me-lg-2" placeholder="Rukun Warga"
+                        <div class="w-100"><input type="number" class="form-control" placeholder="Rukun Warga"
                                 value="" id="rw" name="rw"required>
                         </div>
                     </div>
@@ -60,8 +60,8 @@
                     </label>
                     <div class="col-sm-9 d-flex flex-row">
                         <span style="display: none;" id="ttl_text"></span>
-                        <div class="w-100">
-                            <input type="text" class="form-control me-lg-2" placeholder="Tempat Lahir" value=""
+                        <div class="w-100 me-2">
+                            <input type="text" class="form-control" placeholder="Tempat Lahir" value=""
                                 id="tempat_lahir" name="tempat_lahir"required>
                         </div>
                         <div>

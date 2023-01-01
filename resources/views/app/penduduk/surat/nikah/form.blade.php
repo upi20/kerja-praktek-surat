@@ -14,12 +14,12 @@
                         <span class="text-danger">*</span>
                     </label>
                     <div class="col-sm-9 d-flex flex-row">
-                        <div class="w-100">
-                            <input type="number" class="form-control me-lg-2" placeholder="Rukun Tetangga" value=""
+                        <div class="w-100 me-2">
+                            <input type="number" class="form-control " placeholder="Rukun Tetangga" value=""
                                 id="rt" name="rt"required>
                         </div>
                         <div class="w-100">
-                            <input type="number" class="form-control me-lg-2" placeholder="Rukun Warga" value=""
+                            <input type="number" class="form-control " placeholder="Rukun Warga" value=""
                                 id="rw" name="rw"required>
                         </div>
                     </div>
@@ -84,9 +84,9 @@
                             <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9 d-flex flex-row">
-                            <div class="w-100">
-                                <input type="text" class="form-control me-lg-2" placeholder="Tempat Lahir"
-                                    value="" id="anak_tempat_lahir" name="anak_tempat_lahir"required>
+                            <div class="w-100 me-2">
+                                <input type="text" class="form-control " placeholder="Tempat Lahir" value=""
+                                    id="anak_tempat_lahir" name="anak_tempat_lahir"required>
                             </div>
                             <div>
                                 <input type="date" class="form-control date-input-str" placeholder="Tanggal Lahir"
@@ -398,7 +398,7 @@
                         <span class="text-danger">*</span>
                     </label>
                     <div class="col-sm-9 d-flex flex-row">
-                        <div class="w-100">
+                        <div class="w-100 me-2">
                             <input class="form-control date-input-str" type="date" id="tanggal" name="tanggal"
                                 required>
                         </div>
@@ -479,9 +479,9 @@
                             <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9 d-flex flex-row">
-                            <div class="w-100">
-                                <input type="text" class="form-control me-lg-2" placeholder="Tempat Lahir"
-                                    value="" id="calon_tempat_lahir" name="calon_tempat_lahir"required>
+                            <div class="w-100 me-2">
+                                <input type="text" class="form-control " placeholder="Tempat Lahir" value=""
+                                    id="calon_tempat_lahir" name="calon_tempat_lahir"required>
                             </div>
                             <div>
                                 <input type="date" class="form-control date-input-str" placeholder="Tanggal Lahir"
