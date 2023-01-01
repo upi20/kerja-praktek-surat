@@ -74,7 +74,7 @@
         <tr>
             <td style="white-space: nowrap">Nama</td>
             <td>:</td>
-            <td>{{ $surat->nama_untuk_penduduk }}</td>
+            <td>{{ $surat->keterangan->nama }}</td>
         </tr>
         <tr>
             <td style="white-space: nowrap">Tempat/Tgl. lahir</td>
@@ -112,7 +112,7 @@
         <tr>
             <td style="white-space: nowrap">No. KTP/KTP Sementara</td>
             <td>:</td>
-            <td>{{ $surat->nik_untuk_penduduk }}</td>
+            <td>{{ $surat->keterangan->nik }}</td>
         </tr>
         <tr>
             <td style="white-space: nowrap">Pekerjaan</td>
