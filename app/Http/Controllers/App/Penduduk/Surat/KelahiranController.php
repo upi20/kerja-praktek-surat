@@ -484,12 +484,10 @@ class KelahiranController extends Controller
 
         $nik_ayah_ada = Penduduk::where('nik', $surat->kelahiran->ayah_nik)->count() > 0;
         $nik_ibu_ada = Penduduk::where('nik', $surat->kelahiran->ibu_nik)->count() > 0;
-        $nik_anak_ada = Penduduk::where('nik', $surat->kelahiran->anak_nik)->count() > 0;
-        $nik_calon_ada = Penduduk::where('nik', $surat->kelahiran->calon_nik)->count() > 0;
 
         // get surat current
         $penduduk = auth()->user()->penduduk;
-        $data =  compact('page_attr', 'hub_dgn_kks', 'pendidikans', 'pekerjaans', 'agamas', 'penduduk', 'surat', 'nik_calon_ada', 'nik_anak_ada', 'nik_ibu_ada', 'nik_ayah_ada');
+        $data =  compact('page_attr', 'hub_dgn_kks', 'pendidikans', 'pekerjaans', 'agamas', 'penduduk', 'surat',  'nik_ibu_ada', 'nik_ayah_ada');
         $data['compact'] = $data;
         return view('app.penduduk.surat.kelahiran.perbaikan', $data);
     }

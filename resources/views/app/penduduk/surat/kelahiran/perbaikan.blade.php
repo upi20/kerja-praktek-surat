@@ -10,7 +10,7 @@
         <div class="card-body">
             <form action="javascript:void(0)" id="MainForm" name="MainForm" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="id" id="id" value="{{ $surat->id }}">
-                <input type="hidden" name="surat_detail_id" id="surat_detail_id" value="{{ $surat->nikah->id }}">
+                <input type="hidden" name="surat_detail_id" id="surat_detail_id" value="{{ $surat->kelahiran->id }}">
                 <div class="row mb-3">
                     <label for="rw" class="col-sm-3 col-form-label">RT/RW
                         <span class="text-danger">*</span>
@@ -27,201 +27,132 @@
                         </div>
                     </div>
                 </div>
-
                 <hr>
                 {{-- calon a --}}
-                <h4 class="card-title mb-1">Calon A</h4>
+                <h4 class="card-title mb-1">Anak</h4>
                 <div class="ms-md-3 ms-sm-1">
                     <div class="row mb-3">
-                        <label for="calon_a" class="col-sm-3 col-form-label">Calon
+                        <label for="nama_anak" class="col-sm-3 col-form-label">Nama
                             <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="Contoh: Mempelai Wanita" id="calon_a"
-                                name="calon_a" value="{{ $surat->nikah->calon_a }}" required>
+                            <input type="text" class="form-control" placeholder="Nama" id="nama_anak"
+                                value="{{ $surat->kelahiran->nama_anak }}" name="nama_anak" required>
                         </div>
                     </div>
 
                     <div class="row mb-3">
-                        <label for="anak_nik" class="col-sm-3 col-form-label">Nomor Induk Kependudukan
-                            <span class="text-danger">*</span>
-                        </label>
-                        <div class="col-sm-9 d-flex flex-row justify-content-between">
-                            <span style="display: none;" id="anak_nik_text">{{ $surat->nikah->anak_nik_text }}</span>
-                            <div class="w-100">
-                                <input type="number" class="form-control" placeholder="Nomor Induk Kependudukan"
-                                    id="anak_nik" value="{{ $surat->nikah->anak_nik }}" name="anak_nik" required>
-                            </div>
-                            <div class="ms-2" id="btn_cari_anak_nik">
-                                <button type="button" class="btn btn-primary" onclick="cek_nik('anak')">
-                                    <i class="fas fa-search me-2"></i>Cari</button>
-                            </div>
-                            <div class="ms-2" id="btn_reset_anak_nik" style="display: none">
-                                <button type="button" class="btn btn-danger" onclick="reset_form('anak')">
-                                    <i class="fas fa-times me-2"></i>Reset</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="anak_no_kk" class="col-sm-3 col-form-label">No. Kartu Keluarga
-                            <span class="text-danger">*</span>
-                        </label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="No. Kartu Keluarga" id="anak_no_kk"
-                                value="{{ $surat->nikah->anak_no_kk }}" name="anak_no_kk" required>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="anak_nama" class="col-sm-3 col-form-label">Nama Lengkap
-                            <span class="text-danger">*</span>
-                        </label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="Nama Lengkap" id="anak_nama"
-                                value="{{ $surat->nikah->anak_nama }}" name="anak_nama" required>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="anak_tempat_lahir" class="col-sm-3 col-form-label">Tempat, Tanggal lahir
+                        <label for="tempat_lahir" class="col-sm-3 col-form-label">Tempat, Tanggal lahir
                             <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9 d-flex flex-row">
                             <div class="w-100">
                                 <input type="text" class="form-control me-lg-2" placeholder="Tempat Lahir"
-                                    id="anak_tempat_lahir" value="{{ $surat->nikah->anak_tempat_lahir }}"
-                                    name="anak_tempat_lahir"required>
+                                    id="tempat_lahir" value="{{ $surat->kelahiran->tempat_lahir }}"
+                                    name="tempat_lahir"required>
                             </div>
                             <div>
                                 <input type="date" class="form-control date-input-str" placeholder="Tanggal Lahir"
-                                    id="anak_tanggal_lahir" value="{{ $surat->nikah->anak_tanggal_lahir }}"
-                                    name="anak_tanggal_lahir" required>
+                                    id="tanggal_lahir" value="{{ $surat->kelahiran->tanggal_lahir }}" name="tanggal_lahir"
+                                    required>
                             </div>
                         </div>
                     </div>
 
-
                     <div class="row mb-3">
-                        <label for="anak_warga_negara" class="col-sm-3 col-form-label">Kewarganegaraan
-                            <span class="text-danger">*</span></label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="anak_warga_negara" name="anak_warga_negara" required>
-                                <option value="">Pilih Kewarganegaraan</option>
-                                <option value="WNI" {{ $surat->nikah->anak_warga_negara == 'WNI' ? 'selected' : '' }}>
-                                    Warga Negara Indonesia
-                                </option>
-                                <option value="WNA" {{ $surat->nikah->anak_warga_negara == 'WNA' ? 'selected' : '' }}>
-                                    Warga Negara Asing
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="anak_negara_nama" class="col-sm-3 col-form-label">Nama Negara
+                        <label for="waktu_lahir" class="col-sm-3 col-form-label">Pukul
                             <span class="text-danger">*</span>
                         </label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="Negara Asal Penduduk"
-                                id="anak_negara_nama" value="{{ $surat->nikah->anak_negara_nama }}"
-                                name="anak_negara_nama" required>
+                        <div class="col-sm-9 d-flex flex-row">
+                            <input class="form-control" type="time" id="waktu_lahir" name="waktu_lahir"
+                                value="{{ $surat->kelahiran->waktu_lahir }}" required>
                         </div>
                     </div>
 
                     <div class="row mb-3">
-                        <label for="anak_agama" class="col-sm-3 col-form-label">Agama
+                        <label for="jenis_kelamin" class="col-sm-3 col-form-label">Jenis Kelamin
                             <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                            <select class="form-control" id="anak_agama" name="anak_agama">
-                                <option value="">Pilih Agama</option>
-                                @foreach ($agamas as $agama)
-                                    <option value="{{ $agama }}"
-                                        {{ $surat->nikah->anak_agama == $agama ? 'selected' : '' }}>
-                                        {{ $agama }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="anak_status_kawin" class="col-sm-3 col-form-label">Status Perkawinan
-                            <span class="text-danger">*</span></label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="anak_status_kawin" name="anak_status_kawin" required>
-                                <option value="">Pilih Status Perkawinan</option>
-                                <option value="KAWIN"
-                                    {{ $surat->nikah->anak_status_kawin == 'KAWIN' ? 'selected' : '' }}>
-                                    KAWIN
+                            <select class="form-control" id="jenis_kelamin" name="jenis_kelamin">
+                                <option value="">Pilih Jenis Kelamin</option>
+                                <option value="LAKI-LAKI"
+                                    {{ $surat->kelahiran->jenis_kelamin == 'LAKI-LAKI' ? 'selected' : '' }}>
+                                    LAKI-LAKI
                                 </option>
-                                <option value="BELUM KAWIN"
-                                    {{ $surat->nikah->anak_status_kawin == 'BELUM KAWIN' ? 'selected' : '' }}>
-                                    BELUM KAWIN
+                                <option value="PEREMPUAN"
+                                    {{ $surat->kelahiran->jenis_kelamin == 'PEREMPUAN' ? 'selected' : '' }}>
+                                    PEREMPUAN
                                 </option>
                             </select>
                         </div>
                     </div>
 
                     <div class="row mb-3">
-                        <label for="anak_pendidikan" class="col-sm-3 col-form-label">Pendidikan
-                            <span class="text-danger">*</span></label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="anak_pendidikan" name="anak_pendidikan" required>
-                                <option value="">Pilih Pendidikan</option>
-                                @foreach ($pendidikans as $pendidikan)
-                                    <option value="{{ $pendidikan }}"
-                                        {{ $surat->nikah->anak_pendidikan == $pendidikan ? 'selected' : '' }}>
-                                        {{ $pendidikan }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="anak_pekerjaan" class="col-sm-3 col-form-label">Pekerjaan
-                            <span class="text-danger">*</span></label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="anak_pekerjaan" name="anak_pekerjaan" required>
-                                <option value="">Pilih Pekerjaan</option>
-                                @foreach ($pekerjaans as $pekerjaan)
-                                    <option value="{{ $pekerjaan }}"
-                                        {{ $surat->nikah->anak_pekerjaan ? 'selected' : '' }}>
-                                        {{ $pekerjaan }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="anak_alamat" class="col-sm-3 col-form-label">Alamat
+                        <label for="anak_ke" class="col-sm-3 col-form-label">Anak Ke
                             <span class="text-danger">*</span>
                         </label>
+                        <div class="col-sm-9 d-flex flex-row">
+                            <input class="form-control" placeholder="Anak ke" type="number" min="1"
+                                id="anak_ke" name="anak_ke" value="{{ $surat->kelahiran->anak_ke }}" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="dengan_seorang" class="col-sm-3 col-form-label">Jenis Kelamin
+                            <span class="text-danger">*</span></label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" placeholder="Alamat" id="anak_alamat" name="anak_alamat" required>{{ $surat->nikah->anak_alamat }}</textarea>
+                            <select class="form-control" id="dengan_seorang" name="dengan_seorang">
+                                <option value="">Pilih Jenis Kelamin</option>
+                                <option value="LAKI-LAKI"
+                                    {{ $surat->kelahiran->dengan_seorang == 'LAKI-LAKI' ? 'selected' : '' }}>
+                                    LAKI-LAKI
+                                </option>
+                                <option value="PEREMPUAN"
+                                    {{ $surat->kelahiran->dengan_seorang == 'PEREMPUAN' ? 'selected' : '' }}>
+                                    PEREMPUAN
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="berat" class="col-sm-3 col-form-label">Berat & Panjang
+                            <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-sm-9 d-flex flex-row">
+                            <div class="w-100 me-1">
+                                <div class="input-group">
+                                    <input type="number" min="1" class="form-control" placeholder="Berat"
+                                        id="berat" name="berat" value="{{ $surat->kelahiran->berat }}" required>
+                                    <span class="input-group-text">GRAM</span>
+                                </div>
+                            </div>
+                            <div class="w-100">
+                                <div class="input-group">
+                                    <input type="number" min="1" class="form-control" placeholder="panjang"
+                                        id="panjang" name="panjang" value="{{ $surat->kelahiran->panjang }}" required>
+                                    <span class="input-group-text">CM</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <hr>
                 <h4 class="card-title mb-1">Orang Tua</h4>
-                <small>Data diatas adalah betul anak kandung dari seorang <b>Ayah</b> dan <b>Ibu</b></small>
 
                 {{-- ayah --}}
                 <div class="ms-md-4 ms-sm-1">
                     <h4 class="card-title mb-1">Ayah</h4>
-
                     <div class="row mb-3">
                         <label for="ayah_nik" class="col-sm-3 col-form-label">Nomor Induk Kependudukan
                             <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9 d-flex flex-row justify-content-between">
-                            <span style="display: none;" id="ayah_nik_text">{{ $surat->nikah->ayah_nik_text }}</span>
+                            <span style="display: none;" id="ayah_nik_text">{{ $surat->kelahiran->ayah_nik }}</span>
                             <div class="w-100">
                                 <input type="number" class="form-control" placeholder="Nomor Induk Kependudukan"
-                                    id="ayah_nik" value="{{ $surat->nikah->ayah_nik }}" name="ayah_nik" required>
+                                    id="ayah_nik" value="{{ $surat->kelahiran->ayah_nik }}" name="ayah_nik" required>
                             </div>
                             <div class="ms-2" id="btn_cari_ayah_nik">
                                 <button type="button" class="btn btn-primary" onclick="cek_nik('ayah')">
@@ -240,45 +171,25 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" placeholder="Nama Lengkap" id="ayah_nama"
-                                value="{{ $surat->nikah->ayah_nama }}" name="ayah_nama" required>
+                                value="{{ $surat->kelahiran->ayah_nama }}" name="ayah_nama" required>
                         </div>
                     </div>
 
                     <div class="row mb-3">
-                        <label for="ayah_tanggal_lahir" class="col-sm-3 col-form-label">Tanggal lahir
+                        <label for="ayah_tempat_lahir" class="col-sm-3 col-form-label">Tempat, Tanggal lahir
                             <span class="text-danger">*</span>
                         </label>
-                        <div class="col-sm-9">
-                            <input type="date" class="form-control date-input-str" placeholder="Tanggal Lahir"
-                                value="{{ $surat->nikah->ayah_tanggal_lahir }}" id="ayah_tanggal_lahir"
-                                name="ayah_tanggal_lahir" required>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="ayah_warga_negara" class="col-sm-3 col-form-label">Kewarganegaraan
-                            <span class="text-danger">*</span></label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="ayah_warga_negara" name="ayah_warga_negara" required>
-                                <option value="">Pilih Kewarganegaraan</option>
-                                <option value="WNI" {{ $surat->nikah->ayah_warga_negara == 'WNI' ? 'selected' : '' }}>
-                                    Warga Negara Indonesia
-                                </option>
-                                <option value="WNA" {{ $surat->nikah->ayah_warga_negara == 'WNA' ? 'selected' : '' }}>
-                                    Warga Negara Asing
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="ayah_negara_nama" class="col-sm-3 col-form-label">Nama Negara
-                            <span class="text-danger">*</span>
-                        </label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="Negara Asal Penduduk"
-                                id="ayah_negara_nama" value="{{ $surat->nikah->ayah_negara_nama }}"
-                                name="ayah_negara_nama" required>
+                        <div class="col-sm-9 d-flex flex-row">
+                            <div class="w-100">
+                                <input type="text" class="form-control me-lg-2" placeholder="Tempat Lahir"
+                                    id="ayah_tempat_lahir" value="{{ $surat->kelahiran->ayah_tempat_lahir }}"
+                                    name="ayah_tempat_lahir"required>
+                            </div>
+                            <div>
+                                <input type="date" class="form-control date-input-str" placeholder="Tanggal Lahir"
+                                    id="ayah_tanggal_lahir" value="{{ $surat->kelahiran->ayah_tanggal_lahir }}"
+                                    name="ayah_tanggal_lahir" required>
+                            </div>
                         </div>
                     </div>
 
@@ -290,7 +201,7 @@
                                 <option value="">Pilih Agama</option>
                                 @foreach ($agamas as $agama)
                                     <option value="{{ $agama }}"
-                                        {{ $surat->nikah->ayah_agama == $agama ? 'selected' : '' }}>
+                                        {{ $surat->kelahiran->ayah_agama == $agama ? 'selected' : '' }}>
                                         {{ $agama }}
                                     </option>
                                 @endforeach
@@ -306,7 +217,7 @@
                                 <option value="">Pilih Pekerjaan</option>
                                 @foreach ($pekerjaans as $pekerjaan)
                                     <option value="{{ $pekerjaan }}"
-                                        {{ $surat->nikah->ayah_pekerjaan ? 'selected' : '' }}>
+                                        {{ $surat->kelahiran->ayah_pekerjaan ? 'selected' : '' }}>
                                         {{ $pekerjaan }}
                                     </option>
                                 @endforeach
@@ -319,7 +230,7 @@
                             <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" placeholder="Alamat" id="ayah_alamat" name="ayah_alamat" required>{{ $surat->nikah->ayah_alamat }}</textarea>
+                            <textarea class="form-control" placeholder="Alamat" id="ayah_alamat" name="ayah_alamat" required>{{ $surat->kelahiran->ayah_alamat }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -333,10 +244,10 @@
                             <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9 d-flex flex-row justify-content-between">
-                            <span style="display: none;" id="ibu_nik_text">{{ $surat->nikah->ibu_nik_text }}</span>
+                            <span style="display: none;" id="ibu_nik_text">{{ $surat->kelahiran->ibu_nik }}</span>
                             <div class="w-100">
                                 <input type="number" class="form-control" placeholder="Nomor Induk Kependudukan"
-                                    id="ibu_nik" value="{{ $surat->nikah->ibu_nik }}" name="ibu_nik" required>
+                                    id="ibu_nik" value="{{ $surat->kelahiran->ibu_nik }}" name="ibu_nik" required>
                             </div>
                             <div class="ms-2" id="btn_cari_ibu_nik">
                                 <button type="button" class="btn btn-primary" onclick="cek_nik('ibu')">
@@ -355,45 +266,25 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" placeholder="Nama Lengkap" id="ibu_nama"
-                                value="{{ $surat->nikah->ibu_nama }}" name="ibu_nama" required>
+                                value="{{ $surat->kelahiran->ibu_nama }}" name="ibu_nama" required>
                         </div>
                     </div>
 
                     <div class="row mb-3">
-                        <label for="ibu_tanggal_lahir" class="col-sm-3 col-form-label">Tanggal lahir
+                        <label for="ibu_tempat_lahir" class="col-sm-3 col-form-label">Tempat, Tanggal lahir
                             <span class="text-danger">*</span>
                         </label>
-                        <div class="col-sm-9">
-                            <input type="date" class="form-control date-input-str" placeholder="Tanggal Lahir"
-                                value="{{ $surat->nikah->ibu_tanggal_lahir }}" id="ibu_tanggal_lahir"
-                                name="ibu_tanggal_lahir" required>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="ibu_warga_negara" class="col-sm-3 col-form-label">Kewarganegaraan
-                            <span class="text-danger">*</span></label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="ibu_warga_negara" name="ibu_warga_negara" required>
-                                <option value="">Pilih Kewarganegaraan</option>
-                                <option value="WNI" {{ $surat->nikah->ibu_warga_negara == 'WNI' ? 'selected' : '' }}>
-                                    Warga Negara Indonesia
-                                </option>
-                                <option value="WNA" {{ $surat->nikah->ibu_warga_negara == 'WNA' ? 'selected' : '' }}>
-                                    Warga Negara Asing
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="ibu_negara_nama" class="col-sm-3 col-form-label">Nama Negara
-                            <span class="text-danger">*</span>
-                        </label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="Negara Asal Penduduk"
-                                id="ibu_negara_nama" value="{{ $surat->nikah->ibu_negara_nama }}" name="ibu_negara_nama"
-                                required>
+                        <div class="col-sm-9 d-flex flex-row">
+                            <div class="w-100">
+                                <input type="text" class="form-control me-lg-2" placeholder="Tempat Lahir"
+                                    id="ibu_tempat_lahir" value="{{ $surat->kelahiran->ibu_tempat_lahir }}"
+                                    name="ibu_tempat_lahir"required>
+                            </div>
+                            <div>
+                                <input type="date" class="form-control date-input-str" placeholder="Tanggal Lahir"
+                                    id="ibu_tanggal_lahir" value="{{ $surat->kelahiran->ibu_tanggal_lahir }}"
+                                    name="ibu_tanggal_lahir" required>
+                            </div>
                         </div>
                     </div>
 
@@ -405,7 +296,7 @@
                                 <option value="">Pilih Agama</option>
                                 @foreach ($agamas as $agama)
                                     <option value="{{ $agama }}"
-                                        {{ $surat->nikah->ibu_agama == $agama ? 'selected' : '' }}>
+                                        {{ $surat->kelahiran->ibu_agama == $agama ? 'selected' : '' }}>
                                         {{ $agama }}
                                     </option>
                                 @endforeach
@@ -421,7 +312,7 @@
                                 <option value="">Pilih Pekerjaan</option>
                                 @foreach ($pekerjaans as $pekerjaan)
                                     <option value="{{ $pekerjaan }}"
-                                        {{ $surat->nikah->ibu_pekerjaan ? 'selected' : '' }}>
+                                        {{ $surat->kelahiran->ibu_pekerjaan ? 'selected' : '' }}>
                                         {{ $pekerjaan }}
                                     </option>
                                 @endforeach
@@ -434,228 +325,10 @@
                             <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" placeholder="Alamat" id="ibu_alamat" name="ibu_alamat" required>{{ $surat->nikah->ibu_alamat }}</textarea>
+                            <textarea class="form-control" placeholder="Alamat" id="ibu_alamat" name="ibu_alamat" required>{{ $surat->kelahiran->ibu_alamat }}</textarea>
                         </div>
                     </div>
                 </div>
-
-
-                <hr>
-                <h4 class="card-title mb-1">Keterangan</h4>
-                <small>Orang tersebut diatas akan melangsungkan pernikahan pada:</small>
-
-                <div class="row mb-3">
-                    <label for="tanggal" class="col-sm-3 col-form-label">Tanggal/Waktu
-                        <span class="text-danger">*</span>
-                    </label>
-                    <div class="col-sm-9 d-flex flex-row">
-                        <div class="w-100">
-                            <input class="form-control date-input-str" type="date" id="tanggal" name="tanggal"
-                                value="{{ $surat->nikah->tanggal }}" required>
-                        </div>
-                        <div class="w-100">
-                            <input class="form-control" type="time" id="waktu" name="waktu"
-                                value="{{ $surat->nikah->waktu }}" required>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label for="dengan_seorang" class="col-sm-3 col-form-label">Dengan Seorang
-                        <span class="text-danger">*</span></label>
-                    <div class="col-sm-9">
-                        <select class="form-control" id="dengan_seorang" name="dengan_seorang">
-                            <option value="">Pilih Jenis Kelamin</option>
-                            <option value="LAKI-LAKI"
-                                {{ $surat->nikah->dengan_seorang == 'LAKI-LAKI' ? 'selected' : '' }}>
-                                LAKI-LAKI
-                            </option>
-                            <option value="PEREMPUAN"
-                                {{ $surat->nikah->dengan_seorang == 'PEREMPUAN' ? 'selected' : '' }}>
-                                PEREMPUAN
-                            </option>
-                        </select>
-                    </div>
-                </div>
-                <hr>
-
-                {{-- calon b --}}
-                <h4 class="card-title mb-1">Calon B</h4>
-                <div class="ms-md-3 ms-sm-1">
-                    <div class="row mb-3">
-                        <label for="calon_b" class="col-sm-3 col-form-label">Calon
-                            <span class="text-danger">*</span>
-                        </label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="Contoh: Mempelai Wanita"
-                                id="calon_b" name="calon_b" value="{{ $surat->nikah->calon_b }}" required>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="calon_nik" class="col-sm-3 col-form-label">Nomor Induk Kependudukan
-                            <span class="text-danger">*</span>
-                        </label>
-                        <div class="col-sm-9 d-flex flex-row justify-content-between">
-                            <span style="display: none;" id="calon_nik_text">{{ $surat->nikah->calon_nik_text }}</span>
-                            <div class="w-100">
-                                <input type="number" class="form-control" placeholder="Nomor Induk Kependudukan"
-                                    id="calon_nik" value="{{ $surat->nikah->calon_nik }}" name="calon_nik" required>
-                            </div>
-                            <div class="ms-2" id="btn_cari_calon_nik">
-                                <button type="button" class="btn btn-primary" onclick="cek_nik('calon')">
-                                    <i class="fas fa-search me-2"></i>Cari</button>
-                            </div>
-                            <div class="ms-2" id="btn_reset_calon_nik" style="display: none">
-                                <button type="button" class="btn btn-danger" onclick="reset_form('calon')">
-                                    <i class="fas fa-times me-2"></i>Reset</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="calon_no_kk" class="col-sm-3 col-form-label">No. Kartu Keluarga
-                            <span class="text-danger">*</span>
-                        </label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="No. Kartu Keluarga" id="calon_no_kk"
-                                value="{{ $surat->nikah->calon_no_kk }}" name="calon_no_kk" required>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="calon_nama" class="col-sm-3 col-form-label">Nama Lengkap
-                            <span class="text-danger">*</span>
-                        </label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="Nama Lengkap" id="calon_nama"
-                                value="{{ $surat->nikah->calon_nama }}" name="calon_nama" required>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="calon_tempat_lahir" class="col-sm-3 col-form-label">Tempat, Tanggal lahir
-                            <span class="text-danger">*</span>
-                        </label>
-                        <div class="col-sm-9 d-flex flex-row">
-                            <div class="w-100">
-                                <input type="text" class="form-control me-lg-2" placeholder="Tempat Lahir"
-                                    id="calon_tempat_lahir" value="{{ $surat->nikah->calon_tempat_lahir }}"
-                                    name="calon_tempat_lahir"required>
-                            </div>
-                            <div>
-                                <input type="date" class="form-control date-input-str" placeholder="Tanggal Lahir"
-                                    id="calon_tanggal_lahir" value="{{ $surat->nikah->calon_tanggal_lahir }}"
-                                    name="calon_tanggal_lahir" required>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="row mb-3">
-                        <label for="calon_warga_negara" class="col-sm-3 col-form-label">Kewarganegaraan
-                            <span class="text-danger">*</span></label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="calon_warga_negara" name="calon_warga_negara" required>
-                                <option value="">Pilih Kewarganegaraan</option>
-                                <option value="WNI" {{ $surat->nikah->calon_warga_negara == 'WNI' ? 'selected' : '' }}>
-                                    Warga Negara Indonesia
-                                </option>
-                                <option value="WNA" {{ $surat->nikah->calon_warga_negara == 'WNA' ? 'selected' : '' }}>
-                                    Warga Negara Asing
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="calon_negara_nama" class="col-sm-3 col-form-label">Nama Negara
-                            <span class="text-danger">*</span>
-                        </label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="Negara Asal Penduduk"
-                                id="calon_negara_nama" value="{{ $surat->nikah->calon_negara_nama }}"
-                                name="calon_negara_nama" required>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="calon_agama" class="col-sm-3 col-form-label">Agama
-                            <span class="text-danger">*</span></label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="calon_agama" name="calon_agama">
-                                <option value="">Pilih Agama</option>
-                                @foreach ($agamas as $agama)
-                                    <option value="{{ $agama }}"
-                                        {{ $surat->nikah->calon_agama == $agama ? 'selected' : '' }}>
-                                        {{ $agama }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="calon_status_kawin" class="col-sm-3 col-form-label">Status Perkawinan
-                            <span class="text-danger">*</span></label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="calon_status_kawin" name="calon_status_kawin" required>
-                                <option value="">Pilih Status Perkawinan</option>
-                                <option value="KAWIN"
-                                    {{ $surat->nikah->calon_status_kawin == 'KAWIN' ? 'selected' : '' }}>
-                                    KAWIN
-                                </option>
-                                <option value="BELUM KAWIN"
-                                    {{ $surat->nikah->calon_status_kawin == 'BELUM KAWIN' ? 'selected' : '' }}>
-                                    BELUM KAWIN
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="calon_pendidikan" class="col-sm-3 col-form-label">Pendidikan
-                            <span class="text-danger">*</span></label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="calon_pendidikan" name="calon_pendidikan" required>
-                                <option value="">Pilih Pendidikan</option>
-                                @foreach ($pendidikans as $pendidikan)
-                                    <option value="{{ $pendidikan }}"
-                                        {{ $surat->nikah->calon_pendidikan == $pendidikan ? 'selected' : '' }}>
-                                        {{ $pendidikan }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="calon_pekerjaan" class="col-sm-3 col-form-label">Pekerjaan
-                            <span class="text-danger">*</span></label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="calon_pekerjaan" name="calon_pekerjaan" required>
-                                <option value="">Pilih Pekerjaan</option>
-                                @foreach ($pekerjaans as $pekerjaan)
-                                    <option value="{{ $pekerjaan }}"
-                                        {{ $surat->nikah->calon_pekerjaan ? 'selected' : '' }}>
-                                        {{ $pekerjaan }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="calon_alamat" class="col-sm-3 col-form-label">Alamat
-                            <span class="text-danger">*</span>
-                        </label>
-                        <div class="col-sm-9">
-                            <textarea class="form-control" placeholder="Alamat" id="calon_alamat" name="calon_alamat" required>{{ $surat->nikah->calon_alamat }}</textarea>
-                        </div>
-                    </div>
-                </div>
-
-
             </form>
         </div>
         <div class="card-footer">
@@ -683,14 +356,12 @@
     <script src="{{ asset('assets/templates/admin/plugins/select2/js/select2.full.min.js') }}"></script>
 
     <script>
-        const nik_calon_ada = {{ $nik_calon_ada ? 'true' : 'false' }};
-        const nik_anak_ada = {{ $nik_anak_ada ? 'true' : 'false' }};
         const nik_ibu_ada = {{ $nik_ibu_ada ? 'true' : 'false' }};
         const nik_ayah_ada = {{ $nik_ayah_ada ? 'true' : 'false' }};
 
         $(document).ready(function() {
             // setting kewarganegaraan
-            const jenis_penduduk = ['anak', 'calon', 'ayah', 'ibu'];
+            const jenis_penduduk = ['ayah', 'ibu'];
             for (const jenis of jenis_penduduk) {
                 $(`#${jenis}_warga_negara`).val('WNI');
                 $(`#${jenis}_negara_nama`).val('INDONESIA');
@@ -715,12 +386,6 @@
             }
 
             setTimeout(() => {
-                if (nik_calon_ada) {
-                    set_button_cari('calon', false);
-                }
-                if (nik_anak_ada) {
-                    set_button_cari('anak', false);
-                }
                 if (nik_ibu_ada) {
                     set_button_cari('ibu', false);
                 }
