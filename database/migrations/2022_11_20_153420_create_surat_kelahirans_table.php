@@ -23,9 +23,10 @@ return new class extends Migration
             $table->string('tempat_lahir')->nullable()->default(null);
             $table->date('tanggal_lahir')->nullable()->default(null);
             $table->time('waktu_lahir')->nullable()->default(null);
+            $table->integer('anak_ke')->nullable()->default(null);
             $table->integer('berat')->nullable()->default(null);
             $table->integer('panjang')->nullable()->default(null);
-            $table->string('jenis_kelamin', 1)->nullable()->default(null);
+            $table->string('jenis_kelamin')->nullable()->default(null);
 
             // ibu
             $table->string('ibu_nama')->nullable()->default(null);
@@ -44,6 +45,7 @@ return new class extends Migration
             $table->string('ibu_no_passport')->nullable()->default(null);
             $table->string('ibu_kitas_kitap')->nullable()->default(null);
             $table->string('ibu_foto_ktp')->nullable()->default(null);
+            $table->text('ibu_alamat')->nullable()->default(null);
 
             // ayah
             $table->string('ayah_nama')->nullable()->default(null);
@@ -62,6 +64,7 @@ return new class extends Migration
             $table->string('ayah_no_passport')->nullable()->default(null);
             $table->string('ayah_kitas_kitap')->nullable()->default(null);
             $table->string('ayah_foto_ktp')->nullable()->default(null);
+            $table->text('ayah_alamat')->nullable()->default(null);
 
             $table->timestamps();
 

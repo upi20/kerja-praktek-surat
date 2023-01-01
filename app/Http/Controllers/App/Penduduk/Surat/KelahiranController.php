@@ -44,48 +44,25 @@ class KelahiranController extends Controller
             $request->validate([
                 'rt' => ['required', 'integer'],
                 'rw' => ['required', 'integer'],
-                'calon_a' => ['required', 'string'],
-                'calon_b' => ['required', 'string'],
-                'tanggal' => ['required', 'date'],
-                'waktu' => ['required', 'string'],
-                'dengan_seorang' => ['required', 'string'],
-                'anak_nik' => ['required', 'string'],
-                'anak_no_kk' => ['required', 'string'],
-                'anak_nama' => ['required', 'string'],
-                'anak_tempat_lahir' => ['required', 'string'],
-                'anak_tanggal_lahir' => ['required', 'date'],
-                'anak_warga_negara' => ['required', 'string'],
-                'anak_negara_nama' => ['required', 'string'],
-                'anak_agama' => ['required', 'string'],
-                'anak_status_kawin' => ['required', 'string'],
-                'anak_pendidikan' => ['required', 'string'],
-                'anak_pekerjaan' => ['required', 'string'],
-                'anak_alamat' => ['required', 'string'],
-                'calon_nik' => ['required', 'string'],
-                'calon_no_kk' => ['required', 'string'],
-                'calon_nama' => ['required', 'string'],
-                'calon_tempat_lahir' => ['required', 'string'],
-                'calon_tanggal_lahir' => ['required', 'date'],
-                'calon_warga_negara' => ['required', 'string'],
-                'calon_negara_nama' => ['required', 'string'],
-                'calon_agama' => ['required', 'string'],
-                'calon_status_kawin' => ['required', 'string'],
-                'calon_pendidikan' => ['required', 'string'],
-                'calon_pekerjaan' => ['required', 'string'],
-                'calon_alamat' => ['required', 'string'],
+                'nama_anak' => ['required', 'string'],
+                'tempat_lahir' => ['required', 'string'],
+                'tanggal_lahir' => ['required', 'date'],
+                'waktu_lahir' => ['required', 'date_format:H:i'],
+                'jenis_kelamin' => ['required', 'string'],
+                'anak_ke' => ['required', 'integer', 'min:1'],
+                'berat' => ['required', 'integer', 'min:1'],
+                'panjang' => ['required', 'integer', 'min:1'],
                 'ayah_nik' => ['required', 'string'],
                 'ayah_nama' => ['required', 'string'],
+                'ayah_tempat_lahir' => ['required', 'string'],
                 'ayah_tanggal_lahir' => ['required', 'date'],
-                'ayah_warga_negara' => ['required', 'string'],
-                'ayah_negara_nama' => ['required', 'string'],
                 'ayah_agama' => ['required', 'string'],
                 'ayah_pekerjaan' => ['required', 'string'],
                 'ayah_alamat' => ['required', 'string'],
                 'ibu_nik' => ['required', 'string'],
                 'ibu_nama' => ['required', 'string'],
+                'ibu_tempat_lahir' => ['required', 'string'],
                 'ibu_tanggal_lahir' => ['required', 'date'],
-                'ibu_warga_negara' => ['required', 'string'],
-                'ibu_negara_nama' => ['required', 'string'],
                 'ibu_agama' => ['required', 'string'],
                 'ibu_pekerjaan' => ['required', 'string'],
                 'ibu_alamat' => ['required', 'string'],
@@ -100,14 +77,10 @@ class KelahiranController extends Controller
             // ibu anak ayah calon penduduk_id
             $ayah_penduduk = Penduduk::where('nik', $request->ayah_nik)->first();
             $ibu_penduduk = Penduduk::where('nik', $request->ibu_nik)->first();
-            $anak_penduduk = Penduduk::where('nik', $request->anak_nik)->first();
-            $calon_penduduk = Penduduk::where('nik', $request->calon_nik)->first();
 
             // surat untuk penduduk
             $untuk_penduduk = Penduduk::where('nik', $request->ayah_nik)->first();
-
             $untuk_penduduk = $untuk_penduduk ?? Penduduk::where('nik', $request->ibu_nik)->first();
-            $untuk_penduduk = $untuk_penduduk ?? Penduduk::where('nik', $request->anak_nik)->first();
 
             // validasi rt dan rw
             // cek rt rw
@@ -182,51 +155,26 @@ class KelahiranController extends Controller
             // data
             $surat_body->ayah_id = is_null($ayah_penduduk) ? null : $ayah_penduduk->id;
             $surat_body->ibu_id = is_null($ibu_penduduk) ? null : $ibu_penduduk->id;
-            $surat_body->anak_id = is_null($anak_penduduk) ? null : $anak_penduduk->id;
-            $surat_body->calon_id = is_null($calon_penduduk) ? null : $calon_penduduk->id;
 
-            $surat_body->calon_a = $request->calon_a;
-            $surat_body->calon_b = $request->calon_b;
-            $surat_body->tanggal = $request->tanggal;
-            $surat_body->waktu = $request->waktu;
-            $surat_body->dengan_seorang = $request->dengan_seorang;
-            $surat_body->anak_nik = $request->anak_nik;
-            $surat_body->anak_no_kk = $request->anak_no_kk;
-            $surat_body->anak_nama = $request->anak_nama;
-            $surat_body->anak_tempat_lahir = $request->anak_tempat_lahir;
-            $surat_body->anak_tanggal_lahir = $request->anak_tanggal_lahir;
-            $surat_body->anak_warga_negara = $request->anak_warga_negara;
-            $surat_body->anak_negara_nama = $request->anak_negara_nama;
-            $surat_body->anak_agama = $request->anak_agama;
-            $surat_body->anak_status_kawin = $request->anak_status_kawin;
-            $surat_body->anak_pendidikan = $request->anak_pendidikan;
-            $surat_body->anak_pekerjaan = $request->anak_pekerjaan;
-            $surat_body->anak_alamat = $request->anak_alamat;
-            $surat_body->calon_nik = $request->calon_nik;
-            $surat_body->calon_no_kk = $request->calon_no_kk;
-            $surat_body->calon_nama = $request->calon_nama;
-            $surat_body->calon_tempat_lahir = $request->calon_tempat_lahir;
-            $surat_body->calon_tanggal_lahir = $request->calon_tanggal_lahir;
-            $surat_body->calon_warga_negara = $request->calon_warga_negara;
-            $surat_body->calon_negara_nama = $request->calon_negara_nama;
-            $surat_body->calon_agama = $request->calon_agama;
-            $surat_body->calon_status_kawin = $request->calon_status_kawin;
-            $surat_body->calon_pendidikan = $request->calon_pendidikan;
-            $surat_body->calon_pekerjaan = $request->calon_pekerjaan;
-            $surat_body->calon_alamat = $request->calon_alamat;
+            $surat_body->nama_anak = $request->nama_anak;
+            $surat_body->tempat_lahir = $request->tempat_lahir;
+            $surat_body->tanggal_lahir = $request->tanggal_lahir;
+            $surat_body->waktu_lahir = $request->waktu_lahir;
+            $surat_body->jenis_kelamin = $request->jenis_kelamin;
+            $surat_body->anak_ke = $request->anak_ke;
+            $surat_body->berat = $request->berat;
+            $surat_body->panjang = $request->panjang;
             $surat_body->ayah_nik = $request->ayah_nik;
             $surat_body->ayah_nama = $request->ayah_nama;
+            $surat_body->ayah_tempat_lahir = $request->ayah_tempat_lahir;
             $surat_body->ayah_tanggal_lahir = $request->ayah_tanggal_lahir;
-            $surat_body->ayah_warga_negara = $request->ayah_warga_negara;
-            $surat_body->ayah_negara_nama = $request->ayah_negara_nama;
             $surat_body->ayah_agama = $request->ayah_agama;
             $surat_body->ayah_pekerjaan = $request->ayah_pekerjaan;
             $surat_body->ayah_alamat = $request->ayah_alamat;
             $surat_body->ibu_nik = $request->ibu_nik;
             $surat_body->ibu_nama = $request->ibu_nama;
+            $surat_body->ibu_tempat_lahir = $request->ibu_tempat_lahir;
             $surat_body->ibu_tanggal_lahir = $request->ibu_tanggal_lahir;
-            $surat_body->ibu_warga_negara = $request->ibu_warga_negara;
-            $surat_body->ibu_negara_nama = $request->ibu_negara_nama;
             $surat_body->ibu_agama = $request->ibu_agama;
             $surat_body->ibu_pekerjaan = $request->ibu_pekerjaan;
             $surat_body->ibu_alamat = $request->ibu_alamat;

@@ -17,6 +17,7 @@ class SuratKelahiran extends Model
         'tempat_lahir',
         'tanggal_lahir',
         'waktu_lahir',
+        'anak_ke',
         'berat',
         'panjang',
         'jenis_kelamin',
@@ -36,6 +37,7 @@ class SuratKelahiran extends Model
         'ibu_no_passport',
         'ibu_kitas_kitap',
         'ibu_foto_ktp',
+        'ibu_alamat',
         'ayah_nama',
         'ayah_nik',
         'ayah_nik_jenis',
@@ -52,6 +54,7 @@ class SuratKelahiran extends Model
         'ayah_no_passport',
         'ayah_kitas_kitap',
         'ayah_foto_ktp',
+        'ayah_alamat',
         'updated_by',
         'created_by'
     ];

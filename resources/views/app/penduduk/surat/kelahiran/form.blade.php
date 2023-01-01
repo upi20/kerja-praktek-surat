@@ -29,27 +29,27 @@
                 <h4 class="card-title mb-1">Anak</h4>
                 <div class="ms-md-3 ms-sm-1">
                     <div class="row mb-3">
-                        <label for="anak_nama" class="col-sm-3 col-form-label">Nama
+                        <label for="nama_anak" class="col-sm-3 col-form-label">Nama
                             <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="Nama" id="anak_nama" name="anak_nama"
+                            <input type="text" class="form-control" placeholder="Nama" id="nama_anak" name="nama_anak"
                                 required>
                         </div>
                     </div>
 
                     <div class="row mb-3">
-                        <label for="anak_tempat_lahir" class="col-sm-3 col-form-label">Tempat, Tanggal lahir
+                        <label for="tempat_lahir" class="col-sm-3 col-form-label">Tempat, Tanggal lahir
                             <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9 d-flex flex-row">
                             <div class="w-100 me-1">
                                 <input type="text" class="form-control me-lg-2" placeholder="Tempat Lahir" value=""
-                                    id="anak_tempat_lahir" name="anak_tempat_lahir"required>
+                                    id="tempat_lahir" name="tempat_lahir"required>
                             </div>
                             <div>
                                 <input type="date" class="form-control date-input-str" placeholder="Tanggal Lahir"
-                                    value="" id="anak_tanggal_lahir" name="anak_tanggal_lahir" required>
+                                    value="" id="tanggal_lahir" name="tanggal_lahir" required>
                             </div>
                         </div>
                     </div>
