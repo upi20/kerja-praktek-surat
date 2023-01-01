@@ -786,7 +786,5 @@
             btn_reset_nik.show();
             render_tanggal(`#${jenis}_tanggal_lahir`);
         }
-
-        function
     </script>
 @endsection
