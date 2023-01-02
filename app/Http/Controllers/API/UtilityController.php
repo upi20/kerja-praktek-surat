@@ -47,7 +47,7 @@ class UtilityController extends Controller
                 'masuks' => $masuks,
             ];
 
-            return ResponseFormatter::success($data, 'Authenticated');
+            return ResponseFormatter::success($data);
         } catch (ValidationException $error) {
             return ResponseFormatter::error([
                 'message' => 'Something went wrong',
