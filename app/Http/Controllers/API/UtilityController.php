@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
+use App\Models\Penduduk\Masuk;
 use App\Models\Penduduk\Penduduk;
 use League\Config\Exception\ValidationException;
 
@@ -30,6 +31,7 @@ class UtilityController extends Controller
             $rt = $penduduk->rt;
             $user = $penduduk->user;
             $rw = $rt->rw;
+            $masuks = Masuk::where('penduduk_id', $penduduk->id)->orderBy('tanggal', 'desc')->get();
 
             // unset dari data penduduk dan rt
             unset($penduduk->rt);
@@ -42,6 +44,7 @@ class UtilityController extends Controller
                 'rt' => $rt,
                 'rw' => $rw,
                 'user' => $user,
+                'masuks' => $masuks,
             ];
 
             return ResponseFormatter::success($data, 'Authenticated');
