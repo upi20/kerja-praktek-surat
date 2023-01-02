@@ -24,11 +24,9 @@ Route::prefix($prefix)->group(function () {
     Route::prefix($prefix)->controller(KeteranganController::class)->group(function () {
         // api.penduduk.surat.keterangan
         Route::get('/jenis', 'jenis');
+        Route::get('/detail', 'detail');
+        Route::get('/download', 'download');
         Route::post('/simpan', 'simpan');
-
-        Route::post('/perbaiki_simpan', 'perbaiki_simpan');
-        Route::get('/detail/{surat}', 'detail');
-        Route::get('/print/{surat}', 'print');
-        Route::get('/perbaiki/{surat}', 'perbaiki');
+        Route::post('/perbaiki', 'perbaiki');
     });
 });

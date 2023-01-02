@@ -354,7 +354,6 @@ class KeteranganController extends Controller
         }
     }
 
-
     public function detail(Surat $surat)
     {
         $page_attr = [
