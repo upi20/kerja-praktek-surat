@@ -269,7 +269,7 @@
                         });
 
                         setTimeout(() => {
-                            window.location.href = "{{ route('penduduk.pelacakan') }}";
+                            // window.location.href = "{{ route('penduduk.pelacakan') }}";
                         }, 2000);
                         reset_form();
                     },
