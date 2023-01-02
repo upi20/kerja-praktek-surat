@@ -36,7 +36,7 @@ class UserController extends Controller
     {
         try {
             $request->validate([
-                'nik' => 'required|integer',
+                'nik' => 'required|string',
                 'password' => 'required'
             ]);
 
