@@ -183,7 +183,11 @@ class KeteranganController extends Controller
             $tracking_surat->save();
 
             DB::commit();
-            return response()->json(['status' => true]);
+            return response()->json([
+                'surat' => $surat,
+                'body' => $surat_body,
+                'tracking' => $tracking_surat,
+            ]);
         } catch (ValidationException $error) {
             return response()->json([
                 'message' => 'Something went wrong',
@@ -337,7 +341,11 @@ class KeteranganController extends Controller
             $tracking_surat->save();
 
             DB::commit();
-            return response()->json(['status' => true]);
+            return response()->json([
+                'surat' => $surat,
+                'body' => $surat_body,
+                'tracking' => $tracking_surat,
+            ]);
         } catch (ValidationException $error) {
             return response()->json([
                 'message' => 'Something went wrong',

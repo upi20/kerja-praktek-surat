@@ -17,7 +17,7 @@ class TrackingController extends Controller
 {
     private $query = [];
 
-    public function list_surat(Request $request)
+    public function jenis(Request $request)
     {
 
         $data = $this->datatable($request);

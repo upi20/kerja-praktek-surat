@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\API\Penduduk\Surat\TrackingController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\Penduduk\Surat\TrackingController;
+use App\Http\Controllers\API\Penduduk\Surat\KeteranganController;
 
 use App\Http\Controllers\API\UtilityController;
 
@@ -18,4 +19,16 @@ Route::prefix($prefix)->group(function () {
         Route::get('detail', 'detail');
     });
     Route::post('/batalkan', [TrackingController::class, 'batalkan']);
+
+    $prefix = 'keterangan';
+    Route::prefix($prefix)->controller(KeteranganController::class)->group(function () {
+        // api.penduduk.surat.keterangan
+        Route::get('/jenis', 'jenis');
+        Route::post('/simpan', 'simpan');
+
+        Route::post('/perbaiki_simpan', 'perbaiki_simpan');
+        Route::get('/detail/{surat}', 'detail');
+        Route::get('/print/{surat}', 'print');
+        Route::get('/perbaiki/{surat}', 'perbaiki');
+    });
 });
