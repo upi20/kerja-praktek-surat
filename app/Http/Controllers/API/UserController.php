@@ -23,7 +23,16 @@ class UserController extends Controller
     {
         $profile = $request->user();
         $profile->roles;
-        $profile->penduduk;
+        $rt = $profile->penduduk->rt;
+        $rw = $rt->rw;
+
+        unset($profile->penduduk->rt);
+        unset($rt->rw);
+
+        $profile->penduduk->rt = $rt;
+        $profile->penduduk->rw = $rw;
+
+
         return ResponseFormatter::success(['user' => $profile], 'Data profile user berhasil diambil');
     }
 

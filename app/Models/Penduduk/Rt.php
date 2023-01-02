@@ -23,7 +23,7 @@ class Rt extends Model
 
     protected function rw()
     {
-        return $this->belongsTo(Rt::class, 'rw_id', 'id');
+        return $this->belongsTo(Rw::class, 'rw_id', 'id');
     }
 
     protected function surats()
