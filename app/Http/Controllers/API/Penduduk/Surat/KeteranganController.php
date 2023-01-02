@@ -6,20 +6,10 @@ use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\App\Penduduk\Surat\KeteranganController as SuratKeteranganController;
 use App\Http\Controllers\App\Penduduk\Surat\TrackingController;
 use App\Http\Controllers\Controller;
-use App\Models\Desa\Pegawai;
-use App\Models\Desa\PegawaiJabatan;
-use App\Models\Penduduk\Penduduk;
-use App\Models\Penduduk\Rt;
-use App\Models\Penduduk\Rw;
 use App\Models\Surat\Surat;
-use App\Models\Surat\SuratKeterangan;
-use App\Models\Surat\SuratKeteranganJenis;
-use App\Models\Surat\SuratTracking;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-use League\Config\Exception\ValidationException;
 
 class KeteranganController extends Controller
 {
