@@ -7,6 +7,7 @@ use App\Http\Controllers\App\Penduduk\Surat\KeteranganController as SuratKeteran
 use App\Http\Controllers\App\Penduduk\Surat\TrackingController;
 use App\Http\Controllers\Controller;
 use App\Models\Surat\Surat;
+use App\Models\Surat\SuratKeteranganJenis;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
