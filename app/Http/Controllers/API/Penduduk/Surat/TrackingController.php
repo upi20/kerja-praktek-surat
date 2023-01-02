@@ -16,6 +16,16 @@ use Yajra\Datatables\Datatables;
 class TrackingController extends Controller
 {
     private $query = [];
+    public function list_surat(Request $request)
+    {
+
+        $data = $this->datatable($request);
+        return ResponseFormatter::success([
+            'data_total' => $data->original['recordsTotal'],
+            'data_filtered' => $data->original['recordsFiltered'],
+            'surats' => $data->original['data'],
+        ]);
+    }
 
     public function jenis(Request $request)
     {
