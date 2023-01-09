@@ -271,9 +271,7 @@
                                 name="ke_provinsi" value="{{ $surat->pindah->ke_provinsi }}" required>
                         </div>
                     </div>
-
                 </div>
-
                 <hr>
                 <div class="row mb-3">
                     <label for="alasan_pindah" class="col-sm-3 col-form-label">Alasan Pindah
@@ -286,13 +284,136 @@
                 </div>
             </form>
             <hr>
-            <h4 class="card-title mb-1">Pengikut</h4>
+            <div class="d-md-flex flex-row justify-content-between">
+                <h3 class="card-title">Pengikut</h3>
+                <div>
+                    <button type="button" class="btn btn-rounded btn-success btn-sm" onclick="pengikut_tambah()">
+                        <i class="fas fa-plus"></i> Tambah
+                    </button>
+                </div>
+            </div>
+            <div id="pengikut_table"></div>
         </div>
         <div class="card-footer">
             <div class="form-group">
                 <button type="submit" class="btn btn-success" form="MainForm">
                     <li class="fas fa-save mr-1"></li> Simpan
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- End Row -->
+    <div class="modal fade" id="modal-default">
+        <div class="modal-dialog modal-dialog-centered  modal-lg" role="document">
+            <div class="modal-content modal-content-demo">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="modal-default-title"></h6><button aria-label="Tutup" class="btn-close"
+                        data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form action="javascript:void(0)" id="pengikut_MainForm" name="pengikut_MainForm" method="POST"
+                        enctype="multipart/form-data">
+                        <input type="hidden" name="id" id="pengikut_id">
+                        <input type="hidden" name="surat_pindah_id" id="surat_pindah_id"
+                            value="{{ $surat->pindah->id }}">
+                        <div class="row mb-3">
+                            <label for="pengikut_nama" class="col-sm-3 col-form-label">NIK
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-sm-9 d-flex flex-row justify-content-between">
+                                <span style="display: none;" id="pengikut_nik_text"></span>
+                                <div class="w-100">
+                                    <input type="number" class="form-control" placeholder="Nomor Induk Kependudukan"
+                                        id="pengikut_nik" name="nik" required>
+                                </div>
+                                <div class="ms-2" id="pengikut_btn_cari_nik">
+                                    <button type="button" class="btn btn-primary" onclick="pengikut_cek_nik()">
+                                        <i class="fas fa-search me-2"></i>Cari</button>
+                                </div>
+                                <div class="ms-2" id="pengikut_btn_reset_nik">
+                                    <button type="button" class="btn btn-danger" onclick="pengikut_reset_form()">
+                                        <i class="fas fa-times me-2"></i>Reset</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="pengikut_nama" class="col-sm-3 col-form-label">Nama Lengkap
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="Nama Lengkap" id="pengikut_nama"
+                                    name="nama" required>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="pengikut_jenis_kelamin" class="col-sm-3 col-form-label">Jenis Kelamin
+                                <span class="text-danger">*</span></label>
+                            <div class="col-sm-9">
+                                <select class="form-control" id="pengikut_jenis_kelamin" name="jenis_kelamin">
+                                    <option value="">Pilih Jenis Kelamin</option>
+                                    <option value="LAKI-LAKI">LAKI-LAKI</option>
+                                    <option value="PEREMPUAN">PEREMPUAN</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="pengikut_nama" class="col-sm-3 col-form-label">Tanggal lahir
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-sm-9">
+                                <input type="date" class="form-control date-input-str" placeholder="Tanggal Lahir"
+                                    value="" id="pengikut_tanggal_lahir" name="tanggal_lahir" required>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="pengikut_pekerjaan" class="col-sm-3 col-form-label">Pekerjaan
+                                <span class="text-danger">*</span></label>
+                            <div class="col-sm-9">
+                                <select class="form-control" id="pengikut_pekerjaan" name="pekerjaan" required>
+                                    <option value="">Pilih Pekerjaan</option>
+                                    @foreach ($pekerjaans as $pekerjaan)
+                                        <option value="{{ $pekerjaan }}">{{ $pekerjaan }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="pengikut_pendidikan" class="col-sm-3 col-form-label">Pendidikan
+                                <span class="text-danger">*</span></label>
+                            <div class="col-sm-9">
+                                <select class="form-control" id="pengikut_pendidikan" name="pendidikan" required>
+                                    <option value="">Pilih Pendidikan</option>
+                                    @foreach ($pendidikans as $pendidikan)
+                                        <option value="{{ $pendidikan }}">{{ $pendidikan }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="pengikut_keterangan" class="col-sm-3 col-form-label">Keterangan</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="Keterangan Penduduk"
+                                    id="pengikut_keterangan" name="keterangan">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" form="pengikut_MainForm">
+                        <li class="fas fa-save mr-1"></li> Simpan
+                    </button>
+                    <button class="btn btn-light" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i>
+                        Tutup
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -314,6 +435,8 @@
 
     <script>
         const nik_ada = {{ $nik_ada ? 'true' : 'false' }};
+        const url_list_pengikut = "{{ route(h_prefix('pengikut_list'), $surat->id) }}";
+        let pengikuts = [];
         $(document).ready(function() {
             $('#warga_negara').change(function() {
                 if (this.value == "WNI") {
@@ -387,6 +510,58 @@
                     },
                     complete: function() {
                         setBtnLoading('button[form=MainForm]',
+                            '<li class="fas fa-save mr-1"></li> Simpan',
+                            false);
+                    }
+                });
+            });
+
+            // simpan pengikut ============================================================================================
+            $('#pengikut_MainForm').submit(function(e) {
+                e.preventDefault();
+                resetErrorAfterInput();
+                var formData = new FormData(this);
+                setBtnLoading('button[form=pengikut_MainForm]', 'Simpan');
+                const url = ($('#pengikut_id').val() == '') ? "{{ route(h_prefix('pengikut_simpan')) }}" :
+                    "{{ route(h_prefix('pengikut_update')) }}";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: (data) => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Data berhasil disimpan',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        pengikut_refresh();
+                        $('#modal-default').modal('hide');
+                    },
+                    error: function(data) {
+                        const res = data.responseJSON ?? {};
+                        errorAfterInput = [];
+                        for (const property in res.errors) {
+                            errorAfterInput.push(property);
+                            setErrorAfterInput(res.errors[property], `#pengikut_${property}`);
+                        }
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: res.message ?? 'Something went wrong',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    },
+                    complete: function() {
+                        setBtnLoading('button[form=pengikut_MainForm]',
                             '<li class="fas fa-save mr-1"></li> Simpan',
                             false);
                     }
@@ -510,6 +685,250 @@
             render_tanggal('#tanggal_lahir');
         }
 
+        // pengikut ===================================================================================================
+
+        function pengikut_tambah() {
+            $('#modal-default-title').html("Tambah Pengikut");
+            $('#modal-default').modal('show');
+            pengikut_reset_form();
+            resetErrorAfterInput();
+            return true;
+        }
+
+        function pengikut_reset_form() {
+            $('.is-valid').removeClass('is-valid');
+            $('#pengikut_MainForm').trigger("reset");
+            $('#pengikut_id').val('');
+            pengikut_view_form();
+            render_tanggal('#pengikut_tanggal_lahir');
+
+        }
+
+        function pengikut_view_form(view = null) {
+            const btn_cari_nik = $('#pengikut_btn_cari_nik');
+            const btn_reset_nik = $('#pengikut_btn_reset_nik');
+
+            const nik_text = $('#pengikut_nik_text');
+            const nik = $('#pengikut_nik');
+
+            switch (view) {
+                case 'insert-nik': // insert dengan nik yang sudah terdaftar yang bisa di ubah cuman status tombol reset ada
+                    nik_text.html(nik.val());
+                    nik_text.show();
+                    nik.hide();
+
+                    // nik
+                    btn_cari_nik.hide();
+                    btn_reset_nik.show();
+                    break;
+
+                default: // insert dengan nik yang belum terdaftar semua bisa di ubah tombol reset tidak ada
+                    nik_text.html(nik.val());
+                    nik_text.hide();
+                    nik.show();
+
+                    // nik
+                    btn_cari_nik.show();
+                    btn_reset_nik.hide();
+                    break;
+            }
+        }
+
+        function pengikut_cek_nik() {
+            const nik = $('#pengikut_nik').val();
+            $.LoadingOverlay("show");
+            $.ajax({
+                type: "GET",
+                url: `{{ route(h_prefix('cari_penduduk', 2)) }}`,
+                data: {
+                    nik
+                },
+                success: (penduduk) => {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'info',
+                        title: `NIK ditemukan`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    $('#pengikut_nik').val(penduduk.nik);
+                    $('#pengikut_nama').val(penduduk.nama);
+                    $('#pengikut_jenis_kelamin').val(penduduk.jenis_kelamin);
+                    $('#pengikut_tanggal_lahir').val(penduduk.tanggal_lahir);
+                    $('#pengikut_pekerjaan').val(penduduk.pekerjaan);
+                    $('#pengikut_pendidikan').val(penduduk.pendidikan);
+
+                    pengikut_view_form('insert-nik');
+                    render_tanggal('#pengikut_tanggal_lahir');
+                },
+                error: function(err) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: err.status == 400 ? 'info' : 'error',
+                        title: ((err.responseJSON) ? err.responseJSON.message :
+                            'Something went wrong'),
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+                },
+                complete: function() {
+                    $.LoadingOverlay("hide");
+                }
+            });
+        }
+
+        function pengikut_refresh() {
+            $.LoadingOverlay("show");
+            $.ajax({
+                type: "GET",
+                url: url_list_pengikut,
+                success: (data) => {
+                    // jika data ada maka render
+                    const container = $('#pengikut_table');
+                    container.html('');
+                    if (data.pengikuts.length < 1) {
+                        // jika data tidak ada maka stop
+                        return;
+                    }
+                    pengikuts = data.pengikuts;
+
+                    let table_body = '';
+                    let nomor = 1;
+                    data.pengikuts.forEach(pengikut => {
+                        const btn_update = `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-primary btn-sm me-1" title="Ubah Data" onClick="pengikut_edit('${pengikut.id}')">
+                                <i class="fas fa-edit"></i>
+                                </button>`;
+                        const btn_delete = `<button type="button" data-toggle="tooltip" class="btn btn-rounded btn-danger btn-sm me-1" title="Hapus Data" onClick="pengikut_delete('${pengikut.id}')">
+                                <i class="fas fa-trash"></i>
+                                </button>`;
+
+                        table_body += `
+                                <tr>
+                                    <td>${nomor++}</td>
+                                    <td>${pengikut.nama}</td>
+                                    <td>${pengikut.jenis_kelamin}</td>
+                                    <td>${pengikut.umur} Tahun</td>
+                                    <td>${pengikut.pekerjaan}</td>
+                                    <td>${pengikut.pendidikan}</td>
+                                    <td>${pengikut.keterangan??''}</td>
+                                    <td>${btn_update} ${btn_delete}</td>
+                                </tr>`;
+                    });
+
+                    container.html(`
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Jenis Kelamin</th>
+                                    <th>Umur / Tahun</th>
+                                    <th>Pekerjaan</th>
+                                    <th>Pendidikan</th>
+                                    <th>Ket.</th>
+                                    <th>Aksi.</th>
+                                </tr>
+                            </thead>
+                            <tbody>${table_body}</tbody>
+                        </table>
+                    `);
+                },
+                error: function(err) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: err.status == 400 ? 'info' : 'error',
+                        title: ((err.responseJSON) ? err.responseJSON.message :
+                            'Something went wrong'),
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+                },
+                complete: function() {
+                    $.LoadingOverlay("hide");
+                }
+            });
+        }
+
+        function pengikut_edit(id) {
+            const pengikut = pengikuts.find(pengikut => pengikut.id == id);
+
+            if (pengikut == null) {
+                return;
+            }
+            $('#modal-default-title').html("Ubah Pengikut");
+            $('#modal-default').modal('show');
+            pengikut_reset_form();
+            resetErrorAfterInput();
+
+            $('#pengikut_id').val(pengikut.id);
+            $('#pengikut_nik').val(pengikut.nik);
+            $('#pengikut_nama').val(pengikut.nama);
+            $('#pengikut_jenis_kelamin').val(pengikut.jenis_kelamin);
+            $('#pengikut_tanggal_lahir').val(pengikut.tanggal_lahir);
+            $('#pengikut_pekerjaan').val(pengikut.pekerjaan);
+            $('#pengikut_pendidikan').val(pengikut.pendidikan);
+            $('#pengikut_keterangan').val(pengikut.keterangan);
+
+            const ada_penduduk = pengikut.penduduk_id == null ? null : 'insert-nik';
+            pengikut_view_form(ada_penduduk);
+            render_tanggal('#pengikut_tanggal_lahir');
+        }
+
+        function pengikut_delete(id) {
+            swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Apakah anda yakin akan menghapus data ini ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes'
+            }).then(function(result) {
+                if (result.value) {
+                    $.ajax({
+                        url: `{{ url(h_prefix_uri('pengikut/hapus/')) }}/${id}`,
+                        type: 'DELETE',
+                        dataType: 'json',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        beforeSend: function() {
+                            swal.fire({
+                                title: 'Please Wait..!',
+                                text: 'Is working..',
+                                onOpen: function() {
+                                    Swal.showLoading()
+                                }
+                            })
+                        },
+                        success: function(data) {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: 'Data berhasil dihapus',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            pengikut_refresh();
+                        },
+                        complete: function() {
+                            swal.hideLoading();
+                        },
+                        error: function(err, textStatus, errorThrown) {
+                            swal.hideLoading();
+                            Swal.fire({
+                                position: 'center',
+                                icon: err.status == 400 ? 'info' : 'error',
+                                title: ((err.responseJSON) ? err.responseJSON.message :
+                                    'Something went wrong'),
+                                showConfirmButton: false,
+                                timer: 3000
+                            })
+                        }
+                    });
+                }
+            });
+        }
+
         view_form();
+        pengikut_refresh();
     </script>
 @endsection

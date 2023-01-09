@@ -27,6 +27,7 @@ class SuratPindahPengikut extends Model
         'no_passport',
         'kitas_kitap',
         'foto_ktp',
+        'keterangan',
         'updated_by',
         'created_by'
     ];

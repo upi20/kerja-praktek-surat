@@ -161,6 +161,49 @@
         </div>
     </div>
 
+
+
+    @if ($surat->pindah->pengikuts->count() > 0)
+        <div class="card">
+            <div class="card-header bg-info d-md-flex flex-row justify-content-between">
+                <h3 class="card-title text-light">Pengikut</h3>
+                <div>
+                    <a type="button" class="btn btn-rounded btn-gray btn-sm" href="{{ url()->previous() }}">
+                        <i class="fe fe-arrow-left"></i> Kembali
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Umur / Tahun</th>
+                            <th>Pekerjaan</th>
+                            <th>Pendidikan</th>
+                            <th>Ket.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($surat->pindah->pengikuts as $i => $pengikut)
+                            <tr>
+                                <td>{{ ++$i }}</td>
+                                <td>{{ $pengikut->nama }}</td>
+                                <td>{{ $pengikut->jenis_kelamin }}</td>
+                                <td>{{ Carbon\Carbon::parse($pengikut->tanggal_lahir)->age }} Tahun</td>
+                                <td>{{ $pengikut->pekerjaan }}</td>
+                                <td>{{ $pengikut->pendidikan }}</td>
+                                <td>{{ $pengikut->keterangan }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    @endif
+
     <div class="card">
         <div class="card-header bg-info d-md-flex flex-row justify-content-between">
             <h3 class="card-title text-light">Tracking Surat</h3>

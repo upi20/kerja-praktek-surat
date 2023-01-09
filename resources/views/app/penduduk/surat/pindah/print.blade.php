@@ -48,6 +48,25 @@
             margin: 0;
             padding: 0;
         }
+
+        #pengikut {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #pengikut td,
+        #pengikut th {
+            border: 1px solid black;
+            padding: 3px;
+        }
+
+        #pengikut th {
+            padding-top: 0px;
+            padding-bottom: 0px;
+            text-align: center;
+            vertical-align: middle;
+        }
     </style>
 </head>
 
@@ -190,8 +209,34 @@
     <p>Alasan Pindah : {{ $surat->pindah->alasan_pindah }} <br>
         Pengikut : <b>{{ $surat->pindah->pengikuts->count() }}</b> Orang
     </p>
-
-
+    @if ($surat->pindah->pengikuts->count() > 0)
+        <table id="pengikut">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Umur / Tahun</th>
+                    <th>Pekerjaan</th>
+                    <th>Pendidikan</th>
+                    <th>Ket.</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($surat->pindah->pengikuts as $i => $pengikut)
+                    <tr>
+                        <td style="vertical-align: middle; text-align: center">{{ ++$i }}</td>
+                        <td>{{ $pengikut->nama }}</td>
+                        <td>{{ $pengikut->jenis_kelamin }}</td>
+                        <td>{{ Carbon\Carbon::parse($pengikut->tanggal_lahir)->age }} Tahun</td>
+                        <td>{{ $pengikut->pekerjaan }}</td>
+                        <td>{{ $pengikut->pendidikan }}</td>
+                        <td>{{ $pengikut->keterangan }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
 
     <br>
     <table style="width: 100%; white-space: nowrap; text-align: center">

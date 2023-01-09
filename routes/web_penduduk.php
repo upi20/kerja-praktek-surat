@@ -76,6 +76,11 @@ Route::prefix($prefix)->group(function () use ($name, $prefix) {
         Route::get('/detail/{surat}', 'detail')->name("$name.detail")->middleware("permission:$name");
         Route::get('/print/{surat}', 'print')->name("$name.print")->middleware("permission:$name");
         Route::get('/perbaiki/{surat}', 'perbaiki')->name("$name.perbaiki")->middleware("permission:$name");
+
+        Route::post('/pengikut/simpan', 'pengikut_simpan')->name("$name.pengikut_simpan")->middleware("permission:$name");
+        Route::post('/pengikut/update', 'pengikut_update')->name("$name.pengikut_update")->middleware("permission:$name");
+        Route::delete('/pengikut/hapus/{pengikut}', 'pengikut_hapus')->name("$name.pengikut_hapus")->middleware("permission:$name");
+        Route::get('/pengikut/list/{surat}', 'pengikut_list')->name("$name.pengikut_list")->middleware("permission:$name");
     });
 });
 

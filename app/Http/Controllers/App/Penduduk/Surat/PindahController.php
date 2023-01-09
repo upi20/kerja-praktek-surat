@@ -10,7 +10,9 @@ use App\Models\Penduduk\Rt;
 use App\Models\Penduduk\Rw;
 use App\Models\Surat\Surat;
 use App\Models\Surat\SuratPindah;
+use App\Models\Surat\SuratPindahPengikut;
 use App\Models\Surat\SuratTracking;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -279,5 +281,113 @@ class PindahController extends Controller
         $data =  compact('page_attr',  'hub_dgn_kks', 'pendidikans', 'pekerjaans', 'agamas', 'penduduk', 'surat', 'nik_ada');
         $data['compact'] = $data;
         return view('app.penduduk.surat.pindah.form', $data);
+    }
+
+
+    // pengikut =======================================================================================================
+    public function pengikut_simpan(Request $request)
+    {
+        try {
+            $request->validate([
+                'surat_pindah_id' => ['required', 'integer'],
+                'nik' => ['required', 'string'],
+                'nama' => ['required', 'string'],
+                'jenis_kelamin' => ['required', 'string'],
+                'tanggal_lahir' => ['required', 'date'],
+                'pendidikan' => ['required', 'string'],
+                'pekerjaan' => ['required', 'string'],
+                'keterangan' => ['nullable', 'string'],
+            ]);
+
+            DB::beginTransaction();
+            $penduduk = Penduduk::where('nik', $request->nik)->first();
+
+            $pengikut = new SuratPindahPengikut();
+            $pengikut->penduduk_id = is_null($penduduk) ? null : $penduduk->id;
+            $pengikut->surat_pindah_id = $request->surat_pindah_id;
+            $pengikut->nik = $request->nik;
+            $pengikut->nama = $request->nama;
+            $pengikut->jenis_kelamin = $request->jenis_kelamin;
+            $pengikut->tanggal_lahir = $request->tanggal_lahir;
+            $pengikut->pendidikan = $request->pendidikan;
+            $pengikut->pekerjaan = $request->pekerjaan;
+            $pengikut->keterangan = $request->keterangan;
+            $pengikut->created_by = auth()->user()->id;
+            $pengikut->save();
+            DB::commit();
+            return response()->json(['status' => true]);
+        } catch (ValidationException $error) {
+            return response()->json([
+                'message' => 'Something went wrong',
+                'error' => $error,
+            ], 500);
+        }
+    }
+
+    public function pengikut_update(Request $request)
+    {
+        try {
+            $request->validate([
+                'id' => ['required', 'integer'],
+                'surat_pindah_id' => ['required', 'integer'],
+                'nik' => ['required', 'string'],
+                'nama' => ['required', 'string'],
+                'jenis_kelamin' => ['required', 'string'],
+                'tanggal_lahir' => ['required', 'date'],
+                'pendidikan' => ['required', 'string'],
+                'pekerjaan' => ['required', 'string'],
+                'keterangan' => ['nullable', 'string'],
+            ]);
+
+            DB::beginTransaction();
+            $penduduk = Penduduk::where('nik', $request->nik)->first();
+            $pengikut = SuratPindahPengikut::findOrFail($request->id);
+            $pengikut->penduduk_id = is_null($penduduk) ? null : $penduduk->id;
+            $pengikut->surat_pindah_id = $request->surat_pindah_id;
+            $pengikut->nik = $request->nik;
+            $pengikut->nama = $request->nama;
+            $pengikut->jenis_kelamin = $request->jenis_kelamin;
+            $pengikut->tanggal_lahir = $request->tanggal_lahir;
+            $pengikut->pendidikan = $request->pendidikan;
+            $pengikut->pekerjaan = $request->pekerjaan;
+            $pengikut->keterangan = $request->keterangan;
+            $pengikut->created_by = auth()->user()->id;
+            $pengikut->save();
+            DB::commit();
+            return response()->json(['status' => true]);
+        } catch (ValidationException $error) {
+            return response()->json([
+                'message' => 'Something went wrong',
+                'error' => $error,
+            ], 500);
+        }
+    }
+
+    public function pengikut_list(Surat $surat)
+    {
+        $pengikuts = $surat->pindah->pengikuts->map(function ($pengikut) {
+            $pengikut->umur = Carbon::parse($pengikut->tanggal_lahir)->age;
+            unset($pengikut->created_at);
+            unset($pengikut->updated_at);
+            unset($pengikut->created_by);
+            unset($pengikut->updated_by);
+            $result = $pengikut;
+            return $result;
+        });
+        return response()->json(['pengikuts' => $pengikuts, 'jumlah' => $pengikuts->count()]);
+    }
+
+
+    public function pengikut_hapus(SuratPindahPengikut $pengikut)
+    {
+        try {
+            $pengikut->delete();
+            return response()->json();
+        } catch (ValidationException $error) {
+            return response()->json([
+                'message' => 'Something went wrong',
+                'error' => $error,
+            ], 500);
+        }
     }
 }
