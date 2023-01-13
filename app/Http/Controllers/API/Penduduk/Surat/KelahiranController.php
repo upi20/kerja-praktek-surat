@@ -38,8 +38,8 @@ class KelahiranController extends Controller
             $surat->tanggal_dibatalkan_format = Carbon::parse($surat->tanggal_dibatalkan)->isoFormat('dddd, D MMMM Y');
             $surat->tanggal_dibatalkan_waktu_format = date('H:i:s', strtotime($surat->tanggal_dibatalkan));
 
-            $surat->kelahiran->tanggal_lahir_format = Carbon::parse($surat->kelahiran->tanggal_lahir)->isoFormat('dddd, D MMMM Y');
-            $surat->kelahiran->tanggal_sejak_format = Carbon::parse($surat->kelahiran->tanggal_sejak)->isoFormat('dddd, D MMMM Y');
+            $surat->kelahiran->tanggal_lahir_format = Carbon::parse($surat->kelahiran->tanggal_lahir)->isoFormat('D MMMM Y');
+            $surat->kelahiran->pukul_format = date('H:i', strtotime($surat->kelahiran->waktu));
 
             unset($surat->rt);
             unset($surat->user);
