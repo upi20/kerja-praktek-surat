@@ -307,7 +307,7 @@
                     contentType: false,
                     processData: false,
                     success: (data) => {
-                        $("#modal-default").modal('hide');
+                        $("#modal-batalkan").modal('hide');
                         var oTable = table_html.dataTable();
                         oTable.fnDraw(false);
                         Swal.fire({

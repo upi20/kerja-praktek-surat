@@ -7,6 +7,7 @@ use App\Http\Controllers\API\UtilityController;
 use App\Http\Controllers\API\Penduduk\Surat\TrackingController;
 use App\Http\Controllers\API\Penduduk\Surat\KeteranganController;
 use App\Http\Controllers\API\Penduduk\Surat\DomisiliController;
+use App\Http\Controllers\API\Penduduk\Surat\KelahiranController;
 
 $name = 'api.penduduk';
 // utility
@@ -36,7 +37,15 @@ Route::prefix($prefix)->group(function () {
     $prefix = 'domisili';
     Route::prefix($prefix)->controller(DomisiliController::class)->group(function () {
         // api.penduduk.surat.domisili
-        Route::get('/jenis', 'jenis');
+        Route::get('/detail', 'detail');
+        Route::get('/download', 'download');
+        Route::post('/simpan', 'simpan');
+        Route::post('/perbaiki', 'perbaiki');
+    });
+
+    $prefix = 'kelahiran';
+    Route::prefix($prefix)->controller(KelahiranController::class)->group(function () {
+        // api.penduduk.surat.kelahiran
         Route::get('/detail', 'detail');
         Route::get('/download', 'download');
         Route::post('/simpan', 'simpan');
