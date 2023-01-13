@@ -8,6 +8,7 @@ use App\Http\Controllers\API\Penduduk\Surat\TrackingController;
 use App\Http\Controllers\API\Penduduk\Surat\KeteranganController;
 use App\Http\Controllers\API\Penduduk\Surat\DomisiliController;
 use App\Http\Controllers\API\Penduduk\Surat\KelahiranController;
+use App\Http\Controllers\API\Penduduk\Surat\NikahController;
 
 $name = 'api.penduduk';
 // utility
@@ -46,6 +47,15 @@ Route::prefix($prefix)->group(function () {
     $prefix = 'kelahiran';
     Route::prefix($prefix)->controller(KelahiranController::class)->group(function () {
         // api.penduduk.surat.kelahiran
+        Route::get('/detail', 'detail');
+        Route::get('/download', 'download');
+        Route::post('/simpan', 'simpan');
+        Route::post('/perbaiki', 'perbaiki');
+    });
+
+    $prefix = 'nikah';
+    Route::prefix($prefix)->controller(NikahController::class)->group(function () {
+        // api.penduduk.surat.nikah
         Route::get('/detail', 'detail');
         Route::get('/download', 'download');
         Route::post('/simpan', 'simpan');
