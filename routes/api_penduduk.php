@@ -15,6 +15,7 @@ $name = 'api.penduduk';
 Route::prefix('utility')->controller(UtilityController::class)->group(function () {
     Route::get('/get_penduduk_by_nik', 'getPendudukByNik');
 });
+
 $prefix = 'surat';
 Route::prefix($prefix)->group(function () {
     $prefix = 'pelacakan';
@@ -28,7 +29,6 @@ Route::prefix($prefix)->group(function () {
     $prefix = 'keterangan';
     Route::prefix($prefix)->controller(KeteranganController::class)->group(function () {
         // api.penduduk.surat.keterangan
-        Route::get('/jenis', 'jenis');
         Route::get('/detail', 'detail');
         Route::get('/download', 'download');
         Route::post('/simpan', 'simpan');
