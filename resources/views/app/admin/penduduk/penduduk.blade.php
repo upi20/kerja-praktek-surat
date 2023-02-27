@@ -1,21 +1,9 @@
 @extends('templates.admin.master')
 
 @section('content')
-    @php
-        $can_insert = auth_can(h_prefix('insert'));
-        $can_update = auth_can(h_prefix('update'));
-        $can_delete = auth_can(h_prefix('delete'));
-    @endphp
-
     <div class="card">
         <div class="card-header d-md-flex flex-row justify-content-between">
             <h3 class="card-title">{{ $page_attr['title'] }} Table List</h3>
-            @if ($can_insert)
-                <button type="button" class="btn btn-rounded btn-success btn-sm" data-bs-effect="effect-scale"
-                    data-bs-toggle="modal" href="#modal-default" onclick="add()" data-target="#modal-default">
-                    <i class="fas fa-plus"></i> Tambah
-                </button>
-            @endif
         </div>
         <div class="card-body">
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -207,8 +195,6 @@
     <script src="{{ asset('assets/templates/admin/plugins/select2/js/select2.full.min.js') }}"></script>
 
     <script>
-        const can_update = {{ $can_update ? 'true' : 'false' }};
-        const can_delete = {{ $can_delete ? 'true' : 'false' }};
         const table_html = $('#tbl_main');
         let isEdit = true;
         $(document).ready(function() {
