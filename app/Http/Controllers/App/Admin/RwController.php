@@ -79,11 +79,12 @@ class RwController extends Controller
             $rw = Rw::findOrFail($request->id);
 
             // lepas role dari penduduk
-            $penduduk = $rw->ketua->penduduk;
-            $penduduk->save();
-            $user = $penduduk->user;
-            $user->removeRole(config('app.role_rw'));
-            $user->save();
+            if ($rw->ketua !== null) {
+                $penduduk = $rw->ketua->penduduk;
+                $user = $penduduk->user;
+                $user->removeRole(config('app.role_rw'));
+                $user->save();
+            }
 
             // pasang role penduduk baru
             $user = User::where('penduduk_id', $request->penduduk_id)->first();
@@ -91,7 +92,13 @@ class RwController extends Controller
             $user->save();
 
             // update ketua
-            $ketua_rw = $rw->ketua;
+            if (is_null($rw->ketua)) {
+                $ketua_rw = new KetuaRw();
+                $ketua_rw->rw_id = $request->id;
+            } else {
+                $ketua_rw = $rw->ketua;
+            }
+
             $ketua_rw->penduduk_id = $request->penduduk_id;
             $ketua_rw->updated_by = auth()->user()->id;
             $ketua_rw->save();

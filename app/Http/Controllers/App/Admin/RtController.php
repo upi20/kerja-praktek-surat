@@ -128,11 +128,12 @@ class RtController extends Controller
             $rt = Rt::findOrFail($request->id);
 
             // lepas role dari penduduk
-            $penduduk = $rt->ketua->penduduk;
-            $penduduk->save();
-            $user = $penduduk->user;
-            $user->removeRole(config('app.role_rt'));
-            $user->save();
+            if ($rt->ketua !== null) {
+                $penduduk = $rt->ketua->penduduk;
+                $user = $penduduk->user;
+                $user->removeRole(config('app.role_rt'));
+                $user->save();
+            }
 
             // pasang role penduduk baru
             $user = User::where('penduduk_id', $request->penduduk_id)->first();
@@ -140,7 +141,12 @@ class RtController extends Controller
             $user->save();
 
             // update ketua
-            $ketua_rt = $rt->ketua;
+            if (is_null($rt->ketua)) {
+                $ketua_rt = new KetuaRt();
+                $ketua_rt->rt_id = $request->id;
+            } else {
+                $ketua_rt = $rt->ketua;
+            }
             $ketua_rt->penduduk_id = $request->penduduk_id;
             $ketua_rt->updated_by = auth()->user()->id;
             $ketua_rt->save();
