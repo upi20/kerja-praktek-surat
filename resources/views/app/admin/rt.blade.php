@@ -403,13 +403,24 @@
                     $('#modal-default').modal('show');
                     $('#id').val(data.id);
                     $('#nomor').val(data.nomor);
-                    $('#rw').val(data.rw.nomor);
                     $('#nama_daerah').val(data.nama_daerah);
-                    $('#penduduk_id')
-                        .append((new Option(`${data.ketua.penduduk.nik} ${data.ketua.penduduk.nama}`,
-                            data.ketua.penduduk.id,
-                            true, true))).trigger('change');
+
+                    if (data.rw !== null) {
+                        $('#rw').val(data.rw.nomor);
+                    } else {
+                        $('#rw').val('');
+                    }
+
+                    if (data.ketua !== null) {
+                        $('#penduduk_id')
+                            .append((new Option(`${data.ketua.penduduk.nik} ${data.ketua.penduduk.nama}`,
+                                data.ketua.penduduk.id,
+                                true, true))).trigger('change');
+                    } else {
+                        $('#penduduk_id').append((new Option('', '', true, true))).trigger('change');
+                    }
                 },
+
                 error: function(data) {
                     Swal.fire({
                         position: 'top-end',

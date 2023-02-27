@@ -139,7 +139,9 @@ class RwController extends Controller
     public function find(Request $request)
     {
         $rw = Rw::findOrFail($request->id);
-        $rw->ketua->penduduk;
+        if ($rw->ketua) {
+            $rw->ketua->penduduk;
+        }
         return $rw;
     }
 

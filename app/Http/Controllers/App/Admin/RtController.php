@@ -190,7 +190,11 @@ class RtController extends Controller
     public function find(Request $request)
     {
         $rt = Rt::findOrFail($request->id);
-        $rt->ketua->penduduk;
+
+        if ($rt->ketua) {
+            $rt->ketua->penduduk;
+        }
+
         $rt->rw;
         return $rt;
     }
