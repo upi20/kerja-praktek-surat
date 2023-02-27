@@ -311,7 +311,7 @@ class TrackingController extends Controller
             return response()->json(['status' => true]);
         } catch (ValidationException $error) {
             return response()->json([
-                'message' => 'Something went wrong',
+                'message' => 'Ada yang salah, Mohon periksa kembali !',
                 'error' => $error,
             ], 500);
         }

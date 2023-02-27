@@ -72,23 +72,23 @@ class DomisiliController extends Controller
             // validasi rt dan rw
             // cek rt rw
             $rw = Rw::where('nomor', $request->rw)->first();
-            if (is_null($rw)) {
+            if (is_null($rw) ? true : is_null($rw->ketua)) {
                 return response()->json([
                     'errors' => [
                         'rw' => ['Nomor RW Tidak Terdaftar']
                     ],
-                    'message' => 'Something went wrong',
+                    'message' => 'Ada yang salah, Mohon periksa kembali !',
                 ], 422);
             }
 
 
             $rt = Rt::where('nomor', $request->rt)->where('rw_id', $rw->id)->first();
-            if (is_null($rt)) {
+            if (is_null($rt) ? true : is_null($rt->ketua)) {
                 return response()->json([
                     'errors' => [
                         'rt' => ['Nomor RT Tidak Terdaftar']
                     ],
-                    'message' => 'Something went wrong',
+                    'message' => 'Ada yang salah, Mohon periksa kembali !',
                 ], 422);
             }
 
@@ -176,7 +176,7 @@ class DomisiliController extends Controller
             ]);
         } catch (ValidationException $error) {
             return response()->json([
-                'message' => 'Something went wrong',
+                'message' => 'Ada yang salah, Mohon periksa kembali !',
                 'error' => $error,
             ], 500);
         }
@@ -219,23 +219,23 @@ class DomisiliController extends Controller
             // validasi rt dan rw
             // cek rt rw
             $rw = Rw::where('nomor', $request->rw)->first();
-            if (is_null($rw)) {
+            if (is_null($rw) ? true : is_null($rw->ketua)) {
                 return response()->json([
                     'errors' => [
                         'rw' => ['Nomor RW Tidak Terdaftar']
                     ],
-                    'message' => 'Something went wrong',
+                    'message' => 'Ada yang salah, Mohon periksa kembali !',
                 ], 422);
             }
 
 
             $rt = Rt::where('nomor', $request->rt)->where('rw_id', $rw->id)->first();
-            if (is_null($rt)) {
+            if (is_null($rt) ? true : is_null($rt->ketua)) {
                 return response()->json([
                     'errors' => [
                         'rt' => ['Nomor RT Tidak Terdaftar']
                     ],
-                    'message' => 'Something went wrong',
+                    'message' => 'Ada yang salah, Mohon periksa kembali !',
                 ], 422);
             }
 
@@ -323,7 +323,7 @@ class DomisiliController extends Controller
             ]);
         } catch (ValidationException $error) {
             return response()->json([
-                'message' => 'Something went wrong',
+                'message' => 'Ada yang salah, Mohon periksa kembali !',
                 'error' => $error,
             ], 500);
         }
