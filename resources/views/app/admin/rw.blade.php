@@ -223,8 +223,8 @@
                         data: 'penduduk_nama',
                         name: 'penduduk_nama',
                         render(data, type, full, meta) {
-                            return `<span class="fw-bold">${data}</span><br>
-                            <small>${full.penduduk_nik}</small>`;
+                            return `<span class="fw-bold">${data ?? ''}</span><br>
+                            <small>${full.penduduk_nik ?? ''}</small>`;
                         },
                         className: 'text-nowrap'
                     },

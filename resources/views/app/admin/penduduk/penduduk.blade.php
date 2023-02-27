@@ -31,7 +31,7 @@
                     <div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne1">
                         <div class="panel-body">
                             <form action="javascript:void(0)" class="ml-md-3 mb-md-3" id="FilterForm">
-                                <div class="form-group float-start me-2" style="min-width: 250px">
+                                <div class="form-group float-start me-2">
                                     <label for="created_by_filter">Dibuat Oleh</label>
                                     <br>
                                     <select class="form-control" id="created_by_filter" name="created_by_filter"
@@ -40,7 +40,7 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group float-start me-2" style="min-width: 250px">
+                                <div class="form-group float-start me-2">
                                     <label for="updated_by_filter">Diubah Oleh</label>
                                     <br>
                                     <select class="form-control" id="updated_by_filter" name="updated_by_filter"
@@ -49,21 +49,21 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group float-start me-2" style="min-width: 250px">
+                                <div class="form-group float-start me-2" style="max-width: 125px;">
                                     <label for="rt_filter">Rukun Tetangga</label>
                                     <br>
-                                    <input type="text" class="form-control" id="rt_filter" name="rt_filter"
+                                    <input type="number" class="form-control" id="rt_filter" name="rt_filter"
                                         style="width: 100%;">
                                 </div>
 
-                                <div class="form-group float-start me-2" style="min-width: 250px">
+                                <div class="form-group float-start me-2" style="max-width: 125px;">
                                     <label for="rw_filter">Rukun Warga</label>
                                     <br>
-                                    <input type="text" class="form-control" id="rw_filter" name="rw_filter"
+                                    <input type="number" class="form-control" id="rw_filter" name="rw_filter"
                                         style="width: 100%;">
                                 </div>
 
-                                <div class="form-group float-start me-2" style="min-width: 250px">
+                                <div class="form-group float-start me-2">
                                     <label for="jenis_kelamin_filter">Jenis Kelamin</label>
                                     <br>
                                     <select class="form-control filter-select2" id="jenis_kelamin_filter"
@@ -74,7 +74,7 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group float-start me-2" style="min-width: 250px">
+                                <div class="form-group float-start me-2">
                                     <label for="agama_filter">Agama</label>
                                     <br>
                                     <select class="form-control filter-select2" id="agama_filter" name="agama_filter"
@@ -86,7 +86,7 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group float-start me-2" style="min-width: 250px">
+                                <div class="form-group float-start me-2">
                                     <label for="pendidikan_filter">Pendidikan</label>
                                     <br>
                                     <select class="form-control filter-select2" id="pendidikan_filter"
@@ -98,7 +98,7 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group float-start me-2" style="min-width: 250px">
+                                <div class="form-group float-start me-2">
                                     <label for="pekerjaan_filter">Pekerjaan</label>
                                     <br>
                                     <select class="form-control filter-select2" id="pekerjaan_filter"
@@ -110,7 +110,7 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group float-start me-2" style="min-width: 250px">
+                                <div class="form-group float-start me-2">
                                     <label for="status_kawin_filter">Status Kawin</label>
                                     <br>
                                     <select class="form-control filter-select2" id="status_kawin_filter"
@@ -121,7 +121,7 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group float-start me-2" style="min-width: 250px">
+                                <div class="form-group float-start me-2">
                                     <label for="hub_dgn_kk_filter">Hubungan Dengan KK</label>
                                     <br>
                                     <select class="form-control filter-select2" id="hub_dgn_kk_filter"
@@ -133,7 +133,7 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group float-start me-2" style="min-width: 250px">
+                                <div class="form-group float-start me-2">
                                     <label for="warga_negara_filter">Warga Negara</label>
                                     <br>
                                     <select class="form-control filter-select2" id="warga_negara_filter"
