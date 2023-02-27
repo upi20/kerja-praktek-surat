@@ -3,7 +3,7 @@
 @section('content')
     <div class="card">
         <div class="card-header d-md-flex flex-row justify-content-between">
-            <h3 class="card-title">{{ $page_attr['title'] }} Table List</h3>
+            <h3 class="card-title">Tabel {{ $page_attr['title'] }}</h3>
         </div>
         <div class="card-body">
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
