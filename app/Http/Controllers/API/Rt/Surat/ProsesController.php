@@ -13,16 +13,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Penduduk\KetuaRt;
 use App\Models\Surat\Surat;
 use Illuminate\Http\Request;
-use App\Models\Penduduk\Penduduk;
 use App\Models\Surat\SuratDomisili;
 use App\Models\Surat\SuratKelahiran;
 use App\Models\Surat\SuratKeterangan;
 use App\Models\Surat\SuratNikah;
-use App\Models\Surat\SuratTracking;
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use League\Config\Exception\ValidationException;
-use Yajra\Datatables\Datatables;
 
 class ProsesController extends Controller
 {

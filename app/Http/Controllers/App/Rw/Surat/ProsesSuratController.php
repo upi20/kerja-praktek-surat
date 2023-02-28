@@ -103,7 +103,7 @@ class ProsesSuratController extends Controller
         }
     }
 
-    private function datatable(Request $request): mixed
+    public function datatable(Request $request): mixed
     {
         $penduduk_id = auth()->user()->penduduk->id;
         $ketua_rw = KetuaRw::where('penduduk_id', $penduduk_id)->first();
