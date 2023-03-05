@@ -80,7 +80,7 @@ class ProsesController extends Controller
             $request->request->add([
                 'id' => $request->surat_id,
                 'disetujui' => 0,
-                'reg_no' => '',
+                'reg_no' => 'oke',
             ]);
 
             $send = $this->surat->simpan($request);
